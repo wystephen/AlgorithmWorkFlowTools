@@ -87,8 +87,13 @@ link_directories(
 
 
 # add executable.
+#add_executable(FileTester ExtentedIO/FileTester.cpp)
+#link_libraries(FileTester
+#        ${Sophus_LIBRARIES} ${G2O_LIBS} ${CSPARSE_LIBRARY} ${PYTHON_LIBRARIES} ${SuiteSparse_LIBRARIES}
+#        -ltbb ${GTSAM_LIBRARIES} ${Boost_LIBRARIES} )
 
 
 
 # add library.
 
+add_library(ExtentedIO ExtentedIO/FileReader.h )
