@@ -26,10 +26,11 @@
 
 
 #define CATCH_CONFIG_MAIN
-
-
 #include "catch.hpp"
-#include "FileReader.h"
+#include "../ExtentedIO/FileReader.h"
 
-TEST_CASE("")
+TEST_CASE("a","[file_reader]"){
+    auto fr = AWF::FileReader();
+    REQUIRE(fr.GetString()==0);
+}
 
