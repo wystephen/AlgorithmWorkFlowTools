@@ -6,6 +6,7 @@
       <file path="$PROJECT_DIR$/ExtentedIO" />
       <file path="$PROJECT_DIR$/FlexableVisualization" />
       <file path="$PROJECT_DIR$/StateEstimate" />
+      <file path="$PROJECT_DIR$/Test" />
     </sourceRoots>
   </component>
 </project>

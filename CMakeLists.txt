@@ -96,4 +96,4 @@ link_directories(
 
 # add library.
 
-add_library(ExtentedIO ExtentedIO/FileReader.h )
+add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp)

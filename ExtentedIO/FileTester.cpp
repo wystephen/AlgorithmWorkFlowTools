@@ -24,10 +24,12 @@
 // Created by steve on 18-1-13.
 //
 
-#include <iostream>
+
+#define CATCH_CONFIG_MAIN
+
+
+#include "catch.hpp"
 #include "FileReader.h"
 
-int main()
-{
-    std::cout << " main " << std::endl;
-}
+TEST_CASE("")
+

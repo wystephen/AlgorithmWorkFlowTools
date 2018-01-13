@@ -27,36 +27,66 @@
 #ifndef ALGORITHMWORKFLOWTOOLS_FILEREADER_H
 #define ALGORITHMWORKFLOWTOOLS_FILEREADER_H
 
-#include "iostream"
+#include <iostream>
+#include <fstream>
+#include <cstdio>
 
-namespace AWF{
- class FileReader {
- public:
-     FileReader();
-     FileReader(std::string file_name);
-     ~FileReader();
+namespace AWF {
+    /**
+     * Extremely quick non-parallel file reader.
+     */
+    class FileReader {
+    public:
+        /**
+         * File reader
+         */
+        FileReader();
 
-     bool test();
+        /**
+         *
+         * @param file_name
+         */
+        FileReader(std::string file_name);
 
-     bool set_file(std::string file_name);
+        ~FileReader();
 
-     std::string GetString() const;//return std::string generator by content in file_buf_.
+        bool test();
 
- private:
-     std::string file_name_;
+        /**
+         * set file name
+         * @param file_name
+         * @return
+         */
+        bool set_file(std::string file_name);
 
- protected:
-     long file_size_ = -1;//Defaul value is -1,when get size from file false set value as -1.
+        /**
+         *
+         * @return std::string generator by content in file_buf_.
+         */
+        std::string GetString() const;
 
-     char* file_buf_;
+    private:
+        std::string file_name_;
 
-     long GetSize();//Get size of the file(according to file_name_).
+    protected:
+        long file_size_ = -1;//Defaul value is -1,when get size from file false set value as -1.
 
-     bool LoadFile();//Load file to memory,file_buf is the point.
+        char *file_buf_;// buffer of file.
 
- };
+        /**
+         *
+         * @return Get size of the file(according to file_name_).
+         */
+        long GetSize();
+
+        /**
+         *
+         * @return Load file to memory,file_buf is the point.
+         */
+        bool LoadFile();
+
+    };
 }
-
 
 
 #endif //ALGORITHMWORKFLOWTOOLS_FILEREADER_H
