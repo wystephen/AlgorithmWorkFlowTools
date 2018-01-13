@@ -74,7 +74,6 @@ include_directories(
         ${Cholmod_INCLUDE_DIR}
         ${SuiteSparse_INCLUDE_DIR}
         ${GTSAM_INCLUDE_DIR}
-
 )
 
 link_directories(
@@ -85,3 +84,11 @@ link_directories(
         ${LAPACK_LIBRARIES}
         ./include
 )
+
+
+# add executable.
+
+
+
+# add library.
+
