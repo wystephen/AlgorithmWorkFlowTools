@@ -5,15 +5,33 @@
 #ifndef ALGORITHMWORKFLOWTOOLS_ALGORITHMLOGGER_H
 #define ALGORITHMWORKFLOWTOOLS_ALGORITHMLOGGER_H
 
+#include <iostream>
+
+#include <thread>
+#include <mutex>
+
+/**
+ * Singleton !!!!!
+ */
 
 class AlgorithmLogger{
 public:
     static AlgorithmLogger* getInstance();
 
+protected:
+    static std::mutex instance_mutex_;// mutex for instance....
+
 private:
     AlgorithmLogger();
-    //把复制构造函数和=操作符也设为私有,防止被复制
+
+    /**
+     * Set constructor function as private, avoid unnecessary constructor.
+     */
     AlgorithmLogger(const AlgorithmLogger&);
+    /**
+     * Let the operator = as private, preserve it from unacceptable deep copy.
+     * @return
+     */
     AlgorithmLogger& operator=(const AlgorithmLogger&);
 
     static AlgorithmLogger* instance;
