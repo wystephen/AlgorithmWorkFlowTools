@@ -3,6 +3,7 @@
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="CidrRootsConfiguration">
     <sourceRoots>
+      <file path="$PROJECT_DIR$/AlgorithmLogger" />
       <file path="$PROJECT_DIR$/ExtentedIO" />
       <file path="$PROJECT_DIR$/FlexableVisualization" />
       <file path="$PROJECT_DIR$/StateEstimate" />
