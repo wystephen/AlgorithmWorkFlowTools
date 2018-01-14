@@ -13,29 +13,39 @@
 /**
  * Singleton !!!!!
  */
+namespace AWF {
+    class AlgorithmLogger {
+    public:
+        static AlgorithmLogger *getInstance();
 
-class AlgorithmLogger{
-public:
-    static AlgorithmLogger* getInstance();
 
-protected:
-    static std::mutex instance_mutex_;// mutex for instance....
+        std::string getName(){
+            return "name";
+        }
 
-private:
-    AlgorithmLogger();
+    protected:
+        static std::mutex instance_mutex_;// mutex for instance....
 
-    /**
-     * Set constructor function as private, avoid unnecessary constructor.
-     */
-    AlgorithmLogger(const AlgorithmLogger&);
-    /**
-     * Let the operator = as private, preserve it from unacceptable deep copy.
-     * @return
-     */
-    AlgorithmLogger& operator=(const AlgorithmLogger&);
 
-    static AlgorithmLogger* instance;
-};
+//        std::vector<
+
+    private:
+        AlgorithmLogger();
+
+        /**
+         * Set constructor function as private, avoid unnecessary constructor.
+         */
+        AlgorithmLogger(const AlgorithmLogger &);
+
+        /**
+         * Let the operator = as private, preserve it from unacceptable deep copy.
+         * @return
+         */
+        AlgorithmLogger &operator=(const AlgorithmLogger &);
+
+        static AlgorithmLogger *instance;
+    };
+}
 
 
 #endif //ALGORITHMWORKFLOWTOOLS_ALGORITHMLOGGER_H

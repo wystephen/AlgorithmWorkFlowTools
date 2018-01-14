@@ -33,7 +33,8 @@
 #include "../ExtentedIO/FileReader.cpp"
 
 int main(){
-    auto f = new AWF::FileReader("/home/steve/Data/II/30/vertex_time.csv");
+//    auto f = new AWF::FileReader("/home/steve/Data/II/30/vertex_time.csv");
+    auto f = new AWF::FileReader("/home/steve/Data/II/30/imu.txt");
     Eigen::MatrixXd m = f->extractDoulbeMatrix(",");
     std::cout << m.rows()<<","<<m.cols() << std::endl;
 //    std::cout << m.norm() << std::end;

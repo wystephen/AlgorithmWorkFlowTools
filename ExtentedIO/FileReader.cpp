@@ -150,7 +150,7 @@ namespace AWF {
         long rowIndex(0), colIndex(0);
         while (tmpIndex < localString.size() ) {
             nextIndex = std::min(localString.find(delimiter, tmpIndex), localString.find("\n", tmpIndex));
-//            std::cout << "index:" << tmpIndex<< "next Index :" << nextIndex << std::endl;
+            std::cout << "index:" << tmpIndex<< "next Index :" << nextIndex << std::endl;
             if (nextIndex > 0) {
                 localMatrix(rowIndex, colIndex) =
                         std::stod(localString.substr(tmpIndex, nextIndex-tmpIndex));
@@ -163,7 +163,6 @@ namespace AWF {
                     colIndex = 0;
                     rowIndex++;
                 }
-//                std::cout << nextIndex << "\n";
                 tmpIndex = nextIndex+1;
                 if(localMatrix.hasNaN()){
                     std::cout << "has nan" << std::endl;
