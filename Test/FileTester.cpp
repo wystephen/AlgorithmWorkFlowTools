@@ -25,12 +25,25 @@
 //
 
 
-#define CATCH_CONFIG_MAIN
-#include "catch.hpp"
-#include "../ExtentedIO/FileReader.h"
+//#define CATCH_CONFIG_MAIN
+//#include "catch.hpp"
+#include <Eigen/Dense>
 
-TEST_CASE("a","[file_reader]"){
-    auto fr = AWF::FileReader();
-    REQUIRE(fr.GetString()==0);
+#include "../ExtentedIO/FileReader.h"
+#include "../ExtentedIO/FileReader.cpp"
+
+int main(){
+    auto f = new AWF::FileReader("/home/steve/Data/II/30/vertex_time.csv");
+    Eigen::MatrixXd m = f->extractDoulbeMatrix(",");
+    std::cout << m.rows()<<","<<m.cols() << std::endl;
+//    std::cout << m.norm() << std::end;
+    for(int i(0);i<m.cols();++i)
+    {
+        std::cout << "cols " << i << " :"
+                                  << m.block(0,i,m.rows()-1,1).transpose().norm()
+                                  << std::endl;
+    }
+
 }
+
 

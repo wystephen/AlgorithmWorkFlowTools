@@ -95,7 +95,9 @@ link_directories(
 add_executable(AlgorithmLogger Test/AlgorithmLoggerTester.cpp)
 target_link_libraries(AlgorithmLogger )
 
+add_executable(FileTester Test/FileTester.cpp)
+
 
 # add library.
 
-add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp)
+#add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp)

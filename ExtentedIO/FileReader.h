@@ -31,6 +31,8 @@
 #include <fstream>
 #include <cstdio>
 
+#include <Eigen/Dense>
+
 namespace AWF {
     /**
      * Extremely quick non-parallel file reader.
@@ -57,13 +59,21 @@ namespace AWF {
          * @param file_name
          * @return
          */
-        bool set_file(std::string file_name);
+        bool setFileName(std::string file_name);
 
         /**
          *
          * @return std::string generator by content in file_buf_.
          */
-        std::string GetString() const;
+        std::string getString() const;
+
+
+        /**
+         * Extract a Eigen::MatrixXd from the file.
+         * @param delimiter typically value: ","," "
+         * @return
+         */
+        Eigen::MatrixXd extractDoulbeMatrix(std::string delimiter);
 
     private:
         std::string file_name_;
@@ -77,13 +87,13 @@ namespace AWF {
          *
          * @return Get size of the file(according to file_name_).
          */
-        long GetSize();
+        long getSize();
 
         /**
          *
          * @return Load file to memory,file_buf is the point.
          */
-        bool LoadFile();
+        bool loadFile();
 
     };
 }
