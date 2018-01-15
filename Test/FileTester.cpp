@@ -44,6 +44,7 @@ int main(){
                                   << m.block(0,i,m.rows()-1,1).transpose().norm()
                                   << std::endl;
     }
+    return 0;
 
 }
 

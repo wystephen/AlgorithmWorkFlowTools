@@ -152,7 +152,7 @@ namespace AWF {
         for (int index(0); index < tmp_str.size(); ++index) {
 
             if ( index == tmp_str.find(delimiter,index)
-            ||tmp_str[index]==' '|| tmp_str[index] == '\n') {
+            || tmp_str[index] == '\n') {
                 r_index = index;
                 localMatrix(the_row, the_col) = std::stod(tmp_str.substr(l_index, r_index - l_index).c_str());
                 if (tmp_str[index] == '\n') {
