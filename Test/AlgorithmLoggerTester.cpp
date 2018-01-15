@@ -20,8 +20,7 @@ int main() {
 
     for (int i = 0; i < 100; i++) {
         std::thread t([] {
-            std::cout << std::time_put(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))
-                      << std::end;
+//            std::cout << std::time_put(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))
 
 
             AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();

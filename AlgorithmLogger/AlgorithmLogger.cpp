@@ -21,7 +21,6 @@ namespace AWF {
     }
 
 
-//在此处初始化
     AlgorithmLogger *AlgorithmLogger::instance = nullptr; //new AlgorithmLogger();
 
 
