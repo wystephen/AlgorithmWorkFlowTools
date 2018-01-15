@@ -106,6 +106,9 @@ namespace AWF {
     }
 
 
+
+
+
     Eigen::MatrixXd FileReader::extractDoulbeMatrix(std::string delimiter ) {
         int rows = 0;
         int cols = 0;
@@ -141,6 +144,7 @@ namespace AWF {
 
 
 
+
         // extract data
 
         Eigen::MatrixXd localMatrix(rows, cols);
@@ -151,7 +155,7 @@ namespace AWF {
 
         for (int index(0); index < tmp_str.size(); ++index) {
 
-            if ( index == tmp_str.find(delimiter,index)
+            if ( tmp_str.compare(index,delimiter.size(),delimiter)==0 //index == tmp_str.substr(index,delimiter.size()) //tmp_str.find_first_of(delimiter,index)//,index+delimiter.size()+1)
             || tmp_str[index] == '\n') {
                 r_index = index;
                 localMatrix(the_row, the_col) = std::stod(tmp_str.substr(l_index, r_index - l_index).c_str());
