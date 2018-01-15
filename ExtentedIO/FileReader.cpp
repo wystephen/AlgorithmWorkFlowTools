@@ -110,27 +110,27 @@ namespace AWF {
         int rows = 0;
         int cols = 0;
 
-        std::string localString = std::string(file_buf_);
+        std::string tmp_str = std::string(file_buf_);
 
         long tmpIndex = 0;
         // find rows and cols
         try{
-        while (tmpIndex < localString.size()) {
+        while (tmpIndex < tmp_str.size()) {
             if (rows == 0) {
                 // first line
-                if (localString.find(delimiter, tmpIndex) < localString.find("\n", tmpIndex)) {
+                if (tmp_str.find(delimiter, tmpIndex) < tmp_str.find("\n", tmpIndex)) {
                     // delimiter befoer the first '\n'
                     cols++;
-                    tmpIndex = localString.find(delimiter, tmpIndex) + 1;
+                    tmpIndex = tmp_str.find(delimiter, tmpIndex) + 1;
                 } else {
-                    tmpIndex = localString.find("\n", tmpIndex) + 1;
+                    tmpIndex = tmp_str.find("\n", tmpIndex) + 1;
                     cols++;
                     rows++;
                 }
             } else {
                 // others
 
-                tmpIndex = localString.find("\n", tmpIndex) + 1;
+                tmpIndex = tmp_str.find("\n", tmpIndex) + 1;
                 rows++;
 //                std::cout << rows << std::endl;
             }
@@ -145,33 +145,30 @@ namespace AWF {
 
         Eigen::MatrixXd localMatrix(rows, cols);
         localMatrix.setZero();
-        tmpIndex = 0;
-        long nextIndex = 0;
-        long rowIndex(0), colIndex(0);
-        while (tmpIndex < localString.size() ) {
-            nextIndex = std::min(localString.find(delimiter, tmpIndex), localString.find("\n", tmpIndex));
-            std::cout << "index:" << tmpIndex<< "next Index :" << nextIndex << std::endl;
-            if (nextIndex > 0) {
-                localMatrix(rowIndex, colIndex) =
-                        std::stod(localString.substr(tmpIndex, nextIndex-tmpIndex));
-//                if(std::isnan(localMatrix(rowIndex,colIndex))){
-//                    std::cout << "error sub string: " << localString.substr(tmpIndex,nextIndex-tmpIndex)
-//                            << "  ---error str end" << std::endl;
-//                }
-                colIndex++;
-                if (colIndex >= cols) {
-                    colIndex = 0;
-                    rowIndex++;
-                }
-                tmpIndex = nextIndex+1;
-                if(localMatrix.hasNaN()){
-                    std::cout << "has nan" << std::endl;
-                }
-            } else {
-                break;
-            }
+        int the_row(0), the_col(0);
 
+        int l_index(0), r_index(0);
+
+        for (int index(0); index < tmp_str.size(); ++index) {
+
+            if ( index == tmp_str.find(delimiter,index)
+            ||tmp_str[index]==' '|| tmp_str[index] == '\n') {
+                r_index = index;
+                localMatrix(the_row, the_col) = std::stod(tmp_str.substr(l_index, r_index - l_index).c_str());
+                if (tmp_str[index] == '\n') {
+                    ++the_row;
+                    the_col = 0;
+                } else {
+                    ++the_col;
+                }
+                if (the_row == rows- 1 && the_col == cols - 1) {
+                    localMatrix(the_row, the_col) = std::stod(tmp_str.substr(r_index + 1, file_size_ - r_index - 1).c_str());
+                    break;
+                }
+                l_index = r_index + 1;
+            }
         }
+
 
         return localMatrix;
 
