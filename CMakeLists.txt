@@ -100,4 +100,4 @@ add_executable(FileTester Test/FileTester.cpp)
 
 # add library.
 
-#add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp)
+add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp)
