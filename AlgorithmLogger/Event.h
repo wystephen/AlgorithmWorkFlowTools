@@ -17,12 +17,13 @@ namespace AWF {
         Event(std::string name) : msg_(),
                                   event_name_(name) {
 
+            std::cout.precision(20);
             std::cout <<
                       double(
-                              std::chrono::duration_cast<std::chrono::milliseconds>(
-                                      std::chrono::steady_clock::now().time_since_epoch()
+                              std::chrono::duration_cast<std::chrono::microseconds>(
+                                      std::chrono::system_clock::now().time_since_epoch()
                               ).count()
-                      )
+                      )/1000000.0
                       << std::endl;
 
         }
