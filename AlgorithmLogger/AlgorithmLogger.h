@@ -24,12 +24,12 @@ namespace AWF {
         }
 
     protected:
-        static std::mutex instance_mutex_;// mutex for instance....
 
-
-//        std::vector<
 
     private:
+        /**
+         * default constructor function.
+         */
         AlgorithmLogger();
 
         /**

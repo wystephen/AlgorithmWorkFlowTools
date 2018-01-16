@@ -23,16 +23,15 @@ namespace AWF {
 
     AlgorithmLogger *AlgorithmLogger::instance = nullptr; //new AlgorithmLogger();
 
-
     AlgorithmLogger *AlgorithmLogger::getInstance() {
-        if (instance == nullptr) {
-//            instance_mutex_.lock();
-            if (instance == nullptr) {
+        static std::once_flag oc;// call once local static variable.
+        // call once , to avoid some complexity process of multi-thread DCLP.
+        std::call_once(oc,[&]{
+
+            if(instance== nullptr){
                 instance = new AlgorithmLogger();
             }
-//            instance_mutex_.unlock();
-
-        }
+        });
         return instance;
     }
 }
