@@ -21,7 +21,7 @@ int main() {
 
     AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 1; i++) {
         std::thread t([] {
 //            std::cout << std::time_put(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()))
 
@@ -41,6 +41,8 @@ int main() {
         });
         t.detach();
     }
+    int k(0);
+    std::cin>>k;
 
 
 }

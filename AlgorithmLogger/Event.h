@@ -22,7 +22,7 @@ namespace AWF {
                               std::chrono::duration_cast<std::chrono::milliseconds>(
                                       std::chrono::steady_clock::now().time_since_epoch()
                               ).count()
-                      ) / 1000.0
+                      )
                       << std::endl;
 
         }
