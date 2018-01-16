@@ -8,6 +8,8 @@ namespace AWF {
 
     AlgorithmLogger::AlgorithmLogger() {
 
+
+
     }
 
 
