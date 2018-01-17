@@ -92,7 +92,7 @@ link_directories(
 #        ${Sophus_LIBRARIES} ${G2O_LIBS} ${CSPARSE_LIBRARY} ${PYTHON_LIBRARIES} ${SuiteSparse_LIBRARIES}
 #        -ltbb ${GTSAM_LIBRARIES} ${Boost_LIBRARIES} )
 
-add_executable(AlgorithmLogger Test/AlgorithmLoggerTester.cpp)
+add_executable(AlgorithmLogger Test/AlgorithmLoggerTester.cpp AlgorithmLogger/AbstractMsg.cpp AlgorithmLogger/AbstractMsg.h)
 target_link_libraries(AlgorithmLogger )
 
 add_executable(FileTester Test/FileTester.cpp)

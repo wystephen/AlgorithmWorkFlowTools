@@ -11,7 +11,6 @@
 #include <chrono>
 
 namespace AWF {
-    template<typename MsgType>
     class Event {
     public:
         Event(std::string name) : msg_(),
@@ -35,7 +34,7 @@ namespace AWF {
         std::string event_name_ = "null";
         double event_time_stamp_ = 0.0;
 
-        MsgType msg_;
+        Msg msg_;
 
 
     };
