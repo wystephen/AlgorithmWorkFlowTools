@@ -16,9 +16,9 @@ namespace AWF {
     public:
         Event(std::string name) : msg_(),
                                   event_name_(name),
-        event_time_stamp_(double(std::chrono::duration_cast<std::chrono::microseconds>(
-                std::chrono::system_clock::now().time_since_epoch()
-        ).count())/1000000.0){
+                                  event_time_stamp_(double(std::chrono::duration_cast<std::chrono::microseconds>(
+                                          std::chrono::system_clock::now().time_since_epoch()
+                                  ).count()) / 1000000.0) {
 
             std::cout.precision(20);
             std::cout <<
@@ -26,7 +26,7 @@ namespace AWF {
                               std::chrono::duration_cast<std::chrono::microseconds>(
                                       std::chrono::system_clock::now().time_since_epoch()
                               ).count()
-                      )/1000000.0
+                      ) / 1000000.0
                       << std::endl;
 
         }
