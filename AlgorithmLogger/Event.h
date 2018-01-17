@@ -20,14 +20,14 @@ namespace AWF {
                                           std::chrono::system_clock::now().time_since_epoch()
                                   ).count()) / 1000000.0) {
 
-            std::cout.precision(20);
-            std::cout <<
-                      double(
-                              std::chrono::duration_cast<std::chrono::microseconds>(
-                                      std::chrono::system_clock::now().time_since_epoch()
-                              ).count()
-                      ) / 1000000.0
-                      << std::endl;
+//            std::cout.precision(20);
+//            std::cout <<
+//                      double(
+//                              std::chrono::duration_cast<std::chrono::microseconds>(
+//                                      std::chrono::system_clock::now().time_since_epoch()
+//                              ).count()
+//                      ) / 1000000.0
+//                      << std::endl;
 
         }
 
