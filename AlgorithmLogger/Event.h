@@ -24,18 +24,10 @@ namespace AWF {
                         ).count()) / 1000000.0) ,
         msg_(event_time_stamp_){
 
-//            std::cout.precision(20);
-//            std::cout <<
-//                      double(
-//                              std::chrono::duration_cast<std::chrono::microseconds>(
-//                                      std::chrono::system_clock::now().time_since_epoch()
-//                              ).count()
-//                      ) / 1000000.0
-//                      << std::endl;
 
         }
 
-//    protected:
+    protected:
         std::string event_name_ = "null";
         double event_time_stamp_ = 0.0;
 
