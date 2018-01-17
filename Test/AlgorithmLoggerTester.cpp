@@ -29,20 +29,14 @@ int main() {
             for (int j = 0; j < 1000; ++j) {
                 AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
                 std::cout << logger_ptr->getName() << std::endl;
-                AWF::Event<double> e(std::to_string(j));
-                std::cout << e.event_name_
-                          << ":"
-                          << e.event_time_stamp_
-                          << ":"
-                          << e.msg_
-                          << std::endl;
+                AWF::Event e(std::to_string(j));
             }
 
         });
         t.detach();
     }
     int k(0);
-    std::cin>>k;
+    std::cin >> k;
 
 
 }

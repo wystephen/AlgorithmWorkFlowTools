@@ -8,6 +8,13 @@
 
 class AbstractMsg {
 public:
+    AbstractMsg(double time):
+            current_time_(time){
+
+    }
+
+private:
+    double current_time_;
 
 
 };
