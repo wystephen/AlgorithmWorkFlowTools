@@ -22,19 +22,24 @@ namespace AWF {
                         double(std::chrono::duration_cast<std::chrono::microseconds>(
                                 std::chrono::system_clock::now().time_since_epoch()
                         ).count()) / 1000000.0) ,
-        msg_(event_time_stamp_){
+        {
 
 
+        }
+
+        virtual std::string toString(){
+            return std::string(std::to_string(event_time_stamp_));
         }
 
     protected:
         std::string event_name_ = "null";
         double event_time_stamp_ = 0.0;
 
-        AbstractMsg msg_;
 
 
     };
+
+
 
 }
 

@@ -7,28 +7,38 @@
 
 #include <iostream>
 
-namespace AWF{
- class AbstractMsg {
-public:
-    AbstractMsg(double time):
-            current_time_(time){
+namespace AWF {
+    class AbstractMsg {
+    public:
+        AbstractMsg(double time) :
+                current_time_(time) {
 
-    }
+        }
 
-     /**
-      *
-      * @return
-      */
-    virtual std::string toString(){
-         return std::string(std::to_string(current_time_));
+        /**
+         *
+         * @return
+         */
+        virtual std::string toString() {
+            return std::string(std::to_string(current_time_));
 
-     };
+        };
 
-private:
-    double current_time_;
+    protected:
+        double current_time_;
 
 
-};
+    };
+
+
+    class StringMsg:public AbstractMsg{
+    public:
+        StringMsg(double time):public AbstractMsg(time);
+
+    public:
+
+
+    };
 
 }
 
