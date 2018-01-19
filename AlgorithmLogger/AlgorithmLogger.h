@@ -21,7 +21,7 @@ namespace AWF {
         static AlgorithmLogger *getInstance();
 
 
-        std::string getName(){
+        std::string getName() {
             return "name";
         }
 

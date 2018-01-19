@@ -33,9 +33,9 @@ int main() {
 
 
                     for (int j = 0; j < 1000; ++j) {
-                    AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
-                    std::cout << logger_ptr->getName() << std::endl;
-                AWF::StringEvent e(std::to_string(j));
+                        AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
+                        std::cout << logger_ptr->getName() << std::endl;
+                        AWF::StringEvent e(std::to_string(j));
                     }
                 } catch (std::exception &e) {
                     std::cout << e.what() << std::endl;
