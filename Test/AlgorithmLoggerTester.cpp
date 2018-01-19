@@ -29,11 +29,11 @@ int main() {
             for (int j = 0; j < 1000; ++j) {
                 AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
                 std::cout << logger_ptr->getName() << std::endl;
-                AWF::Event e(std::to_string(j));
+//                AWF::StringEvent e(std::to_string(j));
             }
 
         });
-        t.detach();
+//        t.detach();
     }
     int k(0);
     std::cin >> k;

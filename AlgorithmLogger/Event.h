@@ -16,7 +16,8 @@ namespace AWF {
     template<typename T>
     class Event : public AbstractEvent {
     public:
-        Event(std::string name) : AbstractEvent(name),
+        Event(std::string name) :
+                AbstractEvent(name),
                                   data_() {
         }
 
@@ -47,7 +48,7 @@ namespace AWF {
 
     class StringEvent : public Event<std::string> {
     public:
-        StringEvent::StringEvent(const std::string &name) :
+        StringEvent(const std::string &name) :
                 Event("stringEvent_" + name) {}
 
 
