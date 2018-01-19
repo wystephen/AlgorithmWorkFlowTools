@@ -9,43 +9,37 @@
 #include <iostream>
 
 #include <chrono>
+#include "AbstractEvent.h"
 
 
 namespace AWF {
-    template <typename T>
-    class Event {
+    template<typename T>
+    class Event : public AbstractEvent {
     public:
-        Event(std::string name) :
-                event_name_(name),
-                event_time_stamp_(
-                        double(std::chrono::duration_cast<std::chrono::microseconds>(
-                                std::chrono::system_clock::now().time_since_epoch()
-                        ).count()) / 1000000.0) {
-
-
+        Event(std::string name) : AbstractEvent(name),
+        data_(){
         }
 
-        /**
-         * convert the event to string.
-         * @return
-         */
-        virtual std::string toString() {
-            return "["+ std::string(std::to_string(event_time_stamp_))+"]:"+event_name_;
-        }
 
         /**
          * set data based on type name.
          * @param d
          * @return
          */
-        bool setData(T d){
+        bool setData(T d) {
             data_ = d;
             return true;
         }
 
+        /**
+         * get data
+         * @return
+         */
+        T getData_() const {
+            return data_;
+        }
+
     protected:
-        std::string event_name_ = "null";
-        double event_time_stamp_ = 0.0;
         T data_;
 
 
@@ -57,7 +51,7 @@ namespace AWF {
 
 
         virtual std::string toString() {
-            return ((Event*)this)->toString()+":"+data_;
+            return ((AbstractEvent *) this)->toString() + ":" + data_;
         }
 
 

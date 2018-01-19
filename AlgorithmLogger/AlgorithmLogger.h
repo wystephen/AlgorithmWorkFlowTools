@@ -6,9 +6,11 @@
 #define ALGORITHMWORKFLOWTOOLS_ALGORITHMLOGGER_H
 
 #include <iostream>
+#include <queue>
 
 #include <thread>
 #include <mutex>
+#include "AbstractEvent.h"
 
 /**
  * Singleton !!!!!
@@ -24,6 +26,7 @@ namespace AWF {
         }
 
     protected:
+        std::queue<AbstractEvent> event_queue_;
 
 
     private:
@@ -45,6 +48,7 @@ namespace AWF {
 
         static AlgorithmLogger *instance;
     };
+
 }
 
 
