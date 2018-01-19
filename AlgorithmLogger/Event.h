@@ -17,7 +17,7 @@ namespace AWF {
     class Event : public AbstractEvent {
     public:
         Event(std::string name) : AbstractEvent(name),
-        data_(){
+                                  data_() {
         }
 
 
@@ -47,7 +47,8 @@ namespace AWF {
 
     class StringEvent : public Event<std::string> {
     public:
-        StringEvent::StringEvent(const std::string &name) : Event("stringEvent_" + name) {}
+        StringEvent::StringEvent(const std::string &name) :
+                Event("stringEvent_" + name) {}
 
 
         virtual std::string toString() {

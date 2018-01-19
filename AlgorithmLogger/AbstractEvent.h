@@ -9,14 +9,15 @@
 #include <thread>
 #include <mutex>
 
-namespace AWF{
-    class AbstractEvent{
+namespace AWF {
+    class AbstractEvent {
     public:
-        AbstractEvent(std::string name): event_name_(name),
-                                    event_time_stamp_(
-                                            double(std::chrono::duration_cast<std::chrono::microseconds>(
-                                                    std::chrono::system_clock::now().time_since_epoch()
-                                            ).count()) / 1000000.0) {
+        AbstractEvent(std::string name) :
+                event_name_(name),
+                event_time_stamp_(
+                        double(std::chrono::duration_cast<std::chrono::microseconds>(
+                                std::chrono::system_clock::now().time_since_epoch()
+                        ).count()) / 1000000.0) {
 
 
         }
@@ -26,7 +27,8 @@ namespace AWF{
          * @return
          */
         virtual std::string toString() {
-            return "["+ std::string(std::to_string(event_time_stamp_))+"]:"+event_name_;
+            return "[" + std::string(std::to_string(event_time_stamp_))
+                   + "]:" + event_name_;
         }
 
     protected:
