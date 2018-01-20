@@ -20,6 +20,7 @@ int main() {
     std::cout << "logger" << std::endl;
 
     AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
+    std::cout.precision(15);
 
     for (int i = 0; i < 100; i++) {
         try {
