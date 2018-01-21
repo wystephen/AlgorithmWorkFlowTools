@@ -50,33 +50,7 @@ int main() {
 //        }
 
 //    }
-    AWF::StringEvent *sep = new AWF::StringEvent("name");//= new AWF::Event<std::string>("name");
-    if (sep== nullptr) {
-        std::cout << __LINE__
-                  << ":"
-                  << "sep is nullptr"
-                  << std::endl;
-    }
-    std::cout << sep->toString() << std::endl;
-    std::cout << typeid(sep).name() << std::endl;
-    AWF::AbstractEvent *sep1 = (static_cast<AWF::AbstractEvent *>(sep));
-    if (sep1 == nullptr) {
-        std::cout << __LINE__
-                  << ":"
-                  << "sep is nullptr"
-                  << std::endl;
-    }
-    std::cout << sep1->toString() << std::endl;
-    std::cout << typeid(sep1).name() << std::endl;
-    AWF::StringEvent *sep2 = (dynamic_cast<AWF::StringEvent *>(sep));
-    if (sep2 == nullptr) {
-        std::cout << __LINE__
-                  << ":"
-                  << "sep is nullptr"
-                  << std::endl;
-    }
-    std::cout << sep2->toString() << std::endl;
-    std::cout << typeid(sep2).name() << std::endl;
+
 
     int k(0);
     std::cin >> k;
