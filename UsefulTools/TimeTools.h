@@ -15,8 +15,9 @@
 
 namespace AWF {
     std::string getFormatTime() {
-        auto tt = std::chrono::system_clock::now().time_since_epoch();
-        auto tm = std::localtime(std::chrono::system_clock::to_time_t(tt));
+        std::chrono::system_clock::time_point tt =
+                std::chrono::system_clock::now();
+        auto tm = std::localtime(reinterpret_cast<const time_t *>(std::chrono::system_clock::to_time_t(tt)));
         return "[" + std::to_string(tm->tm_year) + "-"
                + std::to_string(tm->tm_mon) + "-"
                + std::to_string(tm->tm_mday) + "-"
@@ -31,8 +32,7 @@ namespace AWF {
         auto tt = std::chrono::system_clock::now();
         auto t_nanosec = std::chrono::duration_cast<std::chrono::nanoseconds>(tt.time_since_epoch());
 
-        double time_now(double(t_nanosec.count()) * 1e-9);
-        return time_now;
+        return (double(t_nanosec.count()) * 1e-9);
     }
 
 }
