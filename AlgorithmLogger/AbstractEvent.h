@@ -26,6 +26,15 @@ namespace AWF {
 
         }
 
+        AbstractEvent(std::string event_name,
+        Eigen::MatrixXd m):
+        AbstractEvent(event_name),
+        setData(m){
+
+        }
+
+
+
         /**
          * convert the event to string.
          * @return
