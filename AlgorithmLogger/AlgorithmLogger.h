@@ -52,7 +52,7 @@ namespace AWF {
         }
 
     protected:
-        std::deque<AbstractEvent> event_queue_=std::deque<AbstractEvent>();
+        std::deque<AbstractEvent> event_queue_ = std::deque<AbstractEvent>();
 
         std::string logger_name_;
 
@@ -61,8 +61,8 @@ namespace AWF {
         /**
          * default constructor function.
          */
-        AlgorithmLogger():
-                logger_name_("logger_" + getFormatTime()){
+        AlgorithmLogger() :
+                logger_name_("logger_" + getFormatTime()) {
 
         }
 //    AlgorithmLogger(){}
