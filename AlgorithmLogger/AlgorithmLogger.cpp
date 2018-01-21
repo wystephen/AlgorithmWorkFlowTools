@@ -6,9 +6,9 @@
 
 namespace AWF {
 
-    AlgorithmLogger::AlgorithmLogger():
-    event_queue_()
-    {
+    AlgorithmLogger::AlgorithmLogger() :
+            event_queue_(),
+            logger_name_("logger_" + getFormatTime()) {
 
 
     }
@@ -29,12 +29,13 @@ namespace AWF {
     AlgorithmLogger *AlgorithmLogger::getInstance() {
         static std::once_flag oc;// call once local static variable.
         // call once , to avoid some complexity process of multi-thread DCLP.
-        std::call_once(oc,[&]{
+        std::call_once(oc, [&] {
 
-            if(instance== nullptr){
+            if (instance == nullptr) {
                 instance = new AlgorithmLogger();
             }
         });
         return instance;
     }
+
 }

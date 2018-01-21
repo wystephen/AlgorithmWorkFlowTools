@@ -13,6 +13,8 @@
 #include <mutex>
 #include "AbstractEvent.h"
 
+#include "../UsefulTools/TimeTools.h"
+
 /**
  * Singleton !!!!!
  */
@@ -44,6 +46,8 @@ namespace AWF {
 
     protected:
         std::deque<AbstractEvent> event_queue_;
+
+        std::string logger_name_;
 
 
     private:
