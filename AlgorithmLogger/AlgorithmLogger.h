@@ -17,6 +17,7 @@
  */
 namespace AWF {
     class AlgorithmLogger {
+        //TODO: RTTI
     public:
         static AlgorithmLogger *getInstance();
 
