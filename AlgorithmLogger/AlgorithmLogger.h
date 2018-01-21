@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <queue>
+#include <deque>
 
 #include <thread>
 #include <mutex>
@@ -26,8 +27,23 @@ namespace AWF {
             return "name";
         }
 
+
+        bool addEvent(AbstractEvent &e) {
+            try {
+
+                event_queue_.push_back(e);
+            } catch (std::exception &e) {
+                std::cout << __FILE__
+                          << ":"
+                          << __LINE__
+                          << ":"
+                          << e.what()
+                          << std::endl;
+            }
+        }
+
     protected:
-        std::queue<AbstractEvent> event_queue_;
+        std::deque<AbstractEvent> event_queue_;
 
 
     private:

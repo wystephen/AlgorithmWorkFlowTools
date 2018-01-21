@@ -6,8 +6,9 @@
 
 namespace AWF {
 
-    AlgorithmLogger::AlgorithmLogger() {
-
+    AlgorithmLogger::AlgorithmLogger():
+    event_queue_()
+    {
 
 
     }
