@@ -31,6 +31,12 @@ namespace AWF {
         }
 
 
+        /**
+         * Add event to event queue,
+         * multi-thread safety.
+         * @param e
+         * @return
+         */
         bool addEvent(AbstractEvent &e) {
             try {
 
