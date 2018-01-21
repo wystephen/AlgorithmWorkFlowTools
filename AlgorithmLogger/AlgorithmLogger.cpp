@@ -6,12 +6,6 @@
 
 namespace AWF {
 
-    AlgorithmLogger::AlgorithmLogger() :
-            event_queue_(),
-            logger_name_("logger_" + getFormatTime()) {
-
-
-    }
 
 
     AlgorithmLogger::AlgorithmLogger(const AlgorithmLogger &) {

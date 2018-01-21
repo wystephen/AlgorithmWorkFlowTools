@@ -10,11 +10,11 @@
 
 #include <chrono>
 
-#include "../AlgorithmLogger/AlgorithmLogger.h"
-#include "../AlgorithmLogger/AlgorithmLogger.cpp"
+#include "AlgorithmLogger/AlgorithmLogger.h"
+#include "AlgorithmLogger/AlgorithmLogger.cpp"
 
-#include "../AlgorithmLogger/Event.h"
-#include "../AlgorithmLogger/Event.cpp"
+#include "AlgorithmLogger/Event.h"
+#include "AlgorithmLogger/Event.cpp"
 
 int main() {
     std::cout << "logger" << std::endl;

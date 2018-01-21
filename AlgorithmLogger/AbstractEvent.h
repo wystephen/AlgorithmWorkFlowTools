@@ -8,7 +8,10 @@
 #include <iostream>
 #include <thread>
 #include <mutex>
+#include <map>
 #include <Eigen/Dense>
+
+#include "../UsefulTools/ErrorTools.h"
 
 namespace AWF {
     class AbstractEvent {
@@ -29,17 +32,26 @@ namespace AWF {
          */
         std::string toString() {
             return "[" + std::string(std::to_string(event_time_stamp_))
-                   + "]:" + event_name_;
+                   + "]:" + event_name_ + ":" +
+                   data_string_;
         }
 
+        /**
+         * set Data according to matrix.
+         * @param m
+         * @return
+         */
         bool setData(Eigen::MatrixXd m) {
             try {
                 Eigen::IOFormat OctaveFmt(Eigen::StreamPrecision,
                                           0, ", ", ";\n", "", "", "[", "]");
                 std::stringstream ss;
+                ss << "{";
                 ss << m.format(OctaveFmt);
-//                ios>>data_string_;
-                ss >> data_string_;
+                ss << "}";
+
+                data_string_ = ss.str();
+                return true;
             } catch (std::exception &e) {
                 std::cout << __FILE__
                           << ":"
@@ -47,8 +59,46 @@ namespace AWF {
                           << ":"
                           << e.what()
                           << std::endl;
+                return false;
             }
         }
+
+
+        /**
+         *
+         * @tparam K type of key
+         * @tparam V type of value
+         * @param m  map(k->v)
+         * @return
+         */
+        template<typename K, typename V>
+        bool setData(std::map<K, V> m) {
+            try {
+                std::stringstream ss;
+                ss << "{";
+                for (auto it = m.begin(); it++; it != m.end()) {
+                    ss << it.first;
+                    ss << ":";
+                    ss << it.second;
+                    ss << ",";
+                }
+
+                ss << "}";
+//                ss>>data_string_;
+                data_string_ = ss.str();
+                return true;
+
+            } catch (std::exception &e) {
+                std::cout << __FILE__
+                          << ":"
+                          << __LINE__
+                          << ":"
+                          << e.what()
+                          << std::endl;
+
+            }
+
+        };
 
 
     protected:

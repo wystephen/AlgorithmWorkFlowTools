@@ -6,6 +6,11 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TOOL Release)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -O3 -g  -lpthread")
 
+#add_subdirectory(./AlgorithmLogger)
+#
+#add_subdirectory(./ExtentedIO)
+#add_subdirectory(./UsefulTools)
+#add_subdirectory(./Test)
 
 # add cmake module
 LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
@@ -55,7 +60,7 @@ SET(G2O_LIBS g2o_cli g2o_ext_freeglut_minimal g2o_simulator
         g2o_types_sba g2o_types_slam3d g2o_csparse_extension g2o_opengl_helper
         g2o_solver_dense g2o_stuff g2o_types_sclam2d g2o_parser g2o_solver_pcg
         g2o_types_data g2o_types_sim3 cxsparse
-        g2o_types_slam3d_addons g2o_solver_cholmod cholmod )
+        g2o_types_slam3d_addons g2o_solver_cholmod cholmod)
 
 ######  include and library directories.
 include_directories(
@@ -92,10 +97,10 @@ link_directories(
 #        ${Sophus_LIBRARIES} ${G2O_LIBS} ${CSPARSE_LIBRARY} ${PYTHON_LIBRARIES} ${SuiteSparse_LIBRARIES}
 #        -ltbb ${GTSAM_LIBRARIES} ${Boost_LIBRARIES} )
 
-add_executable(AlgorithmLogger Test/AlgorithmLoggerTester.cpp)
-target_link_libraries(AlgorithmLogger )
+add_executable(AlgorithmLogger AlgorithmLoggerTester.cpp)
+target_link_libraries(AlgorithmLogger)
 
-add_executable(FileTester Test/FileTester.cpp)
+add_executable(FileTester FileTester.cpp)
 
 
 # add library.

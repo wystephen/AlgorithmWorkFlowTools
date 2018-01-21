@@ -67,7 +67,7 @@ namespace AWF {
 //    };
 //
 //
-//}
+}
 
 
 #endif //ALGORITHMWORKFLOWTOOLS_EVENT_H

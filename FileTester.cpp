@@ -29,8 +29,8 @@
 //#include "catch.hpp"
 #include <Eigen/Dense>
 
-#include "../ExtentedIO/FileReader.h"
-#include "../ExtentedIO/FileReader.cpp"
+#include "ExtentedIO/FileReader.h"
+#include "ExtentedIO/FileReader.cpp"
 
 int main(){
 //    auto f = new AWF::FileReader("/home/steve/Data/II/30/vertex_time.csv");
