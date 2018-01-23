@@ -56,6 +56,8 @@ namespace AWF {
 
         std::string logger_name_;
 
+        mutable std::mutex queue_mutex_;
+
 
     private:
         /**
