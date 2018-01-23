@@ -36,6 +36,9 @@ int main() {
                     for (int j = 0; j < 1000; ++j) {
                         AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
                         std::cout << logger_ptr->getName() << std::endl;
+                        AWF::AbstractEvent t_event("test");
+                        t_event.setData(Eigen::Matrix4d::Identity());
+                        logger_ptr->addEvent(t_event);
                     }
                 } catch (std::exception &e) {
                     std::cout << e.what() << std::endl;

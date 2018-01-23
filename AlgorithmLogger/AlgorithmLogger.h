@@ -37,7 +37,7 @@ namespace AWF {
          * @param e
          * @return
          */
-        bool addEvent(AbstractEvent &e) {
+        bool addEvent(const AbstractEvent &e) {
             try {
                 std::lock_guard<std::mutex> lk(queue_mutex_);
                 event_queue_.push_back(e);
