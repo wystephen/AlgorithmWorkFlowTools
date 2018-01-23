@@ -39,8 +39,9 @@ namespace AWF {
          */
         bool addEvent(AbstractEvent &e) {
             try {
-
+                std::lock_guard<std::mutex> lk(queue_mutex_);
                 event_queue_.push_back(e);
+
             } catch (std::exception &e) {
                 std::cout << __FILE__
                           << ":"
