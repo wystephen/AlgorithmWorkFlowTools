@@ -40,6 +40,20 @@ namespace AWF {
 //
 //    }
 
+    /**
+     *  out thread
+     * @param m
+     * @param event
+     */
+    void outThread(std::mutex &m,
+                   AbstractEvent &event) {
+        m.lock();
+        std::cout << event.toString() << std::endl;
+        m.unlock();
+
+    }
+
+
     class AlgorithmLogger {
         //TODO: RTTI
     public:
@@ -60,9 +74,14 @@ namespace AWF {
         bool addEvent(AbstractEvent &e) {
             try {
                 auto t = new std::thread([&](){
-                    std::lock_guard<std::mutex> lk(queue_mutex_);
+//                    std::lock_guard<std::mutex> lk(queue_mutex_);
+                    queue_mutex_.lock();
                     std::cout << e.toString() << std::endl;
+                    queue_mutex_.unlock();
                 });
+//                auto t = new std::thread(outThread,
+//                                         queue_mutex_,
+//                                         e);
                 t->detach();
 //                std::cout << e.toString() << std::endl;
 
@@ -79,7 +98,7 @@ namespace AWF {
     protected:
         std::deque<AbstractEvent> event_queue_;
 
-        static std::string logger_name_ ;//= "logger_" + getFormatTime();
+        static std::string logger_name_;//= "logger_" + getFormatTime();
 
         mutable std::mutex queue_mutex_;
 

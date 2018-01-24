@@ -16,8 +16,8 @@ namespace AWF {
 
     }
 
-    AlgorithmLogger * AlgorithmLogger::instance = nullptr; //new AlgorithmLogger();
-    std::string AlgorithmLogger::logger_name_ = "logger_"+getFormatTime();
+    AlgorithmLogger *AlgorithmLogger::instance = nullptr; //new AlgorithmLogger();
+    std::string AlgorithmLogger::logger_name_ = "logger_" + getFormatTime();
 
     AlgorithmLogger *AlgorithmLogger::getInstance() {
         static std::once_flag oc;// call once local static variable.

@@ -32,9 +32,9 @@ int main() {
                             ).count()
                     ) << std::endl;
 
-
+                    AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
                     for (int j = 0; j < 1000; ++j) {
-                        AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
+
                         std::cout << logger_ptr->getName() << std::endl;
                         AWF::AbstractEvent t_event("test");
                         t_event.setData(Eigen::Matrix4d::Identity());
