@@ -60,10 +60,9 @@ namespace AWF {
          */
         bool addEvent(const AbstractEvent &e) {
             try {
-                std::unique_lock<std::mutex> lk(queue_mutex_);
+                std::lock_guard<std::mutex> lk(queue_mutex_);
                 event_queue_.push_back(e);
                 queue_conditional_var_.notify_all();
-//                lk.unlock();
 
             } catch (std::exception &e) {
                 std::cout << __FILE__
@@ -76,13 +75,13 @@ namespace AWF {
         }
 
     protected:
-        std::deque<AbstractEvent> event_queue_ = std::deque<AbstractEvent>();
+        static std::deque<AbstractEvent> event_queue_;
 
-        std::string logger_name_;
+        static std::string logger_name_;
 
-        mutable std::mutex queue_mutex_;
+        static mutable std::mutex queue_mutex_;
 
-        std::condition_variable queue_conditional_var_;
+        static std::condition_variable queue_conditional_var_;
 
         static std::thread *out_thread_ptr_;
         // = new std::thread(outputThread,queue_mutex_, event_queue_);
@@ -93,7 +92,8 @@ namespace AWF {
          * default constructor function.
          */
         AlgorithmLogger() :
-                logger_name_("logger_" + getFormatTime()) {
+                logger_name_("logger_" + getFormatTime()),
+        event_queue_(){
 
         }
 //    AlgorithmLogger(){}
