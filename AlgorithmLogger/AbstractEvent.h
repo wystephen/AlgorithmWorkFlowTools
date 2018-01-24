@@ -44,8 +44,6 @@ namespace AWF {
          */
         bool setData(Eigen::MatrixXd m) {
             try {
-                Eigen::IOFormat OctaveFmt(Eigen::StreamPrecision,
-                                          0, ", ", ";", "", "", "[", "]");
                 std::stringstream ss;
                 ss << "{";
                 ss << m.format(OctaveFmt);
@@ -109,6 +107,8 @@ namespace AWF {
         double event_time_stamp_ = 0.0;
         std::string data_string_ = "";
 
+        Eigen::IOFormat OctaveFmt= Eigen::IOFormat(Eigen::StreamPrecision,
+        0, ", ", ";", "", "", "[", "]");
     };
 }
 

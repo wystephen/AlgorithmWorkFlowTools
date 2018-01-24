@@ -23,23 +23,6 @@
 namespace AWF {
 
 
-//    /**
-//     *
-//     * @param m mutex
-//     * @param eq event queue
-//     */
-//    void outputThread(std::mutex &m,
-//                      std::deque<AbstractEvent> &eq) {
-//        while (true) {
-//            std::unique_lock<std::mutex> lk(m);
-//
-//            auto tmp_event = eq.front();
-//            std::cout << tmp_event.toString() << std::endl;
-//            lk.unlock();
-//        }
-//
-//    }
-
     /**
      *  out thread
      * @param m
@@ -74,19 +57,31 @@ namespace AWF {
         bool addEvent(AbstractEvent &e) {
             try {
                 AbstractEvent tmp_e = e;
-                auto t = new std::thread([&]() {
-//                    std::lock_guard<std::mutex> lk(queue_mutex_);
-                    queue_mutex_.lock();
-                    std::cout << thread_counter++
-                              << ":"
-                              << logger_name_
-                              << tmp_e.toString()
-                              << std::endl;
-                    std::cout.flush();
-                    queue_mutex_.unlock();
+                auto t = std::thread([&]() {
+//                    std::unique_lock<std::mutex> ulock(queue_mutex_);
+                    try {
+                        queue_mutex_.lock();
+                        std::cout << thread_counter++
+                                  << ":"
+                                  << logger_name_
+                                  << tmp_e.toString()
+                                  << std::endl;
+                        std::cout.flush();
+                        queue_mutex_.unlock();
+                    } catch (std::exception &e) {
+                        std::cerr << __FILE__
+                                  << ":"
+                                  << __LINE__
+                                  << ":"
+                                  << e.what()
+                                  << std::endl;
+                    }
+
                 });
 //                t->detach();
-//                std::cout << e.toString() << std::endl;
+                t.detach();
+//                t.join();
+//                delete t;
 
             } catch (std::exception &e) {
                 std::cout << __FILE__
@@ -117,7 +112,8 @@ namespace AWF {
         /**
          * default constructor function.
          */
-        AlgorithmLogger() {}
+        AlgorithmLogger():
+                queue_mutex_(){}
 
         /**
          *

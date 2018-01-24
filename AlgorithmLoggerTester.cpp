@@ -24,7 +24,7 @@ int main() {
 
     for (int i = 0; i < 1000; i++) {
         try {
-            std::thread t([] {
+            std::thread t([i] {
                 try {
                     std::cout << double(
                             std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -36,9 +36,13 @@ int main() {
                     usleep(100000);
                     for (int j = 0; j < 100; ++j) {
 
-//                        std::cout << logger_ptr->getName() << std::endl;
-                        AWF::AbstractEvent t_event("test");
-                        t_event.setData(Eigen::Matrix4d::Identity());
+                        AWF::AbstractEvent t_event("test_"
+                                                   + std::to_string(i)
+                                                   + "_"
+                                                   + std::to_string(j)
+                                                   + "_");
+                        auto matrix = Eigen::Matrix4d::Identity();
+                        t_event.setData(matrix);
                         logger_ptr->addEvent(t_event);
                     }
                 } catch (std::exception &e) {
