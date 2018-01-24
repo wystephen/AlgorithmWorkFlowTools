@@ -5,6 +5,7 @@
 #ifndef ALGORITHMWORKFLOWTOOLS_ALGORITHMLOGGER_H
 #define ALGORITHMWORKFLOWTOOLS_ALGORITHMLOGGER_H
 
+
 #include <iostream>
 #include <queue>
 #include <deque>
@@ -20,10 +21,29 @@
  * Singleton !!!!!
  */
 namespace AWF {
+
+
+    /**
+     *
+     * @param m mutex
+     * @param eq event queue
+     */
+    void outputThread(std::mutex &m,
+                      std::deque<AbstractEvent> &eq) {
+        while (true) {
+            std::unique_lock<std::mutex> lk(m);
+
+            auto tmp_event = eq.front();
+            std::cout << tmp_event.toString() << std::endl;
+            lk.unlock();
+        }
+
+    }
+
     class AlgorithmLogger {
         //TODO: RTTI
     public:
-        AlgorithmLogger *getInstance();
+        static AlgorithmLogger *getInstance();
 
 
         std::string getName() {
@@ -43,7 +63,7 @@ namespace AWF {
                 std::unique_lock<std::mutex> lk(queue_mutex_);
                 event_queue_.push_back(e);
                 queue_conditional_var_.notify_all();
-                lk.unlock();
+//                lk.unlock();
 
             } catch (std::exception &e) {
                 std::cout << __FILE__
@@ -64,29 +84,8 @@ namespace AWF {
 
         std::condition_variable queue_conditional_var_;
 
-        std::thread out_thread_;
-
-        /**
-         * out through thread
-         * @return
-         */
-        void outputThread() {
-            while (true) {
-                std::unique_lock<std::mutex> lk(queue_mutex_);
-                queue_conditional_var_.wait(
-                        lk,
-                        [](std::deque<AWF::AbstractEvent> &e_queue
-                        ) {
-
-                            auto tmp_event = e_queue.front();
-                            std::cout << tmp_event.toString() << std::endl;
-                            return true;
-                        }(event_queue_)
-                );
-                lk.unlock();
-            }
-
-        }
+        static std::thread *out_thread_ptr_;
+        // = new std::thread(outputThread,queue_mutex_, event_queue_);
 
 
     private:
@@ -94,11 +93,7 @@ namespace AWF {
          * default constructor function.
          */
         AlgorithmLogger() :
-                logger_name_("logger_" + getFormatTime()) ,
-        out_thread_([]{std::cout << "initial out thread"<<std::endl;
-        }){//outputThread){
-//            out_thread_ = std::thread(outputThread);
-            out_thread_.detach();
+                logger_name_("logger_" + getFormatTime()) {
 
         }
 //    AlgorithmLogger(){}
@@ -119,7 +114,8 @@ namespace AWF {
          */
         AlgorithmLogger &operator=(const AlgorithmLogger &);
 
-         AlgorithmLogger *instance;
+        static AlgorithmLogger *instance;
+
     };
 
 }
