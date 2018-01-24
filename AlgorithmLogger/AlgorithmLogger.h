@@ -23,7 +23,7 @@ namespace AWF {
     class AlgorithmLogger {
         //TODO: RTTI
     public:
-        static AlgorithmLogger *getInstance();
+        AlgorithmLogger *getInstance();
 
 
         std::string getName() {
@@ -70,7 +70,7 @@ namespace AWF {
          * out through thread
          * @return
          */
-        bool outputThread() {
+        void outputThread() {
             while (true) {
                 std::unique_lock<std::mutex> lk(queue_mutex_);
                 queue_conditional_var_.wait(
@@ -94,8 +94,10 @@ namespace AWF {
          * default constructor function.
          */
         AlgorithmLogger() :
-                logger_name_("logger_" + getFormatTime()) {
-            out_thread_ = std::thread(outputThread);
+                logger_name_("logger_" + getFormatTime()) ,
+        out_thread_([]{std::cout << "initial out thread"<<std::endl;
+        }){//outputThread){
+//            out_thread_ = std::thread(outputThread);
             out_thread_.detach();
 
         }
@@ -104,7 +106,7 @@ namespace AWF {
         /**
          *
          */
-        ~AlgorithmLogger() {}
+//        ~AlgorithmLogger() {}
 
         /**
          * Set constructor function as private, avoid unnecessary constructor.
@@ -117,7 +119,7 @@ namespace AWF {
          */
         AlgorithmLogger &operator=(const AlgorithmLogger &);
 
-        static AlgorithmLogger *instance;
+         AlgorithmLogger *instance;
     };
 
 }
