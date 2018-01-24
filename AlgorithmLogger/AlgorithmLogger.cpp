@@ -38,5 +38,13 @@ namespace AWF {
         return instance;
     }
 
+    int AlgorithmLogger::getThread_counter() const {
+        return thread_counter;
+    }
+
+    void AlgorithmLogger::setThread_counter(int thread_counter) {
+        AlgorithmLogger::thread_counter = thread_counter;
+    }
+
 
 }
