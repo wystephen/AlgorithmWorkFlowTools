@@ -73,17 +73,19 @@ namespace AWF {
          */
         bool addEvent(AbstractEvent &e) {
             try {
-                auto t = new std::thread([&](){
+//                AbstractEvent tmp_e = e;
+//                auto t = new std::thread([tmp_e]() {
 //                    std::lock_guard<std::mutex> lk(queue_mutex_);
-                    queue_mutex_.lock();
-                    std::cout << e.toString() << std::endl;
-                    queue_mutex_.unlock();
-                });
-//                auto t = new std::thread(outThread,
-//                                         queue_mutex_,
-//                                         e);
-                t->detach();
-//                std::cout << e.toString() << std::endl;
+//                    queue_mutex_.lock();
+//                    std::cout << logger_name_
+//
+//                              << tmp_e.toString()
+//                              << std::endl;
+//                    std::cout.flush();
+//                    queue_mutex_.unlock();
+//                });
+//                t->detach();
+                std::cout << e.toString() << std::endl;
 
             } catch (std::exception &e) {
                 std::cout << __FILE__
@@ -98,7 +100,7 @@ namespace AWF {
     protected:
         std::deque<AbstractEvent> event_queue_;
 
-        static std::string logger_name_;//= "logger_" + getFormatTime();
+        std::string logger_name_= "logger_" + getFormatTime();
 
         mutable std::mutex queue_mutex_;
 

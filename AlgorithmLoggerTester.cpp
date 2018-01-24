@@ -22,7 +22,7 @@ int main() {
     AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
     std::cout.precision(15);
 
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 1000; i++) {
         try {
             std::thread t([] {
                 try {
@@ -33,9 +33,10 @@ int main() {
                     ) << std::endl;
 
                     AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
-                    for (int j = 0; j < 1000; ++j) {
+                    usleep(100000);
+                    for (int j = 0; j < 100; ++j) {
 
-                        std::cout << logger_ptr->getName() << std::endl;
+//                        std::cout << logger_ptr->getName() << std::endl;
                         AWF::AbstractEvent t_event("test");
                         t_event.setData(Eigen::Matrix4d::Identity());
                         logger_ptr->addEvent(t_event);

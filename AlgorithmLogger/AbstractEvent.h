@@ -27,8 +27,6 @@ namespace AWF {
         }
 
 
-
-
         /**
          * convert the event to string.
          * @return
@@ -47,7 +45,7 @@ namespace AWF {
         bool setData(Eigen::MatrixXd m) {
             try {
                 Eigen::IOFormat OctaveFmt(Eigen::StreamPrecision,
-                                          0, ", ", ";\n", "", "", "[", "]");
+                                          0, ", ", ";", "", "", "[", "]");
                 std::stringstream ss;
                 ss << "{";
                 ss << m.format(OctaveFmt);
