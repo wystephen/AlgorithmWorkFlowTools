@@ -68,7 +68,7 @@ namespace AWF {
                 logger_name_("logger_" + getFormatTime()) {
 
         }
-//    AlgorithmLogger(){}
+    AlgorithmLogger(){}
 
         /**
          * Set constructor function as private, avoid unnecessary constructor.
