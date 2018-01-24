@@ -11,6 +11,7 @@
 
 #include <thread>
 #include <mutex>
+#include <condition_variable>
 #include "AbstractEvent.h"
 
 #include "../UsefulTools/TimeTools.h"
@@ -39,8 +40,10 @@ namespace AWF {
          */
         bool addEvent(const AbstractEvent &e) {
             try {
-                std::lock_guard<std::mutex> lk(queue_mutex_);
+                std::unique_lock<std::mutex> lk(queue_mutex_);
                 event_queue_.push_back(e);
+                queue_conditional_var_.notify_all();
+                lk.unlock();
 
             } catch (std::exception &e) {
                 std::cout << __FILE__
@@ -59,6 +62,30 @@ namespace AWF {
 
         mutable std::mutex queue_mutex_;
 
+        std::condition_variable queue_conditional_var_;
+
+        std::thread* out_thread_;
+
+        /**
+         * out through thread
+         * @return
+         */
+       bool outputThread() {
+            while (true) {
+                std::unique_lock<std::mutex> lk(queue_mutex_);
+                queue_conditional_var_.wait(
+                        lk,
+                        [this](){
+
+                            auto tmp_event = event_queue_.front();
+                            std::cout << tmp_event.toString() << std::endl;
+                        }
+                );
+                lk.unlock();
+            }
+
+        }
+
 
     private:
         /**
@@ -66,9 +93,11 @@ namespace AWF {
          */
         AlgorithmLogger() :
                 logger_name_("logger_" + getFormatTime()) {
+            out_thread_ = new std::thread(outputThread);
+            out_thread_->detach();
 
         }
-    AlgorithmLogger(){}
+//    AlgorithmLogger(){}
 
         /**
          * Set constructor function as private, avoid unnecessary constructor.
