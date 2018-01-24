@@ -17,8 +17,8 @@ namespace AWF {
     }
 
     AlgorithmLogger *AlgorithmLogger::instance = nullptr; //new AlgorithmLogger();
-//    std::string AlgorithmLogger::logger_name_ = "logger_" + getFormatTime();
 
+//    std::mutex AlogirthmLogger::queue_mutex_ = std::mutex();
 
     /**
      * get or create new instance.
