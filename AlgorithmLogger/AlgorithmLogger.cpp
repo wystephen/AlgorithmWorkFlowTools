@@ -18,7 +18,9 @@ namespace AWF {
 
     AlgorithmLogger *AlgorithmLogger::instance = nullptr; //new AlgorithmLogger();
 
-//    std::mutex AlogirthmLogger::queue_mutex_ = std::mutex();
+//    std::mutex AlgorithmLogger::queue_mutex_ ;
+
+//    int thread_counter = 0;
 
     /**
      * get or create new instance.

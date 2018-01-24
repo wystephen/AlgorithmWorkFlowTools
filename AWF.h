@@ -12,4 +12,8 @@
 #include "AlgorithmLogger/AlgorithmLogger.cpp"
 
 
+#include "UsefulTools/ErrorTools.h"
+#include "UsefulTools/TimeTools.h"
+
+
 #endif //ALGORITHMWORKFLOWTOOLS_AWF_H

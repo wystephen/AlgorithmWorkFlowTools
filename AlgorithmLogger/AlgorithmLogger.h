@@ -57,19 +57,17 @@ namespace AWF {
         bool addEvent(AbstractEvent &e) {
             try {
                 AbstractEvent tmp_e = e;
-                auto t = std::thread([&]() {
+                auto t = std::thread([&] {
 //                    std::unique_lock<std::mutex> ulock(queue_mutex_);
                     try {
-//                        queue_mutex_.lock();
-                        while (!queue_mutex_.try_lock()) {
-                            std::cout << thread_counter++
-                                      << ":"
-                                      << logger_name_
-                                      << tmp_e.toString()
-                                      << std::endl;
-                            std::cout.flush();
-                            queue_mutex_.unlock();
-                        }
+                        queue_mutex_.lock();
+                        std::cout << thread_counter++
+                                  << ":"
+                                  << logger_name_
+                                  << tmp_e.toString()
+                                  << std::endl;
+                        std::cout.flush();
+                        queue_mutex_.unlock();
 
                     } catch (std::exception &e) {
                         std::cerr << __FILE__
@@ -81,8 +79,8 @@ namespace AWF {
                     }
 
                 });
-                t.detach();
-//                t.join();
+//                t.detach();
+                t.join();
 
             } catch (std::exception &e) {
                 std::cout << __FILE__
@@ -101,7 +99,7 @@ namespace AWF {
 
         std::mutex queue_mutex_;
 
-        int thread_counter = 0;
+        int thread_counter;// = 0;
     public:
         int getThread_counter() const;
 
@@ -117,8 +115,7 @@ namespace AWF {
         /**
          * default constructor function.
          */
-        AlgorithmLogger() :
-                queue_mutex_() {}
+        AlgorithmLogger() {}
 
         /**
          *
