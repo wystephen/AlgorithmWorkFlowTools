@@ -64,7 +64,7 @@ namespace AWF {
 
         std::condition_variable queue_conditional_var_;
 
-        std::thread* out_thread_;
+        std::thread* out_thread_= nullptr;
 
         /**
          * out through thread
@@ -75,9 +75,9 @@ namespace AWF {
                 std::unique_lock<std::mutex> lk(queue_mutex_);
                 queue_conditional_var_.wait(
                         lk,
-                        [this](){
+                        [&](){
 
-                            auto tmp_event = event_queue_.front();
+                            auto tmp_event = this->event_queue_.front();
                             std::cout << tmp_event.toString() << std::endl;
                         }
                 );
