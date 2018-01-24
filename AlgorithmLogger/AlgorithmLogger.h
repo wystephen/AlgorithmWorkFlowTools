@@ -60,9 +60,13 @@ namespace AWF {
          */
         bool addEvent(const AbstractEvent &e) {
             try {
-                std::lock_guard<std::mutex> lk(queue_mutex_);
-                event_queue_.push_back(e);
-                queue_conditional_var_.notify_all();
+                auto t = new std::thread([&](AbstractEvent e){
+
+                    std::lock_guard<std::mutex> lk(queue_mutex_);
+                    std::cout << e.toString() << std::endl;
+
+                });
+                t->detach();
 
             } catch (std::exception &e) {
                 std::cout << __FILE__
@@ -75,15 +79,15 @@ namespace AWF {
         }
 
     protected:
-        static std::deque<AbstractEvent> event_queue_;
+        std::deque<AbstractEvent> event_queue_;
 
-        static std::string logger_name_;
+        std::string logger_name_;
 
-        static mutable std::mutex queue_mutex_;
+        mutable std::mutex queue_mutex_;
 
         static std::condition_variable queue_conditional_var_;
 
-        static std::thread *out_thread_ptr_;
+//        static std::thread *out_thread_ptr_;
         // = new std::thread(outputThread,queue_mutex_, event_queue_);
 
 
@@ -92,8 +96,8 @@ namespace AWF {
          * default constructor function.
          */
         AlgorithmLogger() :
-                logger_name_("logger_" + getFormatTime()),
-        event_queue_(){
+                logger_name_("logger_" + getFormatTime())
+        {
 
         }
 //    AlgorithmLogger(){}
@@ -114,7 +118,7 @@ namespace AWF {
          */
         AlgorithmLogger &operator=(const AlgorithmLogger &);
 
-        static AlgorithmLogger *instance;
+        static AlgorithmLogger *instance;//= nullptr;
 
     };
 

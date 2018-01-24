@@ -26,9 +26,9 @@ namespace AWF {
 
             if (instance == nullptr) {
                 instance = new AlgorithmLogger();
-                out_thread_ptr_ = new std::thread(outputThread,
-                                                  queue_mutex_, event_queue_);
-                out_thread_ptr_->detach();
+//                out_thread_ptr_ = new std::thread(outputThread,
+//                                                  queue_mutex_, event_queue_);
+//                out_thread_ptr_->detach();
             }
         });
         return instance;
