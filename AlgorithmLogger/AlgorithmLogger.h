@@ -75,13 +75,14 @@ namespace AWF {
                 std::unique_lock<std::mutex> lk(queue_mutex_);
                 queue_conditional_var_.wait(
                         lk,
-                        [&]() {
+                        [](std::queue<AWF::AbstractEvent> &e_queue
+                        ) {
 
-                            auto tmp_event = event_queue_.front();
+                            auto tmp_event = e_queue.front();
                             std::cout << tmp_event.toString() << std::endl;
                             return true;
                         }
-                );
+                )(event_queue_);
                 lk.unlock();
             }
 
@@ -94,7 +95,7 @@ namespace AWF {
          */
         AlgorithmLogger() :
                 logger_name_("logger_" + getFormatTime()) {
-            out_thread_=std::thread(outputThread);
+            out_thread_ = std::thread(outputThread);
             out_thread_.detach();
 
         }
