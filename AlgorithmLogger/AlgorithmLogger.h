@@ -23,22 +23,22 @@
 namespace AWF {
 
 
-    /**
-     *
-     * @param m mutex
-     * @param eq event queue
-     */
-    void outputThread(std::mutex &m,
-                      std::deque<AbstractEvent> &eq) {
-        while (true) {
-            std::unique_lock<std::mutex> lk(m);
-
-            auto tmp_event = eq.front();
-            std::cout << tmp_event.toString() << std::endl;
-            lk.unlock();
-        }
-
-    }
+//    /**
+//     *
+//     * @param m mutex
+//     * @param eq event queue
+//     */
+//    void outputThread(std::mutex &m,
+//                      std::deque<AbstractEvent> &eq) {
+//        while (true) {
+//            std::unique_lock<std::mutex> lk(m);
+//
+//            auto tmp_event = eq.front();
+//            std::cout << tmp_event.toString() << std::endl;
+//            lk.unlock();
+//        }
+//
+//    }
 
     class AlgorithmLogger {
         //TODO: RTTI
@@ -47,7 +47,6 @@ namespace AWF {
 
 
         std::string getName() {
-//            return "name";
             return logger_name_;
         }
 
@@ -58,15 +57,14 @@ namespace AWF {
          * @param e
          * @return
          */
-        bool addEvent(const AbstractEvent &e) {
+        bool addEvent(AbstractEvent &e) {
             try {
-                auto t = new std::thread([&](AbstractEvent e){
-
+                auto t = new std::thread([&](){
                     std::lock_guard<std::mutex> lk(queue_mutex_);
                     std::cout << e.toString() << std::endl;
-
                 });
                 t->detach();
+//                std::cout << e.toString() << std::endl;
 
             } catch (std::exception &e) {
                 std::cout << __FILE__
@@ -81,11 +79,11 @@ namespace AWF {
     protected:
         std::deque<AbstractEvent> event_queue_;
 
-        std::string logger_name_;
+        static std::string logger_name_ ;//= "logger_" + getFormatTime();
 
         mutable std::mutex queue_mutex_;
 
-        static std::condition_variable queue_conditional_var_;
+//        static std::condition_variable queue_conditional_var_;
 
 //        static std::thread *out_thread_ptr_;
         // = new std::thread(outputThread,queue_mutex_, event_queue_);
@@ -95,12 +93,7 @@ namespace AWF {
         /**
          * default constructor function.
          */
-        AlgorithmLogger() :
-                logger_name_("logger_" + getFormatTime())
-        {
-
-        }
-//    AlgorithmLogger(){}
+        AlgorithmLogger() {}
 
         /**
          *
