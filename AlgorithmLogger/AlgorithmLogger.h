@@ -75,14 +75,14 @@ namespace AWF {
                 std::unique_lock<std::mutex> lk(queue_mutex_);
                 queue_conditional_var_.wait(
                         lk,
-                        [](std::queue<AWF::AbstractEvent> &e_queue
+                        [](std::deque<AWF::AbstractEvent> &e_queue
                         ) {
 
                             auto tmp_event = e_queue.front();
                             std::cout << tmp_event.toString() << std::endl;
                             return true;
-                        }
-                )(event_queue_);
+                        }(event_queue_)
+                );
                 lk.unlock();
             }
 
@@ -100,6 +100,11 @@ namespace AWF {
 
         }
 //    AlgorithmLogger(){}
+
+        /**
+         *
+         */
+        ~AlgorithmLogger() {}
 
         /**
          * Set constructor function as private, avoid unnecessary constructor.
