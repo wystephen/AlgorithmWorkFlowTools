@@ -15,5 +15,7 @@
 #include "UsefulTools/ErrorTools.h"
 #include "UsefulTools/TimeTools.h"
 
+#include "UsefulTools/matplotlibcpp.h"
+
 
 #endif //ALGORITHMWORKFLOWTOOLS_AWF_H

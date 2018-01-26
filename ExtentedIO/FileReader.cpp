@@ -173,12 +173,18 @@ namespace AWF {
                     l_index = r_index + 1;
                 }
             }
-        }catch(std::exception e){
+        } catch (std::exception e) {
             std::cout << __FUNCTION__
                       << ":"
-                      << __FILE__ << ":" << __LINE__
-                                         << " :"
-                                         << e.what() << std::endl;
+                      << __FILE__
+                      << ":"
+                      << __LINE__
+                      << " :"
+                      << e.what()
+                      << file_name_
+                      << ":"
+                      << file_size_
+                      << std::endl;
         }
 
 

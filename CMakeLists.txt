@@ -24,6 +24,7 @@ if (OPENMP_FOUND)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif ()
 
+find_package(PythonLibs 3.5)
 
 #Eigen
 find_package(Eigen3 REQUIRED)
@@ -79,6 +80,7 @@ include_directories(
         ${Cholmod_INCLUDE_DIR}
         ${SuiteSparse_INCLUDE_DIR}
         ${GTSAM_INCLUDE_DIR}
+        ${PYTHON_INCLUDE_DIRS}
 )
 
 link_directories(
@@ -88,6 +90,7 @@ link_directories(
         ${BLAS_LIBRARIES}
         ${LAPACK_LIBRARIES}
         ./include
+        ${PYTHON_LIBRARIES}
 )
 
 
