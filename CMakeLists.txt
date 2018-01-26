@@ -109,3 +109,7 @@ add_executable(FileTester FileTester.cpp)
 # add library.
 
 add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp ExtentedIO/FileWriter.cpp ExtentedIO/FileWriter.h)
+#add_library(AWFLib AWF.h)
+#add_library(PLT UsefulTools/matplotlibcpp.h)
+#target_link_libraries(PLT ${PYTHON_LIBRARIES})
+#target_link_libraries(AWFLib ${PYTHON_LIBRARIES})
