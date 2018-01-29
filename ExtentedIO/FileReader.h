@@ -81,7 +81,7 @@ namespace AWF {
     protected:
         long file_size_ = -1;//Defaul value is -1,when get size from file false set value as -1.
 
-        char *file_buf_;// buffer of file.
+        char *file_buf_ = nullptr;// buffer of file.
 
         /**
          *

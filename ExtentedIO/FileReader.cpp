@@ -135,6 +135,11 @@ namespace AWF {
 //                std::cout << rows << std::endl;
                 }
             }
+            if (tmp_str[tmp_str.size() - 1] == '\n') {
+//                rows -= 1;
+            }else{
+                rows++;
+            }
         } catch (...) {
             std::cout << __FILE__ << ":" << __LINE__ << std::endl;
         }
@@ -150,7 +155,8 @@ namespace AWF {
 
         int l_index(0), r_index(0);
         try {
-            for (int index(0); index < tmp_str.size(); ++index) {
+            int index;
+            for (index=0; index < tmp_str.size(); ++index) {
 
                 if (tmp_str.compare(index, delimiter.size(), delimiter) ==
                     0 //index == tmp_str.substr(index,delimiter.size()) //tmp_str.find_first_of(delimiter,index)//,index+delimiter.size()+1)
