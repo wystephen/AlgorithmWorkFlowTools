@@ -36,6 +36,8 @@
 namespace AWF {
     /**
      * Extremely quick non-parallel file reader.
+     * * load file as string in function.
+     * * convert string to .csv file.(or any other delimiter(ie. ',', ' ', ':')
      */
     class FileReader {
     public:

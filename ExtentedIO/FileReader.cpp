@@ -54,7 +54,8 @@ namespace AWF {
             file_name_ = file_name;
             return true;
         } else {
-            std::cerr << "file name is empty" << std::endl;
+            std::cerr << "file_name:" << file_name;
+            std::cerr << "is empty" << std::endl;
             return false;
         }
     }
