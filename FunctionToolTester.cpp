@@ -21,24 +21,17 @@
          佛祖保佑       永无BUG 
 */
 //
-// Created by steve on 18-2-4.
+// Created by steve on 18-2-6.
 //
 
-#ifndef ALGORITHMWORKFLOWTOOLS_FUNCTIONABSTRACT_H
-#define ALGORITHMWORKFLOWTOOLS_FUNCTIONABSTRACT_H
+#include "MathTools/FunctionAbstract.h"
 
-#include <functional>
 #include <Eigen/Dense>
 
-namespace AWF{
- class FunctionAbstract {
- public:
-     FunctionAbstract();
-     std::function<Eigen::MatrixXd(Eigen::MatrixXd&)> func;
 
-};
+int main(){
+    std::cout << " math tool function abstract" << std::endl;
 
+    return 0;
 }
 
-
-#endif //ALGORITHMWORKFLOWTOOLS_FUNCTIONABSTRACT_H

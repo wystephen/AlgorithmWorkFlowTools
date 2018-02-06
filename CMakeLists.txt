@@ -105,6 +105,9 @@ target_link_libraries(AlgorithmLogger)
 
 add_executable(FileTester FileTester.cpp)
 
+add_executable(FunctionToolTester FunctionToolTester.cpp)
+target_link_libraries(FunctionToolTester)
+
 
 # add library.
 
