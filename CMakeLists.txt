@@ -116,3 +116,8 @@ add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp Extente
 #add_library(PLT UsefulTools/matplotlibcpp.h)
 #target_link_libraries(PLT ${PYTHON_LIBRARIES})
 #target_link_libraries(AWFLib ${PYTHON_LIBRARIES})
+
+#add_library(AWF SHARED AWF.h)
+
+#install(TARGET AWF DESTINATION /usr/local/lib)
+
