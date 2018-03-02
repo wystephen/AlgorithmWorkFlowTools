@@ -107,8 +107,8 @@ namespace AWF {
         double event_time_stamp_ = 0.0;
         std::string data_string_ = "";
 
-        Eigen::IOFormat OctaveFmt= Eigen::IOFormat(Eigen::StreamPrecision,
-        0, ", ", ";", "", "", "[", "]");
+        Eigen::IOFormat OctaveFmt = Eigen::IOFormat(Eigen::StreamPrecision,
+                                                    0, ", ", ";", "", "", "[", "]");
     };
 }
 
