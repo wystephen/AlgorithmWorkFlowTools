@@ -107,6 +107,7 @@ namespace AWF {
 
         void outputAllEvent(){
             for(auto iter=event_queue_.begin();iter!=event_queue_.end();++iter){
+
                 std::cout << iter->toString() << std::endl;
             }
             std::cout << "queue size: " << event_queue_.size() << std::endl;
