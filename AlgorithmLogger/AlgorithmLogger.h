@@ -61,12 +61,13 @@ namespace AWF {
 //                    std::unique_lock<std::mutex> ulock(queue_mutex_);
                     try {
                         queue_mutex_.lock();
-                        std::cout << thread_counter++
-                                  << ":"
-                                  << logger_name_
-                                  << tmp_e.toString()<<'\n';
+//                        std::cout << thread_counter++
+//                                  << ":"
+//                                  << logger_name_
+//                                  << tmp_e.toString()<<'\n';
 //                                  << std::endl;
 //                        std::cout.flush();
+                        event_queue_.push_back(tmp_e);
                         queue_mutex_.unlock();
 
                     } catch (std::exception &e) {
@@ -103,6 +104,13 @@ namespace AWF {
         int getThread_counter() const;
 
         void setThread_counter(int thread_counter);
+
+        void outputAllEvent(){
+            for(auto iter=event_queue_.begin();iter!=event_queue_.end();++iter){
+                std::cout << iter->toString() << std::endl;
+            }
+            std::cout << "queue size: " << event_queue_.size() << std::endl;
+        }
 
 //        static std::condition_variable queue_conditional_var_;
 

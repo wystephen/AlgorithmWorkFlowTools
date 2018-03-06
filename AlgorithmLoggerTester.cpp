@@ -60,6 +60,7 @@ int main() {
     sleep(1);
     std::cout << "logger counter : "
               << logger_ptr->getThread_counter() << std::endl;
+    logger_ptr->outputAllEvent();
 
 
     int k(0);
