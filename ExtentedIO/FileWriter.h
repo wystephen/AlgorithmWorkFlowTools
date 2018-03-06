@@ -6,12 +6,11 @@
 #define ALGORITHMWORKFLOWTOOLS_FILEWRITER_H
 
 
-namespace AWF{
-  class FileWriter {
+namespace AWF {
+    class FileWriter {
 
-};
+    };
 }
-
 
 
 #endif //ALGORITHMWORKFLOWTOOLS_FILEWRITER_H
