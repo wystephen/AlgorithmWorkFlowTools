@@ -79,16 +79,17 @@ namespace AWF {
                     }
 
                 });
-//                t.detach();
-                t.join();
+                t.detach();
+//                t.join();
 
             } catch (std::exception &e) {
-                std::cout << __FILE__
-                          << ":"
-                          << __LINE__
-                          << ":"
-                          << e.what()
-                          << std::endl;
+//                std::cout << __FILE__
+//                          << ":"
+//                          << __LINE__
+//                          << ":"
+//                          << e.what()
+//                          << std::endl;
+                ERROR_MSG_FLAG(e.what());
             }
         }
 
