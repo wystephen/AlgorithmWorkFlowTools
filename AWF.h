@@ -8,6 +8,8 @@
 #include "ExtentedIO/FileReader.h"
 #include "ExtentedIO/FileReader.cpp"
 
+#include "ExtentedIO/WriteToCsv.h"
+
 #include "AlgorithmLogger/AlgorithmLogger.h"
 #include "AlgorithmLogger/AlgorithmLogger.cpp"
 
