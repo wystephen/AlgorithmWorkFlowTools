@@ -57,30 +57,27 @@ namespace AWF {
         bool addEvent(AbstractEvent &e) {
             try {
                 AbstractEvent tmp_e = e;
-                auto t = std::thread([&] {
+                auto t = std::thread([&](AbstractEvent tmp_e) {
 //                    std::unique_lock<std::mutex> ulock(queue_mutex_);
                     try {
                         queue_mutex_.lock();
                         std::cout << thread_counter++
                                   << ":"
                                   << logger_name_
-                                  << tmp_e.toString()
-                                  << std::endl;
-                        std::cout.flush();
+                                  << tmp_e.toString()<<'\n';
+//                                  << std::endl;
+//                        std::cout.flush();
                         queue_mutex_.unlock();
 
                     } catch (std::exception &e) {
-                        std::cerr << __FILE__
-                                  << ":"
-                                  << __LINE__
-                                  << ":"
-                                  << e.what()
-                                  << std::endl;
+                        ERROR_MSG_FLAG(e.what());
                     }
 
-                });
+
+                }, tmp_e);
                 t.detach();
 //                t.join();
+                return true;
 
             } catch (std::exception &e) {
 //                std::cout << __FILE__
@@ -90,6 +87,7 @@ namespace AWF {
 //                          << e.what()
 //                          << std::endl;
                 ERROR_MSG_FLAG(e.what());
+                return false;
             }
         }
 

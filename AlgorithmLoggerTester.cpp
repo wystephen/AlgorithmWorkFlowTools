@@ -33,7 +33,7 @@ int main() {
                     ) << std::endl;
 
                     AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
-                    usleep(100000);
+                    usleep(100);
                     for (int j = 0; j < 100; ++j) {
 
                         AWF::AbstractEvent t_event("test_"
