@@ -99,7 +99,7 @@ namespace AWF {
             for (int i(0); i < matrix.rows(); i++) {
                 out_file << matrix.block(i, 0, 1, matrix.cols());
                 if (i < matrix.rows() - 1) {
-                    out_file << "\n"
+                    out_file << "\n";
                 }
             }
             out_file.flush();
