@@ -32,6 +32,8 @@
 #include <fstream>
 #include <assert.h>
 
+#include <Eigen/Dense>
+
 #include "../UsefulTools/ErrorTools.h"
 
 namespace AWF {
@@ -47,7 +49,7 @@ namespace AWF {
                            std::vector<std::vector<T>> &src_data) {
         if (src_data.size() > 0) {
             for (int i(0); i < src_data.size(); ++i) {
-                assert(src_data[i].size == src_data[0].size());
+                assert(src_data[i].size() == src_data[0].size());
             }
         }
 
@@ -58,12 +60,12 @@ namespace AWF {
             std::ofstream out_file(file_name);
             for (int i(0); i < rows; ++i) {
                 for (int j(0); j < cols; ++j) {
-                    out_file << src_data[i][j];
+                    out_file << src_data[j][i];
                     if (j < cols - 1) {
                         out_file << ",";
                     }
                 }
-                if (i < rows - 1) {
+                if (i < cols - 1) {
                     out_file << "\n";
                 } else {
                     out_file << std::endl;
@@ -80,6 +82,35 @@ namespace AWF {
 
         return true;
 
+
+    }
+
+
+    /**
+     *
+     * @param file_name
+     * @param matrix
+     * @return
+     */
+    bool writeMatrixToCsv(std::string file_name,
+                          Eigen::MatrixXd &matrix) {
+        try {
+            std::ofstream out_file(file_name);
+            for (int i(0); i < matrix.rows(); i++) {
+                out_file << matrix.block(i, 0, 1, matrix.cols());
+                if (i < matrix.rows() - 1) {
+                    out_file << "\n"
+                }
+            }
+            out_file.flush();
+            out_file.close();
+
+
+        } catch (std::exception &e) {
+            ERROR_MSG_FLAG(e.what());
+            return false;
+        }
+        return true;
 
     }
 }
