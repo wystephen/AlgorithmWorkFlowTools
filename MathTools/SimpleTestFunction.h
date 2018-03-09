@@ -48,6 +48,13 @@ namespace AWF {
             return out;
         }
 
+        std::vector<Eigen::MatrixXd> derivative(Eigen::MatrixXd in1, Eigen::MatrixXd in2){
+            std::vector<Eigen::MatrixXd> in_vec;
+            in_vec.push_back(in1);
+            in_vec.push_back(in2);
+            return d(in_vec);
+        }
+
 
     };
 }

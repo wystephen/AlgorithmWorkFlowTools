@@ -46,9 +46,9 @@ int main() {
 
     std::vector<Eigen::MatrixXd> jac_vec;
     std::vector<Eigen::MatrixXd>  p_vec;
-    p_vec.push_back(xy);
-    p_vec.push_back(zt);
-    jac_vec = f.d(p_vec);
+//    p_vec.push_back(xy);
+//    p_vec.push_back(zt);
+    jac_vec = f.derivative(xy,zt);
     for(auto iter = jac_vec.begin();iter!=jac_vec.end();++iter){
         std::cout << *iter << std::endl;
     }
