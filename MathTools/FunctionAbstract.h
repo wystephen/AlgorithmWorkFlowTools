@@ -28,6 +28,7 @@
 #define ALGORITHMWORKFLOWTOOLS_FUNCTIONABSTRACT_H
 
 #include <functional>
+#include <tuple>
 #include <Eigen/Dense>
 
 namespace AWF{
@@ -35,6 +36,8 @@ namespace AWF{
  public:
      FunctionAbstract();
      std::function<Eigen::MatrixXd(Eigen::MatrixXd&)> func;
+
+
 
 };
 
