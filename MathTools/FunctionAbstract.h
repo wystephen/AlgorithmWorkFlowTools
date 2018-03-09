@@ -59,7 +59,7 @@ namespace AWF {
         virtual OVec operator()(std::vector<Vec> in_vec) {
             std::cout << "empty operator function" << std::endl;
 //            return OVec::Zero();
-            OVec t(1,1);
+            OVec t(1, 1);
             return t;
         }
 
@@ -78,6 +78,34 @@ namespace AWF {
                 jac_vec.push_back(tmp_jac);
             }
             return jac_vec;
+
+        }
+
+
+        std::vector<Vec> minimize(std::vector<Vec> in_vec,
+                                  int max_iter_num = 1000,
+                                  double learning_rate = 1e-5) {
+            auto init_vec(in_vec);
+
+            Eigen::MatrixXd weight(OutDim, 1);
+            weight.setOnes();
+            weight /= weight.sum();
+
+            Eigen::MatrixXd update_res(OutDim, 1);
+
+            int iter_num = 0;
+            while (iter_num < max_iter_num) {
+                auto jac_vec = this->d(init_vec);
+                for (int i(0); i < jac_vec.size(); ++i) {
+                    init_vec[i] -= learning_rate * jac_vec[i].transpose() * weight;
+                }
+                std::cout << iter_num
+                          << ":"
+                          << this->operator()(init_vec) << std::endl;
+                iter_num++;
+            }
+
+            return init_vec;
 
         }
 
