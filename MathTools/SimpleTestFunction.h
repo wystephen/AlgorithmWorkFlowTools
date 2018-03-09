@@ -29,7 +29,7 @@
 
 
 namespace AWF {
-    class SimpleTestFunction : public FunctionAbstract<2, 2> {
+    class SimpleTestFunction : public FunctionAbstract<1, 2> {
     public:
         SimpleTestFunction() : FunctionAbstract() {
 
@@ -40,11 +40,11 @@ namespace AWF {
         }
 
         Eigen::MatrixXd compute(Eigen::MatrixXd xy, Eigen::MatrixXd zt) {
-            Eigen::MatrixXd out(2,1);
+            Eigen::MatrixXd out(1,1);
             Eigen::Matrix2d p1, p2;
             p1 << 2.0, 0.0, 0.0, 3.0;
             p2 << 4.0, 0.0, 0.0, 5.0;
-            out = p1 * xy + p2 * zt;
+            out = xy.transpose() * xy + zt.transpose() * zt;
             return out;
         }
 

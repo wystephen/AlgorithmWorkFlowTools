@@ -42,6 +42,13 @@ namespace AWF {
 
         double epsilon_ = 1e-5;
 
+        double getEpsilon_() const {
+            return epsilon_;
+        }
+
+        void setEpsilon_(double epsilon_) {
+            FunctionAbstract::epsilon_ = epsilon_;
+        }
 
 
         FunctionAbstract() {
