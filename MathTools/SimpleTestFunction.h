@@ -29,13 +29,13 @@
 
 
 namespace AWF {
-    class SimpleTestFunction : public FunctionAbstract<1, 2> {
+    class SimpleTestFunction : public FunctionAbstract{
     public:
-        SimpleTestFunction() : FunctionAbstract() {
+        SimpleTestFunction() : FunctionAbstract(1,2) {
 
         }
 
-        Eigen::MatrixXd operator()(std::vector<Vec> in_vec) {
+        Eigen::MatrixXd operator()(std::vector<Eigen::MatrixXd> in_vec) {
             return compute(in_vec[0], in_vec[1]);
         }
 

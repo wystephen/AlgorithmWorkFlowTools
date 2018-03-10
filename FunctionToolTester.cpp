@@ -54,6 +54,7 @@ int main() {
     }
 
     auto min_vec = f.minimize(p_vec,100,0.01);
+    std::cout << f.compute(min_vec[0],min_vec[1]) << std::endl;
 
 
     return 0;

@@ -32,15 +32,17 @@
 #include <Eigen/Dense>
 
 namespace AWF {
-    template<int OutDim, int InNumber>
+//    template<int OutDim, int InNumber>
     class FunctionAbstract {
     public:
 
-        typedef Eigen::MatrixXd Vec;
-        typedef Eigen::MatrixXd OVec;
-        typedef Eigen::MatrixXd JacM;
+//        typedef Eigen::MatrixXd Vec;
+//        typedef Eigen::MatrixXd OVec;
+//        typedef Eigen::MatrixXd JacM;
 
         double epsilon_ = 1e-5;
+        int OutDim = 1;
+        int InNumber = 1;
 
         double getEpsilon_() const {
             return epsilon_;
@@ -51,27 +53,29 @@ namespace AWF {
         }
 
 
-        FunctionAbstract() {
+        FunctionAbstract(int out_dim, int in_number) {
+            OutDim = out_dim;
+            InNumber = in_number;
 
         }
 
 
-        virtual OVec operator()(std::vector<Vec> in_vec) {
+        virtual Eigen::MatrixXd operator()(std::vector<Eigen::MatrixXd> in_vec) {
             std::cout << "empty operator function" << std::endl;
 //            return OVec::Zero();
-            OVec t(1, 1);
+            Eigen::MatrixXd t(1, 1);
             return t;
         }
 
-        std::vector<JacM> d(std::vector<Vec> in_vec) {
-            std::vector<JacM> jac_vec = {};
+        std::vector<Eigen::MatrixXd> d(std::vector<Eigen::MatrixXd> in_vec) {
+            std::vector<Eigen::MatrixXd> jac_vec = {};
 
-            auto src_value = this->operator()(in_vec);
+            auto src_value = operator()(in_vec);
             for (int i(0); i < InNumber; ++i) {
-                JacM tmp_jac(OutDim, in_vec[i].rows());
+                Eigen::MatrixXd tmp_jac(OutDim, in_vec[i].rows());
                 for (int j(0); j < tmp_jac.cols(); ++j) {
                     in_vec[i](j) += epsilon_;
-                    auto tmp_value = this->operator()(in_vec);
+                    auto tmp_value = operator()(in_vec);
                     tmp_jac.block(0, j, tmp_jac.rows(), 1) = (tmp_value - src_value) / epsilon_;
                     in_vec[i](j) -= epsilon_;
                 }
@@ -82,9 +86,9 @@ namespace AWF {
         }
 
 
-        std::vector<Vec> minimize(std::vector<Vec> in_vec,
-                                  int max_iter_num = 1000,
-                                  double learning_rate = 1e-5) {
+        std::vector<Eigen::MatrixXd> minimize(std::vector<Eigen::MatrixXd> in_vec,
+                                              int max_iter_num = 1000,
+                                              double learning_rate = 1e-5) {
             auto init_vec(in_vec);
 
             Eigen::MatrixXd weight(OutDim, 1);
@@ -95,13 +99,13 @@ namespace AWF {
 
             int iter_num = 0;
             while (iter_num < max_iter_num) {
-                auto jac_vec = this->d(init_vec);
+                auto jac_vec = d(init_vec);
                 for (int i(0); i < jac_vec.size(); ++i) {
                     init_vec[i] -= learning_rate * jac_vec[i].transpose() * weight;
                 }
-                std::cout << iter_num
-                          << ":"
-                          << this->operator()(init_vec) << std::endl;
+//                std::cout << iter_num
+//                          << ":"
+//                          << operator()(init_vec) << std::endl;
                 iter_num++;
             }
 
