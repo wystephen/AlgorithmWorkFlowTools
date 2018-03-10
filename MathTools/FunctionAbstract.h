@@ -60,6 +60,11 @@ namespace AWF {
         }
 
 
+        /**
+         * Interface for derivate function.
+         * @param in_vec
+         * @return
+         */
         virtual Eigen::MatrixXd operator()(std::vector<Eigen::MatrixXd> in_vec) {
             std::cout << "empty operator function" << std::endl;
 //            return OVec::Zero();
@@ -67,8 +72,14 @@ namespace AWF {
             return t;
         }
 
+        /**
+         * derivate.
+         * @param in_vec std::vector<Eigen::MatrixXd>
+         * @return
+         */
         std::vector<Eigen::MatrixXd> d(std::vector<Eigen::MatrixXd> in_vec) {
             std::vector<Eigen::MatrixXd> jac_vec = {};
+
 
             auto src_value = operator()(in_vec);
             for (int i(0); i < InNumber; ++i) {
@@ -86,6 +97,14 @@ namespace AWF {
         }
 
 
+        /**
+         * minimize target function. GD (classical)
+         * @param in_vec
+         * @param max_iter_num
+         * @param learning_rate
+         * @param method_type
+         * @return
+         */
         std::vector<Eigen::MatrixXd> minimize(std::vector<Eigen::MatrixXd> in_vec,
                                               int max_iter_num = 1000,
                                               double learning_rate = 1e-5,
