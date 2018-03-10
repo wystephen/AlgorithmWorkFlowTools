@@ -88,7 +88,8 @@ namespace AWF {
 
         std::vector<Eigen::MatrixXd> minimize(std::vector<Eigen::MatrixXd> in_vec,
                                               int max_iter_num = 1000,
-                                              double learning_rate = 1e-5) {
+                                              double learning_rate = 1e-5,
+                                              int method_type = 0) {
             auto init_vec(in_vec);
 
             Eigen::MatrixXd weight(OutDim, 1);
@@ -103,9 +104,6 @@ namespace AWF {
                 for (int i(0); i < jac_vec.size(); ++i) {
                     init_vec[i] -= learning_rate * jac_vec[i].transpose() * weight;
                 }
-//                std::cout << iter_num
-//                          << ":"
-//                          << operator()(init_vec) << std::endl;
                 iter_num++;
             }
 

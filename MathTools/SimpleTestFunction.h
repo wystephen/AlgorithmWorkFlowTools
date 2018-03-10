@@ -29,9 +29,9 @@
 
 
 namespace AWF {
-    class SimpleTestFunction : public FunctionAbstract{
+    class SimpleTestFunction : public FunctionAbstract {
     public:
-        SimpleTestFunction() : FunctionAbstract(1,2) {
+        SimpleTestFunction() : FunctionAbstract(1, 2) {
 
         }
 
@@ -40,7 +40,7 @@ namespace AWF {
         }
 
         Eigen::MatrixXd compute(Eigen::MatrixXd xy, Eigen::MatrixXd zt) {
-            Eigen::MatrixXd out(1,1);
+            Eigen::MatrixXd out(1, 1);
             Eigen::Matrix2d p1, p2;
             p1 << 2.0, 0.0, 0.0, 3.0;
             p2 << 4.0, 0.0, 0.0, 5.0;
@@ -48,7 +48,7 @@ namespace AWF {
             return out;
         }
 
-        std::vector<Eigen::MatrixXd> derivative(Eigen::MatrixXd in1, Eigen::MatrixXd in2){
+        std::vector<Eigen::MatrixXd> derivative(Eigen::MatrixXd in1, Eigen::MatrixXd in2) {
             std::vector<Eigen::MatrixXd> in_vec;
             in_vec.push_back(in1);
             in_vec.push_back(in2);
