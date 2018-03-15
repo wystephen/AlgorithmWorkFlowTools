@@ -40,8 +40,22 @@ namespace AWF {
 
         }
 
-        virtual Eigen::MatrixXd compute(Eigen::MatrixXd in);
 
+        /**
+         * Compute the function..... defined the target function.
+         * @param in
+         * @return
+         */
+        virtual Eigen::MatrixXd compute(Eigen::MatrixXd in) {
+            auto t = Eigen::MatrixXd(OutDim, 1);
+            t.setZero();
+            return t;
+        }
+
+        /**
+         * @param in_vec
+         * @return
+         */
         Eigen::MatrixXd operator()(std::vector<Eigen::MatrixXd> in_vec) {
             return compute(in_vec[0]);
         }
@@ -58,15 +72,23 @@ namespace AWF {
         }
 
 
+        /**
+         * Minimize the function.
+         * @param in
+         * @param max_iter_num
+         * @param learning_rate
+         * @param method_type
+         * @return
+         */
         std::vector<Eigen::MatrixXd> minimize_error(Eigen::MatrixXd in,
-                                              int max_iter_num = 1000,
-                                              double learning_rate = 1e-5,
-                                              int method_type = 0) {
+                                                    int max_iter_num = 1000,
+                                                    double learning_rate = 1e-5,
+                                                    int method_type = 0) {
             return minimize(compress(in), max_iter_num, learning_rate, method_type);
         }
 
         /**
-         *
+         * Transform input to std::vector<Eigen::MatrixXd>
          * @param in
          * @return
          */
@@ -80,9 +102,73 @@ namespace AWF {
     };
 
 
-//    class DualFunctionAbstract:public FunctionAbstract{
-//        public
-//    };
+    class DualFunctionAbstract : public FunctionAbstract {
+    public:
+        DualFunctionAbstract(int out_dim) :
+                FunctionAbstract(out_dim, 2) {
+
+        }
+
+
+        /**
+         * Compute the function..... defined the target function.
+         * @param in
+         * @return
+         */
+        virtual Eigen::MatrixXd compute(Eigen::MatrixXd in1, Eigen::MatrixXd in2) {
+            auto t = Eigen::MatrixXd(OutDim, 1);
+            t.setZero();
+            return t;
+        }
+
+        /**
+         * @param in_vec
+         * @return
+         */
+        Eigen::MatrixXd operator()(std::vector<Eigen::MatrixXd> in_vec) {
+            return compute(in_vec[0], in_vec[1]);
+        }
+
+
+        /**
+         * derivate the function.
+         * @param in
+         * @return
+         */
+        std::vector<Eigen::MatrixXd> derivate(Eigen::MatrixXd in1, Eigen::MatrixXd in2) {
+
+            return d(compress(in1, in2));
+        }
+
+
+        /**
+         * Minimize the function.
+         * @param in
+         * @param max_iter_num
+         * @param learning_rate
+         * @param method_type
+         * @return
+         */
+        std::vector<Eigen::MatrixXd> minimize_error(Eigen::MatrixXd in1,
+                                                    Eigen::MatrixXd in2,
+                                                    int max_iter_num = 1000,
+                                                    double learning_rate = 1e-5,
+                                                    int method_type = 0) {
+            return minimize(compress(in1, in2), max_iter_num, learning_rate, method_type);
+        }
+
+        /**
+         * Transform input to std::vector<Eigen::MatrixXd>
+         * @param in
+         * @return
+         */
+        std::vector<Eigen::MatrixXd> compress(Eigen::MatrixXd in1, Eigen::MatrixXd in2) {
+            std::vector<Eigen::MatrixXd> t = {};
+            t.push_back(in1);
+            t.push_back(in2);
+            return t;
+        }
+    };
 }
 
 

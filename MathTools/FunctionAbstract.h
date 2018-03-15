@@ -63,7 +63,7 @@ namespace AWF {
         virtual Eigen::MatrixXd operator()(std::vector<Eigen::MatrixXd> in_vec) {
             std::cout << "empty operator function" << std::endl;
 //            return OVec::Zero();
-            Eigen::MatrixXd t(1, 1);
+            Eigen::MatrixXd t(OutDim, 1);
             return t;
         }
 
