@@ -32,15 +32,10 @@
 #include <Eigen/Dense>
 
 namespace AWF {
-//    template<int OutDim, int InNumber>
     class FunctionAbstract {
     public:
 
-//        typedef Eigen::MatrixXd Vec;
-//        typedef Eigen::MatrixXd OVec;
-//        typedef Eigen::MatrixXd JacM;
-
-        double epsilon_ = 1e-5;
+        double epsilon_ = 1e-8;
         int OutDim = 1;
         int InNumber = 1;
 
@@ -83,11 +78,21 @@ namespace AWF {
 
             auto src_value = operator()(in_vec);
             for (int i(0); i < InNumber; ++i) {
-                Eigen::MatrixXd tmp_jac(OutDim, in_vec[i].rows());
+                assert(in_vec[i].cols()==1);
+                Eigen::MatrixXd tmp_jac;
+                tmp_jac.resize(OutDim, in_vec[i].rows());
                 for (int j(0); j < tmp_jac.cols(); ++j) {
                     in_vec[i](j) += epsilon_;
                     auto tmp_value = operator()(in_vec);
-                    tmp_jac.block(0, j, tmp_jac.rows(), 1) = (tmp_value - src_value) / epsilon_;
+                    auto t_d = tmp_value-src_value;
+
+//                    std::cout << "t_d:" << t_d << std::endl;
+//                    std::cout << "epsilon:" << epsilon_ << std::endl;
+//                    std::cout << "res:" << t_d / epsilon_ << std::endl;
+                    tmp_jac.block(0, j, tmp_jac.rows(), 1) = t_d / double(epsilon_);
+//                    for(int k(0);k<tmp_jac.rows();++k){
+//                        tmp_jac(k,j) = (tmp_value(k,0)-src_value(k,0))/epsilon_;
+//                    }
                     in_vec[i](j) -= epsilon_;
                 }
                 jac_vec.push_back(tmp_jac);
@@ -95,6 +100,9 @@ namespace AWF {
             return jac_vec;
 
         }
+
+
+//        virtual std::vector<Eigen::MatrixXd> d()
 
 
         /**
