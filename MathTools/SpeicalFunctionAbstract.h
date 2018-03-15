@@ -32,9 +32,9 @@
 #include "FunctionAbstract.h"
 
 namespace AWF {
-    class SingleInFunction : public FunctionAbstract {
+    class SingleFunctionAbstract : public FunctionAbstract {
     public:
-        SingleInFunction(int out_dim) :
+        SingleFunctionAbstract(int out_dim) :
                 FunctionAbstract(out_dim, 1) {
 
         }
@@ -77,6 +77,11 @@ namespace AWF {
 
 
     };
+
+
+//    class DualFunctionAbstract:public FunctionAbstract{
+//        public
+//    };
 }
 
 

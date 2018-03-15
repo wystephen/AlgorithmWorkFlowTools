@@ -22,5 +22,7 @@
 #include "MathTools/FunctionAbstract.h"
 #include "MathTools/FunctionAbstract.cpp"
 
+#include "MathTools/SpeicalFunctionAbstract.h"
+
 
 #endif //ALGORITHMWORKFLOWTOOLS_AWF_H
