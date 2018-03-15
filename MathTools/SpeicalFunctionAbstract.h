@@ -30,6 +30,7 @@
 #include <Eigen/Dense>
 
 #include "FunctionAbstract.h"
+#include "FunctionAbstract.cpp"
 
 namespace AWF {
     class SingleFunctionAbstract : public FunctionAbstract {
@@ -39,10 +40,10 @@ namespace AWF {
 
         }
 
-        virtual Eigen::MatrixXd operator()(Eigen::MatrixXd in);
+        virtual Eigen::MatrixXd compute(Eigen::MatrixXd in);
 
         Eigen::MatrixXd operator()(std::vector<Eigen::MatrixXd> in_vec) {
-            return operator()(in_vec[0]);
+            return compute(in_vec[0]);
         }
 
 
