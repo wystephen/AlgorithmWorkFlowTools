@@ -4,7 +4,7 @@ project(AlgorithmWorkFlowTools)
 set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_BUILD_TOOL Release)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g  -lpthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g -pthread")
 
 #add_subdirectory(./AlgorithmLogger)
 #
@@ -109,12 +109,12 @@ add_executable(FunctionToolTester FunctionToolTester.cpp)
 target_link_libraries(FunctionToolTester)
 
 add_executable(OnlineDrawInterfaceTester OnlineDrawInterfaceTester.cpp)
-target_link_libraries(OnlineDrawInterfaceTester)
+target_link_libraries(OnlineDrawInterfaceTester ${PYTHON_LIBRARIES})
 
 
 # add library.
 
-add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp ExtentedIO/FileWriter.cpp ExtentedIO/FileWriter.h)
+#add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp ExtentedIO/FileWriter.cpp ExtentedIO/FileWriter.h)
 #add_library(AWFLib AWF.h)
 #add_library(PLT UsefulTools/matplotlibcpp.h)
 #target_link_libraries(PLT ${PYTHON_LIBRARIES})
