@@ -39,6 +39,9 @@ namespace AWF {
         int OutDim = 1;
         int InNumber = 1;
 
+
+        bool d_flag = false;
+
         double getEpsilon_() const {
             return epsilon_;
         }
@@ -51,6 +54,7 @@ namespace AWF {
         FunctionAbstract(int out_dim, int in_number) {
             OutDim = out_dim;
             InNumber = in_number;
+
 
         }
 
@@ -72,9 +76,10 @@ namespace AWF {
          * @param in_vec std::vector<Eigen::MatrixXd>
          * @return
          */
-        std::vector<Eigen::MatrixXd> d(std::vector<Eigen::MatrixXd> in_vec) {
+        virtual std::vector<Eigen::MatrixXd> d(std::vector<Eigen::MatrixXd> in_vec) {
             std::vector<Eigen::MatrixXd> jac_vec = {};
 
+            d_flag = true;
 
             auto src_value = operator()(in_vec);
             for (int i(0); i < InNumber; ++i) {
@@ -82,14 +87,15 @@ namespace AWF {
                 Eigen::MatrixXd tmp_jac;
                 tmp_jac.resize(OutDim, in_vec[i].rows());
                 for (int j(0); j < tmp_jac.cols(); ++j) {
-                    in_vec[i](j) += epsilon_;
+                    double tmp_diff = epsilon_ ;
+                    in_vec[i](j) += tmp_diff;
                     auto tmp_value = operator()(in_vec);
                     auto t_d = tmp_value-src_value;
 
 //                    std::cout << "t_d:" << t_d << std::endl;
 //                    std::cout << "epsilon:" << epsilon_ << std::endl;
 //                    std::cout << "res:" << t_d / epsilon_ << std::endl;
-                    tmp_jac.block(0, j, tmp_jac.rows(), 1) = t_d / double(epsilon_);
+                    tmp_jac.block(0, j, tmp_jac.rows(), 1) = t_d / double(tmp_diff);
 //                    for(int k(0);k<tmp_jac.rows();++k){
 //                        tmp_jac(k,j) = (tmp_value(k,0)-src_value(k,0))/epsilon_;
 //                    }
@@ -97,6 +103,8 @@ namespace AWF {
                 }
                 jac_vec.push_back(tmp_jac);
             }
+
+            d_flag = false;
             return jac_vec;
 
         }
@@ -131,7 +139,13 @@ namespace AWF {
                 for (int i(0); i < jac_vec.size(); ++i) {
                     init_vec[i] -= learning_rate * jac_vec[i].transpose() * weight;
                 }
+//                std::cout << "iter num:"
+//                          << iter_num
+//                          << "value"
+//                          << operator()(init_vec)
+//                          << std::endl;
                 iter_num++;
+
             }
 
             return init_vec;

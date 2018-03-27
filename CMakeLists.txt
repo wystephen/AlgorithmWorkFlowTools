@@ -108,6 +108,9 @@ add_executable(FileTester FileTester.cpp)
 add_executable(FunctionToolTester FunctionToolTester.cpp)
 target_link_libraries(FunctionToolTester)
 
+add_executable(OnlineDrawInterfaceTester OnlineDrawInterfaceTester.cpp)
+target_link_libraries(OnlineDrawInterfaceTester)
+
 
 # add library.
 

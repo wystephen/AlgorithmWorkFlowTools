@@ -17,6 +17,7 @@
 #include "UsefulTools/ErrorTools.h"
 #include "UsefulTools/TimeTools.h"
 #include "UsefulTools/matplotlibcpp.h"
+#include "UsefulTools/OnlineDrawFunction.h"
 
 
 #include "MathTools/FunctionAbstract.h"
