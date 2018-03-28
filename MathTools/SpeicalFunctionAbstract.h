@@ -27,6 +27,7 @@
 #ifndef ALGORITHMWORKFLOWTOOLS_SINGLEINFUNCTION_H
 #define ALGORITHMWORKFLOWTOOLS_SINGLEINFUNCTION_H
 #define NDEBUG
+
 #include <cassert>
 
 #include <Eigen/Dense>
@@ -86,7 +87,7 @@ namespace AWF {
                                                     int max_iter_num = 1000,
                                                     double learning_rate = 1e-5,
                                                     int method_type = 0) {
-            assert(max_iter_num>1 && learning_rate > 1e-12 );
+            assert(max_iter_num > 1 && learning_rate > 1e-12);
             return minimize(compress(in), max_iter_num, learning_rate, method_type);
         }
 
