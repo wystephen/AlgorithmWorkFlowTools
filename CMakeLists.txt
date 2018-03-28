@@ -24,7 +24,7 @@ if (OPENMP_FOUND)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif ()
 
-find_package(PythonLibs 3.5)
+find_package(PythonLibs 2.7)
 
 #Eigen
 find_package(Eigen3 REQUIRED)
@@ -62,6 +62,8 @@ SET(G2O_LIBS g2o_cli g2o_ext_freeglut_minimal g2o_simulator
         g2o_solver_dense g2o_stuff g2o_types_sclam2d g2o_parser g2o_solver_pcg
         g2o_types_data g2o_types_sim3 cxsparse
         g2o_types_slam3d_addons g2o_solver_cholmod cholmod)
+
+
 
 ######  include and library directories.
 include_directories(

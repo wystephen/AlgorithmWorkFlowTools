@@ -60,6 +60,7 @@ namespace AWF {
                 for (int i(0); i < dim_; ++i) {
                     draw_vec.push_back(std::vector<double>());
                 }
+                plt::figure();
 
                 //
                 while(run_flag_.load()){
