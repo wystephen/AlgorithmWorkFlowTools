@@ -34,15 +34,107 @@
 #include <mutex>
 #include <atomic>
 #include <chrono>
+
+#include <vtkVersion.h>
+#include <vtkSmartPointer.h>
+
+#include <vtkChartXY.h>
+#include <vtkContextScene.h>
+#include <vtkContextView.h>
+#include <vtkFloatArray.h>
+#include <vtkPlotPoints.h>
+#include <vtkRenderWindow.h>
+#include <vtkRenderWindowInteractor.h>
+#include <vtkRenderer.h>
+#include <vtkTable.h>
+#include <vtkAutoInit.h>
+#include <vtkVariantArray.h>
+
 namespace plt=matplotlibcpp;
 namespace AWF {
+
+
+    class vtkTimerCallback : public vtkCommand {
+    public:
+        static vtkTimerCallback *New() {
+            vtkTimerCallback *cb = new vtkTimerCallback;
+            cb->TimerCount = 0;
+
+            // Create a table with some points in it...
+
+
+
+            return cb;
+        }
+
+        virtual void Execute(vtkObject *vtkNotUsed(caller), unsigned long eventId,
+                             void *callData) {
+            if (vtkCommand::ConfigureEvent != eventId && this->TimerCount < 500) {
+                auto chart = this->chart_;
+                vtkPlot *points = chart->AddPlot(vtkChart::POINTS);
+                ++this->TimerCount;
+                int j = this->TimerCount + numPoints - 1;
+                if (j < numPoints * 10) {
+
+                    chart->ClearPlots();
+                    double *tmp_d = new double[4];
+                    tmp_d[0] = j * inc;
+                    tmp_d[1] = cos(j * inc);
+                    tmp_d[2] = sin(j * inc);
+                    tmp_d[3] = sin(j * inc) - cos(j * inc);
+                    auto *dd = vtkVariantArray::New();
+                    dd->Allocate(4);
+                    dd->Allocate(4);
+                    dd->SetValue(0, tmp_d[0]);
+//                dd->
+                    dd->SetValue(1, tmp_d[1]);
+                    dd->SetValue(2, tmp_d[2]);
+                    dd->SetValue(3, tmp_d[3]);
+                    table->InsertNextRow(dd);
+
+
+                    for (int k(1); k < 4; ++k) {
+
+                        points = chart->AddPlot(vtkChart::POINTS);
+                        vtkPlot *line = chart->AddPlot(vtkChart::LINE);
+
+                        points->SetInputData(table, 0, k);
+                        points->SetColor(k * 20, k * 20, k * 20);
+                        points->SetWidth(1.0);
+                        points->LegendVisibilityOff();
+                        vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::CIRCLE);
+
+                        line->SetInputData(table, 0, k);
+                        line->SetColor(k * 20, k * 20, k * 20);
+                        line->SetWidth(1.0);
+                    }
+                    std::cout << "aaa" << std::endl;
+
+
+                }
+
+//            cout << this->TimerCount << endl;
+            }
+//        return;
+        }
+
+        vtkSmartPointer<vtkChartXY> chart_;
+        int numPoints = 40;
+        float inc = 7.5 / (numPoints - 1);
+        vtkSmartPointer<vtkTable> table =
+                vtkSmartPointer<vtkTable>::New();
+        vtkSmartPointer<vtkContextView> view;
+    private:
+        int TimerCount;
+
+    };
+
 
     /**
      * Online draw Interface
      */
     class OnlineDrawInterface {
     private:
-
 
 
     public:
@@ -63,15 +155,15 @@ namespace AWF {
                 plt::figure();
 
                 //
-                while(run_flag_.load()){
+                while (run_flag_.load()) {
                     // load data from buffer
                     {
                         std::lock_guard<std::mutex> g(buffer_mutex_);
 
-                        for(auto iter=input_buffer_.begin();
-                            iter!=input_buffer_.end();
-                            ++iter){
-                            for(int j(0);j<draw_vec.size();++j){
+                        for (auto iter = input_buffer_.begin();
+                             iter != input_buffer_.end();
+                             ++iter) {
+                            for (int j(0); j < draw_vec.size(); ++j) {
                                 draw_vec[j].push_back((*iter)(j));
                             }
                         }
@@ -83,8 +175,8 @@ namespace AWF {
 
                     plt::clf();
 
-                    for(int j(0);j<draw_vec.size();++j){
-                        plt::named_plot(std::to_string(j),draw_vec[j],"-+");
+                    for (int j(0); j < draw_vec.size(); ++j) {
+                        plt::named_plot(std::to_string(j), draw_vec[j], "-+");
                     }
 
                     plt::title(win_name_);
@@ -105,9 +197,9 @@ namespace AWF {
          * Copy constructor function.
          * @param t
          */
-        OnlineDrawInterface(OnlineDrawInterface && t){
+        OnlineDrawInterface(OnlineDrawInterface &&t) {
 
-            OnlineDrawInterface(t.win_name_,t.dim_);
+            OnlineDrawInterface(t.win_name_, t.dim_);
         }
 
 
@@ -129,7 +221,7 @@ namespace AWF {
          * @return
          */
         bool addDataVector(Eigen::VectorXd m_data) {
-            assert(m_data.size()==dim_);
+            assert(m_data.size() == dim_);
 
             {
                 std::lock_guard<std::mutex> g(buffer_mutex_);
@@ -152,7 +244,6 @@ namespace AWF {
         }
 
 
-
     private:
         std::string win_name_;
         int dim_;
@@ -163,7 +254,7 @@ namespace AWF {
         std::vector<Eigen::VectorXd> input_buffer_ = std::vector<Eigen::VectorXd>();
         std::thread draw_thread_;
 
-        std::atomic<bool> run_flag_ ;
+        std::atomic<bool> run_flag_;
 
         double sleep_time_ = 0.5;
     };
