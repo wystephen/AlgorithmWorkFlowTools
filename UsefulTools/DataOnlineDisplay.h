@@ -54,7 +54,6 @@ namespace AWF {
     class DataOnlineDisplay {
 
 
-
     private:
         std::string win_name_;
         int dim_;
