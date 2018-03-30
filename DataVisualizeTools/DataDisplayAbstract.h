@@ -52,6 +52,7 @@
 
 namespace AWF {
     class DataDisplayAbstract {
+    public:
         /**
          *
          * @param name
@@ -59,8 +60,8 @@ namespace AWF {
          * @param lable_list
          */
         DataDisplayAbstract(std::string name,
-                          int dim,
-                          std::vector<std::string> lable_list = {"x", "y", "z"}) {
+                            int dim,
+                            std::vector<std::string> lable_list = {"x", "y", "z"}) {
             win_name_ = name;
             dim_ = dim;
             // use given label list or using number

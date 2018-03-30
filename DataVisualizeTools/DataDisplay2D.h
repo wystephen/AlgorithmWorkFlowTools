@@ -53,7 +53,7 @@
 namespace AWF {
 
     // 2d callback
-    template<std::string Name>
+    template<const char *CName>
     class vtk2DCallback : public vtkCommand {
     public:
         static vtk2DCallback *New() {
@@ -73,8 +73,8 @@ namespace AWF {
         }
 
         bool initialize(Eigen::Vector3d background_color,
-        Eigen::Vector2d win_size
-        ){
+                        Eigen::Vector2d win_size
+        ) {
 
         }
 
@@ -89,8 +89,8 @@ namespace AWF {
     public:
         DataDisplay2D(std::string name,
                       int dim,
-                      std::vector<std::string> lable_list = {"x", "y", "z"}):
-                DataDisplayAbstract(name,dim,lable_list) {
+                      std::vector<std::string> lable_list = {"x", "y", "z"}) :
+                DataDisplayAbstract(name, dim, lable_list) {
 
 
         }
