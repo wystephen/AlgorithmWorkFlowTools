@@ -45,7 +45,7 @@ int main() {
 
 
     AWF::DataDisplay2D odi("test_1", 3);
-    AWF::DataDisplay2D odim("matrix", 6);
+//    AWF::DataDisplay2D odim("matrix", 6);
 
     double scale = 10000.0;
     auto f1 = [&](double x) -> double {
@@ -74,7 +74,7 @@ int main() {
         m(2, 0) = -1.0 * m(1, 1);
         m(2, 1) = f1(i) + f2(i) * f1(i);
         odi.addDataVector(tv);
-        odim.addDataMatrix(m);
+//        odim.addDataMatrix(m);
         usleep(10);
     }
     std::cin >> scale;

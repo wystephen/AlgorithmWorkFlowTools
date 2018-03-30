@@ -56,7 +56,7 @@ namespace AWF {
         /**
          *
          * @param name
-         * @param dim
+         * @param dim : number of line in the chart.
          * @param lable_list
          */
         DataDisplayAbstract(std::string name,
@@ -106,19 +106,35 @@ namespace AWF {
         /**
          * add vector
          * @param m_data
+         * @param stamp
          * @return
          */
-        bool addDataVector(Eigen::VectorXd m_data) {
+        bool addDataVector(Eigen::VectorXd m_data,double stamp=-1.0e20) {
             assert(m_data.size() == dim_);
 
             {
                 std::lock_guard<std::mutex> g(buffer_mutex_);
-                input_buffer_.push_back(m_data);
+                Eigen::VectorXd modified_data(m_data.size()*2);
+                for(int i(0);i<m_data.size();++i){
+                    if(stamp<-1e19){
+
+                        modified_data(i*2) = data_index_;
+                    }else{
+                        modified_data(i*2+1) = m_data(i);
+                    }
+
+                }
+//                input_buffer_.push_back(m_data);
+                input_buffer_.push_back(modified_data);
+
+
             }
+            data_index_++;
 
             return true;
 
         }
+
 
         /**
          * stop
