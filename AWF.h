@@ -26,4 +26,7 @@
 #include "MathTools/SpeicalFunctionAbstract.h"
 
 
+#include "DataVisualizeTools/DataDisplay2D.h"
+
+
 #endif //ALGORITHMWORKFLOWTOOLS_AWF_H

@@ -122,6 +122,8 @@ target_link_libraries(FunctionToolTester)
 add_executable(OnlineDrawInterfaceTester OnlineDrawInterfaceTester.cpp)
 target_link_libraries(OnlineDrawInterfaceTester ${PYTHON_LIBRARIES} ${VTK_LIBRARIES})
 
+add_executable(DataDisplay2DTester DataDisplay2DTester.cpp)
+target_link_libraries(DataDisplay2DTester ${PYTHON_LIBRARIES} ${VTK_LIBRARIES})
 
 # add library.
 

@@ -4,6 +4,7 @@
   <component name="CidrRootsConfiguration">
     <sourceRoots>
       <file path="$PROJECT_DIR$/AlgorithmLogger" />
+      <file path="$PROJECT_DIR$/DataVisualizeTools" />
       <file path="$PROJECT_DIR$/ExtentedIO" />
       <file path="$PROJECT_DIR$/FlexableVisualization" />
       <file path="$PROJECT_DIR$/MathTools" />

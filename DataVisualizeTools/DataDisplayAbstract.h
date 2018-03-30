@@ -51,14 +51,14 @@
 #include <vtkVariantArray.h>
 
 namespace AWF {
-    class DataOnlineDisplay {
+    class DataDisplayAbstract {
         /**
          *
          * @param name
          * @param dim
          * @param lable_list
          */
-        DataOnlineDisplay(std::string name,
+        DataDisplayAbstract(std::string name,
                           int dim,
                           std::vector<std::string> lable_list = {"x", "y", "z"}) {
             win_name_ = name;
@@ -79,9 +79,9 @@ namespace AWF {
          * Copy constructor function.
          * @param t
          */
-        DataOnlineDisplay(DataOnlineDisplay &&t) {
+        DataDisplayAbstract(DataDisplayAbstract &&t) {
 
-            DataOnlineDisplay(t.win_name_, t.dim_, t.label_name_);
+            DataDisplayAbstract(t.win_name_, t.dim_, t.label_name_);
         }
 
         // display function.
