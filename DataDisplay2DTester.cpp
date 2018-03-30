@@ -32,7 +32,17 @@
 
 #include "AWF.h"
 
+#include "DataVisualizeTools/DataDisplay2D.h"
+#include "DataVisualizeTools/DataDisplayAbstract.h"
+
 int main() {
+
+//    vtkSmartPointer<AWF::vtk2DCallback> c1 = vtkSmartPointer<AWF::vtk2DCallback>::New();
+//    vtkSmartPointer<AWF::vtk2DCallback> c2= vtkSmartPointer<AWF::vtk2DCallback>::New();
+//    c1->win_name_ = "c1";
+//    c2->win_name_ = "c2";
+
+
 
     AWF::OnlineDrawInterface odi("test_1", 3);
     AWF::DataDisplay2D odim("matrix", 6);

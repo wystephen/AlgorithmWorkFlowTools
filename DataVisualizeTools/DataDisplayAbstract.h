@@ -86,7 +86,9 @@ namespace AWF {
         }
 
         // display function.
-        virtual void displayFunction();
+        virtual void displayFunction(){
+            std::cout << "display virtual" << std::endl;
+        }
 
 
         /**

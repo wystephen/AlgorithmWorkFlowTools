@@ -52,12 +52,14 @@
 
 namespace AWF {
 
+
     // 2d callback
-    template<const char *CName>
+//    template<const char *CName>
     class vtk2DCallback : public vtkCommand {
     public:
         static vtk2DCallback *New() {
             vtk2DCallback *cb = new vtk2DCallback;
+//            std::cout << "initialized: " << CName << std::endl;
 
             return cb;
         }
@@ -81,19 +83,28 @@ namespace AWF {
         vtkSmartPointer<vtkChartXY> chart_;
         vtkSmartPointer<vtkTable> table_ = vtkSmartPointer<vtkTable>::New();
         vtkSmartPointer<vtkContextView> view_;
+        std::string win_name_ = "default";
 
 
     };
 
     class DataDisplay2D : public DataDisplayAbstract {
     public:
-        DataDisplay2D(std::string name,
+        DataDisplay2D(const std::string name,
                       int dim,
                       std::vector<std::string> lable_list = {"x", "y", "z"}) :
                 DataDisplayAbstract(name, dim, lable_list) {
 
+//            draw_call_ = vtkSmartPointer<vtk2DCallback<name.c_str()>>::New();
+
 
         }
+
+        void displayFunction(){
+            std::cout << "display function" << std::endl;
+        }
+
+        vtkSmartPointer<vtk2DCallback> draw_call_;
 
     };
 
