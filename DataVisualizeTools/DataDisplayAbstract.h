@@ -86,7 +86,7 @@ namespace AWF {
         }
 
         // display function.
-        virtual void displayFunction(){
+        virtual void displayFunction() {
             std::cout << "display virtual" << std::endl;
         }
 
@@ -131,7 +131,7 @@ namespace AWF {
 
         }
 
-    private:
+    protected:
         std::string win_name_; // display title and windows name
         int dim_;// dim of input data
         std::vector<std::string> label_name_; // name of serials name
@@ -149,6 +149,8 @@ namespace AWF {
         std::atomic<bool> run_flag_;//run flag for draw thread.
 
         double sleep_time_ = 0.5;//sleep time (unit:sec).
+
+        int data_index_ = 0;//data index
     };
 
 

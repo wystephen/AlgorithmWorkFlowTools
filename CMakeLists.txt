@@ -57,8 +57,6 @@ FIND_PACKAGE(Cholmod)
 
 set(VTK_DIR /home/steve/Downloads/VTK-8.1.0/build/)
 find_package(VTK REQUIRED)
-
-#include(${VTK_USE_FILE})
 include(
         ${VTK_USE_FILE}
 )

@@ -44,7 +44,7 @@ int main() {
 
 
 
-    AWF::OnlineDrawInterface odi("test_1", 3);
+    AWF::DataDisplay2D odi("test_1", 3);
     AWF::DataDisplay2D odim("matrix", 6);
 
     double scale = 10000.0;
