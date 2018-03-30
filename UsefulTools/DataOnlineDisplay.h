@@ -81,7 +81,7 @@ namespace AWF {
          */
         DataOnlineDisplay(DataOnlineDisplay &&t) {
 
-            DataOnlineDisplay(t.win_name_, t.dim_,t.label_name_);
+            DataOnlineDisplay(t.win_name_, t.dim_, t.label_name_);
         }
 
         // display function.
@@ -147,8 +147,6 @@ namespace AWF {
 
         double sleep_time_ = 0.5;//sleep time (unit:sec).
     };
-
-
 
 
 }
