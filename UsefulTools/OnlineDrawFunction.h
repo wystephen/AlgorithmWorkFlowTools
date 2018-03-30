@@ -60,7 +60,7 @@ namespace AWF {
             vtkTimerCallback *cb = new vtkTimerCallback;
             cb->TimerCount = 0;
 
-            // Create a table with some points in it...
+            // Csueate a table with some points in it...
 
 
 

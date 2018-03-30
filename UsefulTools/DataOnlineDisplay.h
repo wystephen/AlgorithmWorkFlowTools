@@ -52,22 +52,105 @@
 
 namespace AWF {
     class DataOnlineDisplay {
+        /**
+         *
+         * @param name
+         * @param dim
+         * @param lable_list
+         */
+        DataOnlineDisplay(std::string name,
+                          int dim,
+                          std::vector<std::string> lable_list = {"x", "y", "z"}) {
+            win_name_ = name;
+            dim_ = dim;
+            // use given label list or using number
+            if (dim == lable_list.size()) {
 
+                label_name_ = lable_list;
+            } else {
+                for (int i(0); i < dim; ++i) {
+                    label_name_.push_back(std::to_string(i));
+                }
+            }
+
+        }
+
+        /**
+         * Copy constructor function.
+         * @param t
+         */
+        DataOnlineDisplay(DataOnlineDisplay &&t) {
+
+            DataOnlineDisplay(t.win_name_, t.dim_,t.label_name_);
+        }
+
+        // display function.
+        virtual void displayFunction();
+
+
+        /**
+         *
+         * @param m_data
+         * @return
+         */
+        bool addDataMatrix(Eigen::MatrixXd m_data) {
+            Eigen::Map<Eigen::VectorXd> vt(m_data.data(), m_data.size());
+
+            return addDataVector(vt);
+
+        }
+
+        /**
+         * add vector
+         * @param m_data
+         * @return
+         */
+        bool addDataVector(Eigen::VectorXd m_data) {
+            assert(m_data.size() == dim_);
+
+            {
+                std::lock_guard<std::mutex> g(buffer_mutex_);
+                input_buffer_.push_back(m_data);
+            }
+
+            return true;
+
+        }
+
+        /**
+         * stop
+         * @return
+         */
+        bool stopDataVector() {
+//            run_flag_ = false;
+            run_flag_.store(false);
+            return false;
+
+        }
 
     private:
-        std::string win_name_;
-        int dim_;
+        std::string win_name_; // display title and windows name
+        int dim_;// dim of input data
+        std::vector<std::string> label_name_; // name of serials name
+
+
 
 
         std::mutex buffer_mutex_;
 
-        std::vector<Eigen::VectorXd> input_buffer_ = std::vector<Eigen::VectorXd>();
-        std::thread draw_thread_;
+        std::vector<Eigen::VectorXd> input_buffer_ = std::vector<Eigen::VectorXd>();// data.
+        std::vector<double> input_index_ = std::vector<double>(); // index of data
 
-        std::atomic<bool> run_flag_;
+        std::thread draw_thread_;// draw thread.
 
-        double sleep_time_ = 0.5;
+        std::atomic<bool> run_flag_;//run flag for draw thread.
+
+        double sleep_time_ = 0.5;//sleep time (unit:sec).
     };
+
+
+
+
 }
 
 
