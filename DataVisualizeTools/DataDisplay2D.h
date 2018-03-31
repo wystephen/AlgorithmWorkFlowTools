@@ -69,23 +69,27 @@ namespace AWF {
          * @param callData
          */
         virtual void Execute(vtkObject *vtkNotUsed(caller), unsigned long eventId,
-                             void *callData) {
+                             void *) {
+
+            std::cout << "..."<< std::endl;
             if(new_data_flag_.load()){
 //                auto pop_d =
                 {
-                    std::lock_guard<std::mutex> g(buffer_mutex_);
+//                    std::lock_guard<std::mutex> g(buffer_mutex_);
 //                    while (data_buffer_.size() > 0) {
 //
 //                        auto pop_d = data_buffer_[0];
 //                        table_->InsertNextRow(pop_d);
 //                        data_buffer_.pop_back();
 //                    }
+                    buffer_mutex_.lock();
                     for(auto iter = data_buffer_.begin();iter!=data_buffer_.end();++iter)
                     {
-                        std::cout << "..."<< std::endl;
+                        std::cout << "..1."<< std::endl;
                        table_->InsertNextRow(*iter);
                     }
                     data_buffer_.clear();
+                    buffer_mutex_.unlock();
                     new_data_flag_.store(false);
                 }
 
@@ -106,6 +110,8 @@ namespace AWF {
                     line->SetWidth(1.0);
                 }
 
+            }else{
+                return;
             }
 
         }
@@ -199,12 +205,6 @@ namespace AWF {
 
         void displayFunction() {
 
-            // initial vector
-            std::vector<std::vector<double>> draw_vec;
-            for (int i(0); i < dim_; ++i) {
-                draw_vec.push_back(std::vector<double>());
-            }
-            plt::figure();
 
             //
             while (run_flag_.load()) {
@@ -219,13 +219,9 @@ namespace AWF {
                     }
                     input_buffer_.clear();
 
+
                 }
-
-
-
-
-
-
+                usleep(1000);
 
             }
 
