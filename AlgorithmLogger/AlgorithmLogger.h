@@ -13,6 +13,7 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
+#include <fstream>
 #include "AbstractEvent.h"
 
 #include "../UsefulTools/TimeTools.h"
@@ -23,22 +24,7 @@
 namespace AWF {
 
 
-    /**
-     *  out thread
-     * @param m
-     * @param event
-     */
-    void outThread(std::mutex &m,
-                   AbstractEvent &event) {
-        m.lock();
-        std::cout << event.toString() << std::endl;
-        m.unlock();
-
-    }
-
-
     class AlgorithmLogger {
-        //TODO: RTTI
     public:
         static AlgorithmLogger *getInstance();
 
@@ -54,42 +40,32 @@ namespace AWF {
          * @param e
          * @return
          */
-        bool addEvent(AbstractEvent &e) {
-            try {
-                AbstractEvent tmp_e = e;
-                auto t = std::thread([&](AbstractEvent tmp_e) {
-//                    std::unique_lock<std::mutex> ulock(queue_mutex_);
-                    try {
-                        queue_mutex_.lock();
-//                        std::cout << thread_counter++
-//                                  << ":"
-//                                  << logger_name_
-//                                  << tmp_e.toString()<<'\n';
-//                                  << std::endl;
-//                        std::cout.flush();
-                        event_queue_.push_back(tmp_e);
-                        queue_mutex_.unlock();
-
-                    } catch (std::exception &e) {
-                        ERROR_MSG_FLAG(e.what());
-                    }
+        bool addEvent(AbstractEvent &e);
 
 
-                }, tmp_e);
-                t.detach();
-//                t.join();
-                return true;
+        bool addTraceEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix);
 
-            } catch (std::exception &e) {
-//                std::cout << __FILE__
-//                          << ":"
-//                          << __LINE__
-//                          << ":"
-//                          << e.what()
-//                          << std::endl;
-                ERROR_MSG_FLAG(e.what());
-                return false;
+        bool addPlotEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix);
+
+        bool addTrace3dEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix);
+
+        int getThread_counter() const;
+
+        void setThread_counter(int thread_counter);
+
+
+        void outputAllEvent() {
+            std::ofstream log_file(logger_name_ + ".log");
+
+            for (auto iter = event_queue_.begin(); iter != event_queue_.end(); ++iter) {
+
+//                std::cout << iter->toString() << std::endl;
+                log_file << iter->toString() << "\n";
+
             }
+            std::cout << "queue size: " << event_queue_.size() << std::endl;
+
+            log_file.close();
         }
 
     protected:
@@ -100,23 +76,7 @@ namespace AWF {
         std::mutex queue_mutex_;
 
         int thread_counter;// = 0;
-    public:
-        int getThread_counter() const;
 
-        void setThread_counter(int thread_counter);
-
-        void outputAllEvent(){
-            for(auto iter=event_queue_.begin();iter!=event_queue_.end();++iter){
-
-                std::cout << iter->toString() << std::endl;
-            }
-            std::cout << "queue size: " << event_queue_.size() << std::endl;
-        }
-
-//        static std::condition_variable queue_conditional_var_;
-
-//        static std::thread *out_thread_ptr_;
-        // = new std::thread(outputThread,queue_mutex_, event_queue_);
 
 
     private:
