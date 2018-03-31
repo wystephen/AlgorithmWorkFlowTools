@@ -115,13 +115,15 @@ namespace AWF {
             {
                 std::lock_guard<std::mutex> g(buffer_mutex_);
                 Eigen::VectorXd modified_data(m_data.size()*2);
+//                std::cout << m_data.transpose() << std::endl;
                 for(int i(0);i<m_data.size();++i){
                     if(stamp<-1e19){
 
                         modified_data(i*2) = data_index_;
                     }else{
-                        modified_data(i*2+1) = m_data(i);
+                        modified_data(i*2) = stamp;
                     }
+                    modified_data(i*2+1) = m_data(i);
 
                 }
 //                input_buffer_.push_back(m_data);

@@ -69,58 +69,71 @@ namespace AWF {
          * @param callData
          */
         virtual void Execute(vtkObject *vtkNotUsed(caller), unsigned long eventId,
-                             void *) {
+                             void *callData) {
 
-            std::cout << "..."<< std::endl;
-            if(new_data_flag_.load()){
+            std::cout << "..." << std::endl;
+            if (new_data_flag_.load()) {
 //                auto pop_d =
-                {
-//                    std::lock_guard<std::mutex> g(buffer_mutex_);
-//                    while (data_buffer_.size() > 0) {
-//
-//                        auto pop_d = data_buffer_[0];
-//                        table_->InsertNextRow(pop_d);
-//                        data_buffer_.pop_back();
-//                    }
-                    buffer_mutex_.lock();
-                    for(auto iter = data_buffer_.begin();iter!=data_buffer_.end();++iter)
-                    {
-                        std::cout << "..1."<< std::endl;
-                       table_->InsertNextRow(*iter);
+                try {
+                    std::lock_guard<std::mutex> g(buffer_mutex_);
+
+                    for (auto iter = data_buffer_.begin(); iter != data_buffer_.end(); ++iter) {
+//                        std::cout << "..1."<< std::endl;
+                        table_->InsertNextRow(*iter);
                     }
+
+//                    table_->Dump(16, data_buffer_.size());
                     data_buffer_.clear();
-                    buffer_mutex_.unlock();
-                    new_data_flag_.store(false);
+                } catch (std::exception &e) {
+//                    ERROR_MSG_FLAG(e.what());
                 }
 
-                for(int k(0);k<dim_;++k){
+                new_data_flag_.store(false);
+                try {
+                    chart_->ClearPlots();
+                    for (int k(0); k < dim_; ++k) {
 
+//
+//
+//                        auto points = chart_->AddPlot(vtkChart::POINTS);
+//                        vtkPlot *line = chart_->AddPlot(vtkChart::LINE);
+//
+//                        points->SetInputData(table_, 0, k * 2 + 1);
+//                        points->SetColor(k * 20, k * 20, k * 20);
+//                        points->SetWidth(1.0);
+////                        points->LegendVisibilityOff();
+//                        vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::CIRCLE);
+//
+//                        line->SetInputData(table_, 0, 1);
+//                        line->SetColor(k / dim_ / 1.001, k / dim_ / 2.0, k / dim_ / 2.0);
+//                        line->SetColor(100,10,100);
+//                        line->SetWidth(1.0);
+//                        line->LegendVisibilityOff();
+                    }
 
-                    auto points = chart_->AddPlot(vtkChart::POINTS);
-                    vtkPlot *line = chart_->AddPlot(vtkChart::LINE);
-
-                    points->SetInputData(table_, k*2, k*2+1);
-                    points->SetColor(k * 20, k * 20, k * 20);
-                    points->SetWidth(1.0);
-                    points->LegendVisibilityOff();
-                    vtkPlotPoints::SafeDownCast(points)->SetMarkerStyle(vtkPlotPoints::CIRCLE);
-
-                    line->SetInputData(table_, k-1, k);
-                    line->SetColor(k /dim_/1.001, k /dim_/2.0, k /dim_/2.0);
-                    line->SetWidth(1.0);
+                } catch (std::exception &e) {
+//                    ERROR_MSG_FLAG(e.what());
                 }
 
-            }else{
+            } else {
                 return;
             }
 
         }
 
-        bool addData(Eigen::VectorXd v){
+        /**
+         * thread safety. add data in to vector.(stack);
+         * @param v  resource data.
+         * @return
+         */
+        bool addData(Eigen::VectorXd v) {
             auto dd = vtkSmartPointer<vtkVariantArray>::New();
             dd->Allocate(v.size());
-            for(int i(0);i<v.size();++i){
-                dd->SetValue(i,v(i));
+            dd->Resize(v.size());
+//            std::cout << "v:" << v.transpose() << std::endl;
+            for (int i(0); i < v.size(); ++i) {
+                dd->SetValue(i, v(i));
+//                std::cout<<"i:" << i<< ";"<< dd->GetValue(i) << std::endl;
             }
             {
                 std::lock_guard<std::mutex> t(buffer_mutex_);
@@ -132,7 +145,6 @@ namespace AWF {
         }
 
 
-
         vtkSmartPointer<vtkChartXY> chart_;
         vtkSmartPointer<vtkTable> table_ = vtkSmartPointer<vtkTable>::New();
         vtkSmartPointer<vtkContextView> view_;
@@ -141,7 +153,7 @@ namespace AWF {
 
 
         //data vector, flag and mutex
-        std::vector<vtkSmartPointer<vtkVariantArray>> data_buffer_ =std::vector<vtkSmartPointer<vtkVariantArray>>();
+        std::vector<vtkSmartPointer<vtkVariantArray>> data_buffer_ = std::vector<vtkSmartPointer<vtkVariantArray>>();
         std::mutex buffer_mutex_;
         std::atomic<bool> new_data_flag_;
 
@@ -165,17 +177,19 @@ namespace AWF {
             for (int i(0); i < label_name_.size(); ++i) {
                 vtkSmartPointer<vtkFloatArray> tx = vtkSmartPointer<vtkFloatArray>::New();
                 vtkSmartPointer<vtkFloatArray> ty = vtkSmartPointer<vtkFloatArray>::New();
-                tx->SetName("X axis");
-                ty->SetName(label_name_[i].c_str());
+                tx->SetName(("X" + label_name_[i]).c_str());
+                ty->SetName(("y"+label_name_[i]).c_str());
+//                ty->SetName("sss");
                 draw_call_->table_->AddColumn(tx);
                 draw_call_->table_->AddColumn(ty);
+                draw_call_->table_->SetNumberOfRows(10000);
             }
 
 
             // initial view
             draw_call_->view_ = vtkSmartPointer<vtkContextView>::New();
             draw_call_->view_->GetRenderer()->SetBackground(1.0, 1.0, 1.0);
-            draw_call_->view_->GetRenderWindow()->SetSize(500, 700);
+            draw_call_->view_->GetRenderWindow()->SetSize(400, 300);
             draw_call_->view_->GetRenderWindow()->SetWindowName(name.c_str());
 
 
@@ -187,7 +201,7 @@ namespace AWF {
 
             //sign up to receive Event
             draw_call_->view_->GetInteractor()->Initialize();
-            draw_call_->view_->GetInteractor()->AddObserver(vtkCommand::RenderEvent, draw_call_,0.1);
+            draw_call_->view_->GetInteractor()->AddObserver(vtkCommand::RenderEvent, draw_call_, 0.1);
 
             std::thread t([&]() {
                 draw_call_->view_->GetInteractor()->Start();
@@ -198,11 +212,11 @@ namespace AWF {
             draw_thread_.detach();
 
 
-
-
-
         }
 
+        /**
+         * Add data from input_buffer_ to draw_call_;
+         */
         void displayFunction() {
 
 

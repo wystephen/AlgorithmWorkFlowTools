@@ -4,7 +4,8 @@ project(AlgorithmWorkFlowTools)
 set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_BUILD_TOOL Release)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g -pthread")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -g -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -g -pthread")
 
 #add_subdirectory(./AlgorithmLogger)
 #
