@@ -32,6 +32,10 @@
 
 #include <chrono>
 
+#include <cmath>
+
+#include <random>
+
 #include "AlgorithmLogger/AlgorithmLogger.h"
 #include "AlgorithmLogger/AlgorithmLogger.cpp"
 
@@ -44,41 +48,41 @@ int main() {
     AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
     std::cout.precision(15);
 
-    for (int i = 0; i < 1000; i++) {
-        try {
-            std::thread t([i] {
-                try {
-//                    std::cout << double(
-//                            std::chrono::duration_cast<std::chrono::milliseconds>(
-//                                    std::chrono::system_clock::now().time_since_epoch()
-//                            ).count()
-//                    ) << std::endl;
 
-                    AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
-                    usleep(100);
-                    for (int j = 0; j < 100; ++j) {
+    std::random_device rd;
+    auto random_engine = std::mt19937_64(rd);
+    std::uniform_int_distribution<> uni_dis(1,10);
+    auto trace_3d_f = [&](std::string group_name, std::string trace_name) {
+        int off_set = uni_dis(random_engine);
+        for (int i(0); i < 10000; ++i) {
+            Eigen::Vector3d trace_v(std::sin(double(i/100.0+off_set)),
+                                    std::cos(double(i/100.0+off_set)),
+                                    i/100);
+            logger_ptr->addTrace3dEvent(group_name,trace_name,trace_v);
 
-                        AWF::AbstractEvent t_event("test_"
-                                                   + std::to_string(i)
-                                                   + "_"
-                                                   + std::to_string(j)
-                        );
-                        auto matrix = Eigen::Matrix4d::Identity();
-
-                        t_event.setData(matrix);
-                        logger_ptr->addEvent(t_event);
-                    }
-                } catch (std::exception &e) {
-                    std::cout << e.what() << std::endl;
-                }
-
-
-            });
-            t.detach();
-        } catch (std::exception &e) {
-            std::cout << e.what() << std::endl;
         }
-    }
+    };
+
+    auto trace_2d_f = [&](std::string group_name, std::string trace_name){
+        int off_set = uni_dis(random_engine);
+        for(int i(0);i<10000;++i){
+            Eigen::Vector2d trace_v(std::sin(double(i/100.0+off_set)),i);
+            logger_ptr->addTraceEvent(group_name,trace_name,trace_v);
+        }
+    };
+
+    auto plot_f = [&](std::string group_name, std::string trace_name){
+        int off_set = uni_dis(random_engine);
+        for(int i(0);i<10000;++i){
+            Eigen::Matrix4d tm;
+            tm(0,0) = std::sin(i/1000.0+off_set);
+            tm(0,1) = std::cos(i/1000.0+off_set)+std::sin(i/1000.0+off_set);
+            tm(1,0) = std::cos(i/1000.0+off_set);
+            tm(1,1) = std::cos(i/1000.0+off_set)-std::sin(i/1000.0+off_set);
+            logger_ptr->addPlotEvent(group_name,trace_name,tm);
+        }
+    };
+
 
     sleep(1);
     std::cout << "logger counter : "

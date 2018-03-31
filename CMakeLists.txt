@@ -113,6 +113,9 @@ link_directories(
 add_executable(AlgorithmLogger AlgorithmLoggerTester.cpp)
 target_link_libraries(AlgorithmLogger)
 
+add_executable(AlgorithmLoggerPlotTester AlgorithmLoggerPlotTester.cpp)
+target_link_libraries(AlgorithmLoggerPlotTester)
+
 add_executable(FileTester FileTester.cpp)
 
 add_executable(FunctionToolTester FunctionToolTester.cpp)
