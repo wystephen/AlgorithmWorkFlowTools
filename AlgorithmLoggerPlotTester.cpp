@@ -75,7 +75,7 @@ int main() {
     auto plot_f = [&](std::string group_name, std::string trace_name) {
         int off_set = uni_dis(random_engine);
         for (int i(0); i < 10000; ++i) {
-            Eigen::Matrix4d tm;
+            Eigen::Matrix2d tm;
             tm(0, 0) = std::sin(i / 1000.0 + off_set);
             tm(0, 1) = std::cos(i / 1000.0 + off_set) + std::sin(i / 1000.0 + off_set);
             tm(1, 0) = std::cos(i / 1000.0 + off_set);
@@ -122,8 +122,8 @@ int main() {
     std::cout<< "total time:" << end_save_time-start_save_time << std::endl;
 
 
-    int k(0);
-    std::cin >> k;
+//    int k(0);
+//    std::cin >> k;
 
 
 }

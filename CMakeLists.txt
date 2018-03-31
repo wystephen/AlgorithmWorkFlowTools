@@ -56,11 +56,11 @@ FIND_PACKAGE(G2O)
 FIND_PACKAGE(CSparse)
 FIND_PACKAGE(Cholmod)
 
-set(VTK_DIR /home/steve/Downloads/VTK-8.1.0/build/)
-find_package(VTK REQUIRED)
-include(
-        ${VTK_USE_FILE}
-)
+#set(VTK_DIR /home/steve/Downloads/VTK-8.1.0/build/)
+#find_package(VTK REQUIRED)
+#include(
+#        ${VTK_USE_FILE}
+#)
 
 
 SET(G2O_LIBS g2o_cli g2o_ext_freeglut_minimal g2o_simulator
@@ -121,11 +121,11 @@ add_executable(FileTester FileTester.cpp)
 add_executable(FunctionToolTester FunctionToolTester.cpp)
 target_link_libraries(FunctionToolTester)
 
-add_executable(OnlineDrawInterfaceTester OnlineDrawInterfaceTester.cpp)
-target_link_libraries(OnlineDrawInterfaceTester ${PYTHON_LIBRARIES} ${VTK_LIBRARIES})
+#add_executable(OnlineDrawInterfaceTester OnlineDrawInterfaceTester.cpp)
+#target_link_libraries(OnlineDrawInterfaceTester ${PYTHON_LIBRARIES} ${VTK_LIBRARIES})
 
-add_executable(DataDisplay2DTester DataDisplay2DTester.cpp)
-target_link_libraries(DataDisplay2DTester ${PYTHON_LIBRARIES} ${VTK_LIBRARIES})
+#add_executable(DataDisplay2DTester DataDisplay2DTester.cpp)
+#target_link_libraries(DataDisplay2DTester ${PYTHON_LIBRARIES} )#@${VTK_LIBRARIES})
 
 # add library.
 
