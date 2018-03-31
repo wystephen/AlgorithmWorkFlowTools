@@ -50,44 +50,76 @@ int main() {
 
 
     std::random_device rd;
-    auto random_engine = std::mt19937_64(rd);
-    std::uniform_int_distribution<> uni_dis(1,10);
+    std::mt19937 random_engine(rd());
+    std::uniform_int_distribution<> uni_dis(1, 10);
     auto trace_3d_f = [&](std::string group_name, std::string trace_name) {
         int off_set = uni_dis(random_engine);
         for (int i(0); i < 10000; ++i) {
-            Eigen::Vector3d trace_v(std::sin(double(i/100.0+off_set)),
-                                    std::cos(double(i/100.0+off_set)),
-                                    i/100);
-            logger_ptr->addTrace3dEvent(group_name,trace_name,trace_v);
+            Eigen::Vector3d trace_v(std::sin(double(i / 100.0 + off_set)),
+                                    std::cos(double(i / 100.0 + off_set)),
+                                    i / 100);
+            logger_ptr->addTrace3dEvent(group_name, trace_name, trace_v);
+
 
         }
     };
 
-    auto trace_2d_f = [&](std::string group_name, std::string trace_name){
+    auto trace_2d_f = [&](std::string group_name, std::string trace_name) {
         int off_set = uni_dis(random_engine);
-        for(int i(0);i<10000;++i){
-            Eigen::Vector2d trace_v(std::sin(double(i/100.0+off_set)),i);
-            logger_ptr->addTraceEvent(group_name,trace_name,trace_v);
+        for (int i(0); i < 10000; ++i) {
+            Eigen::Vector2d trace_v(std::sin(double(i / 100.0 + off_set)), i);
+            logger_ptr->addTraceEvent(group_name, trace_name, trace_v);
         }
     };
 
-    auto plot_f = [&](std::string group_name, std::string trace_name){
+    auto plot_f = [&](std::string group_name, std::string trace_name) {
         int off_set = uni_dis(random_engine);
-        for(int i(0);i<10000;++i){
+        for (int i(0); i < 10000; ++i) {
             Eigen::Matrix4d tm;
-            tm(0,0) = std::sin(i/1000.0+off_set);
-            tm(0,1) = std::cos(i/1000.0+off_set)+std::sin(i/1000.0+off_set);
-            tm(1,0) = std::cos(i/1000.0+off_set);
-            tm(1,1) = std::cos(i/1000.0+off_set)-std::sin(i/1000.0+off_set);
-            logger_ptr->addPlotEvent(group_name,trace_name,tm);
+            tm(0, 0) = std::sin(i / 1000.0 + off_set);
+            tm(0, 1) = std::cos(i / 1000.0 + off_set) + std::sin(i / 1000.0 + off_set);
+            tm(1, 0) = std::cos(i / 1000.0 + off_set);
+            tm(1, 1) = std::cos(i / 1000.0 + off_set) - std::sin(i / 1000.0 + off_set);
+            logger_ptr->addPlotEvent(group_name, trace_name, tm);
         }
     };
 
+    std::thread t_trace3_1(trace_3d_f, "ga", "ta");
+    std::thread t_trace3_2(trace_3d_f, "ga", "tb");
+    std::thread t_trace3_3(trace_3d_f, "gb", "ta");
+    std::thread t_trace3_4(trace_3d_f, "gb", "tb");
+    t_trace3_1.detach();
+    t_trace3_2.detach();
+    t_trace3_3.detach();
+    t_trace3_4.detach();
+
+
+    std::thread t_trace2_1(trace_2d_f, "ga", "ta");
+    std::thread t_trace2_2(trace_2d_f, "ga", "tb");
+    std::thread t_trace2_3(trace_2d_f, "gb", "ta");
+    std::thread t_trace2_4(trace_2d_f, "gb", "tb");
+    t_trace2_1.detach();
+    t_trace2_2.detach();
+    t_trace2_3.detach();
+    t_trace2_4.detach();
+
+    std::thread t_plot2_1(plot_f, "ga", "ta");
+    std::thread t_plot2_2(plot_f, "ga", "tb");
+    std::thread t_plot2_3(plot_f, "gb", "ta");
+    std::thread t_plot2_4(plot_f, "gb", "tb");
+    t_plot2_1.join();
+    t_plot2_2.join();
+    t_plot2_3.join();
+    t_plot2_4.join();
 
     sleep(1);
     std::cout << "logger counter : "
               << logger_ptr->getThread_counter() << std::endl;
+    double start_save_time = TimeStamp::now();
+
     logger_ptr->outputAllEvent();
+    double end_save_time = TimeStamp::now();
+    std::cout<< "total time:" << end_save_time-start_save_time << std::endl;
 
 
     int k(0);
