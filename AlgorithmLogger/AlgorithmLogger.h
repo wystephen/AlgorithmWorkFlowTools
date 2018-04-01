@@ -16,7 +16,6 @@
 #include <fstream>
 
 
-#include
 #include "AbstractEvent.h"
 
 #include "../UsefulTools/TimeTools.h"
@@ -83,12 +82,7 @@ namespace AWF {
 
         std::mutex map_mutex_;
 
-//        typedef std::vector<std::vector<double>> data_vec;
-//        typedef std::map<std::string, data_vec> data_map;
-//        typedef std::map<std::string, data_map> group_map;
-//        typedef std::map<std::string, group_map> type_map;
-//
-//        type_map visual_data_collector;
+
 
     private:
         /**

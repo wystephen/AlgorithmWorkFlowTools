@@ -41,17 +41,26 @@ class LoggerFilePlotting:
 
         self.num_re = re.compile('[-]{0,1}[0-9][.]{0,1}[0-9]{0,100}')
 
+        self.data_frame = DataFrame(data=None, columns=['type', 'group', 'name', 'data'])
+        # self.data_frame.
+
         # search over all lines
         for line in all_lines:
             # print(line)
             time_str = line.split(':')[0]
             cate_str = line.split(':')[1]
             vec_str = line.split(':')[2]
-            print(time_str, cate_str, vec_str)
+            # print(time_str, cate_str, vec_str)
             # print(self.num_re.findall(vec_str))
             num_str_list = self.num_re.findall(vec_str)
-
+            # self.data_frame.
+            # print(cate_str)
+            self.data_frame.loc[self.data_frame.shape[0] + 1] = {'type': cate_str.split('_')[0],
+                                                                 'group': cate_str.split('_')[1],
+                                                                 'name': cate_str.split('_')[2],
+                                                                 'data': num_str_list}
+        print(self.data_frame)
 
 
 if __name__ == '__main__':
-    lfp = LoggerFilePlotting("logger_2018-03-31-17:20:37.log")
+    lfp = LoggerFilePlotting("logger_2018-04-01-15:50:45.log")
