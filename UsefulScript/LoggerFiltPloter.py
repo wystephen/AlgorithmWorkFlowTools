@@ -42,7 +42,11 @@ class LoggerFilePlotting:
         self.num_re = re.compile('[-]{0,1}[0-9][.]{0,1}[0-9]{0,100}')
 
         self.data_frame = DataFrame(data=None, columns=['type', 'group', 'name', 'data'])
+        # self.data_frame.reindex(index=len(all_lines))
         # self.data_frame.
+        the_index = 0
+
+        # self.data_dict =
 
         # search over all lines
         for line in all_lines:
@@ -55,10 +59,11 @@ class LoggerFilePlotting:
             num_str_list = self.num_re.findall(vec_str)
             # self.data_frame.
             # print(cate_str)
-            self.data_frame.loc[self.data_frame[0]+1]={'type': cate_str.split('_')[0],
-                                    'group': cate_str.split('_')[1],
-                                    'name': cate_str.split('_')[2],
-                                    'data': num_str_list}
+            # self.data_frame.loc[the_index]={'type': cate_str.split('_')[0],
+            #                         'group': cate_str.split('_')[1],
+            #                         'name': cate_str.split('_')[2],
+            #                         'data': num_str_list}
+            # the_index+=1
 
         print(self.data_frame)
 
