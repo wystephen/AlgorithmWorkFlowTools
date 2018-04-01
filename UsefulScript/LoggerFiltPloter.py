@@ -65,6 +65,18 @@ class LoggerFilePlotting:
             name_str = cate_str.split('_')[2]
             data_float_list = [float(x) for x in num_str_list]
 
+            # if type-group-name isn't in dict, added it to self.data_h_dict
+            if not type_str in self.data_h_dict:
+                # self.data_h_list.append(type_str)
+                # self.data_h_list
+                self.data_h_dict[type_str] = dict()
+
+            if not group_str in self.data_h_dict[type_str]:
+                self.data_h_dict[type_str][group_str] = list()
+
+            if not name_str in self.data_h_dict[type_str][group_str]:
+                self.data_h_dict[type_str][group_str].append(name_str)
+
             self.tmp_dict['type'].append(type_str)
             self.tmp_dict['group'].append(group_str)
             self.tmp_dict['name'].append(name_str)
@@ -78,7 +90,29 @@ class LoggerFilePlotting:
         print('totla time', end_time - start_time)
 
     def shwo_all(self):
-        print(self.data_frame[self.data_frame['type'] == 'trace2d'])
+        # print(self.data_frame[self.data_frame['type'] == 'trace2d'])
+        # print(self.data_h_dict)
+        for key, value in self.data_h_dict.items():
+            print('key', key, 'val', value)
+            if 'trace2d' in key:
+                for group_name, name_list in value.items():
+                    print('---------------')
+                    print(group_name, '|', name_list)
+                    print('---------------')
+                    fig = plt.Figure()
+                    ax = fig.add_subplot(111)
+                    ax.set_title(group_name)
+                    # print(group_name)
+                    # print(type(group_name))
+                    # print(self.data_h_dict.items())
+
+                    # print(self.data_frame[self.data_frame['group']==group_name])
+                    for data_name in name_list:
+                        data = self.data_frame[(self.data_frame['type'] == 'trace2d') &\
+                                                (self.data_frame['group'] == group_name) &\
+                                                (self.data_frame['name'] == data_name)]['data']
+                        # print(type(data))
+                        print('data', data[0])
 
 
 if __name__ == '__main__':
