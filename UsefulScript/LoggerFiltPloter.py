@@ -59,6 +59,8 @@ class LoggerFilePlotting:
                                                                  'group': cate_str.split('_')[1],
                                                                  'name': cate_str.split('_')[2],
                                                                  'data': num_str_list}
+
+
         print(self.data_frame)
 
 
