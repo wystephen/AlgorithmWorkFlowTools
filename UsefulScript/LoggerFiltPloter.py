@@ -108,13 +108,23 @@ class LoggerFilePlotting:
 
                     # print(self.data_frame[self.data_frame['group']==group_name])
                     for data_name in name_list:
-                        data = self.data_frame[(self.data_frame['type'] == 'trace2d') &\
+                        data_list = self.data_frame[(self.data_frame['type'] == 'trace2d') &\
                                                 (self.data_frame['group'] == group_name) &\
                                                 (self.data_frame['name'] == data_name)]['data']
                         # print(type(data))
-                        print('data', data[0])
+                        # print('data', data[0]
+                        # tmp_data = np.array([len(data_list),len(data_list[0])])
+                        # for
+                        tmp_data = np.asarray(data_list)
+                        print(tmp_data)
+                        print('tmp data', tmp_data.shape)
+                        ax.plot(tmp_data[:,0],tmp_data[:,1],label=data_name)
+                    ax.legend(True)
+                    ax.grid(True)
+
 
 
 if __name__ == '__main__':
     lfp = LoggerFilePlotting("logger_2018-04-01-15:50:45.log")
     lfp.shwo_all()
+    plt.show()
