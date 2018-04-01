@@ -39,14 +39,18 @@ class LoggerFilePlotting:
 
         all_lines = self.log_file.readlines()
 
-        self.num_re = re.compile('[-]{0,1}[0-9]')
+        self.num_re = re.compile('[-]{0,1}[0-9][.]{0,1}[0-9]{0,100}')
 
+        # search over all lines
         for line in all_lines:
             # print(line)
             time_str = line.split(':')[0]
             cate_str = line.split(':')[1]
             vec_str = line.split(':')[2]
             print(time_str, cate_str, vec_str)
+            # print(self.num_re.findall(vec_str))
+            num_str_list = self.num_re.findall(vec_str)
+
 
 
 if __name__ == '__main__':
