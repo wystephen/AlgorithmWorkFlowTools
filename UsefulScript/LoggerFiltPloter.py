@@ -32,6 +32,8 @@ from pandas import DataFrame
 import re
 import os
 
+import time
+
 
 class LoggerFilePlotting:
     def __init__(self, file_name):
@@ -48,6 +50,7 @@ class LoggerFilePlotting:
 
         # self.data_dict =
 
+        start_time = time.time()
         # search over all lines
         for line in all_lines:
             # print(line)
@@ -59,13 +62,15 @@ class LoggerFilePlotting:
             num_str_list = self.num_re.findall(vec_str)
             # self.data_frame.
             # print(cate_str)
-            # self.data_frame.loc[the_index]={'type': cate_str.split('_')[0],
-            #                         'group': cate_str.split('_')[1],
-            #                         'name': cate_str.split('_')[2],
-            #                         'data': num_str_list}
+            self.data_frame.loc[the_index]={'type': cate_str.split('_')[0],
+                                    'group': cate_str.split('_')[1],
+                                    'name': cate_str.split('_')[2],
+                                    'data': num_str_list}
             # the_index+=1
+        end_time = time.time()
 
         print(self.data_frame)
+        print('totla time', end_time-start_time)
 
 
 if __name__ == '__main__':
