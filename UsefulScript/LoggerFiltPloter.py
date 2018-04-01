@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
 
-from pandas import DataFrame
+from pandas import DataFrame,Series
 
 import re
 import os
@@ -89,6 +89,17 @@ class LoggerFilePlotting:
         print(self.data_frame)
         print('totla time', end_time - start_time)
 
+    def pd_series_to_numpy(self, the_series:Series)->np.array:
+        data_list = the_series
+        tmp_data = np.zeros([data_list.values.shape[0], len(data_list.values[0])])
+        print(tmp_data)
+        print(tmp_data.shape)
+
+        for i in range(tmp_data.shape[0]):
+            for j in range(tmp_data.shape[1]):
+                tmp_data[i, j] = data_list.values[i][j]
+        return tmp_data
+
     def shwo_all(self):
         # print(self.data_frame[self.data_frame['type'] == 'trace2d'])
         # print(self.data_h_dict)
@@ -99,29 +110,43 @@ class LoggerFilePlotting:
                     print('---------------')
                     print(group_name, '|', name_list)
                     print('---------------')
-                    fig = plt.Figure()
-                    ax = fig.add_subplot(111)
-                    ax.set_title(group_name)
+                    # fig = plt.Figure()
+                    # ax = fig.add_subplot(111)
+                    # ax.set_title(group_name)
+                    plt.figure()
+                    plt.title(group_name)
                     # print(group_name)
                     # print(type(group_name))
                     # print(self.data_h_dict.items())
 
                     # print(self.data_frame[self.data_frame['group']==group_name])
                     for data_name in name_list:
-                        data_list = self.data_frame[(self.data_frame['type'] == 'trace2d') &\
-                                                (self.data_frame['group'] == group_name) &\
-                                                (self.data_frame['name'] == data_name)]['data']
-                        # print(type(data))
-                        # print('data', data[0]
-                        # tmp_data = np.array([len(data_list),len(data_list[0])])
-                        # for
-                        tmp_data = np.asarray(data_list)
-                        print(tmp_data)
-                        print('tmp data', tmp_data.shape)
-                        ax.plot(tmp_data[:,0],tmp_data[:,1],label=data_name)
-                    ax.legend(True)
-                    ax.grid(True)
+                        data_list = self.data_frame[(self.data_frame['type'] == 'trace2d') & \
+                                                    (self.data_frame['group'] == group_name) & \
+                                                    (self.data_frame['name'] == data_name)]['data']
 
+
+
+                        tmp_data = self.pd_series_to_numpy(data_list)
+                        # print(tmp_data)
+                        # print('tmp data', tmp_data.shape)
+                        plt.plot(tmp_data[:, 0], tmp_data[:, 1], label=data_name)
+                    plt.legend()
+                    plt.grid
+            if 'plot' in key:
+                for group_name,name_list in value.items():
+                    plt.figure()
+                    plt.title(group_name)
+                    for data_name in name_list:
+                        data_list = self.data_frame[(self.data_frame['type']=='plot')&\
+                                                    (self.data_frame['group']==group_name)&\
+                                                    (self.data_frame['name']==data_name)]['data']
+                        tmp_data = self.pd_series_to_numpy(data_list)
+                        plt.plot(tmp_data,label=data_name)
+                    plt.grid()
+                    plt.legend()
+
+            # plt.plot()
 
 
 if __name__ == '__main__':
