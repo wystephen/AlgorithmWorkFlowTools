@@ -119,7 +119,7 @@ int main() {
 
     logger_ptr->outputAllEvent();
     double end_save_time = TimeStamp::now();
-    std::cout<< "total time:" << end_save_time-start_save_time << std::endl;
+    std::cout << "total time:" << end_save_time - start_save_time << std::endl;
 
 
 //    int k(0);

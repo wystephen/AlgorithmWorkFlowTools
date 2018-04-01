@@ -40,7 +40,7 @@ int main() {
                                                    + std::to_string(i)
                                                    + "_"
                                                    + std::to_string(j)
-                                                   );
+                        );
                         auto matrix = Eigen::Matrix4d::Identity();
 
                         t_event.setData(matrix);
