@@ -43,12 +43,10 @@ class LoggerFilePlotting:
 
         self.num_re = re.compile('[-]{0,1}[0-9][.]{0,1}[0-9]{0,100}')
 
-        self.data_frame = DataFrame(data=None, columns=['type', 'group', 'name', 'data'])
-        # self.data_frame.reindex(index=len(all_lines))
-        # self.data_frame.
-        the_index = 0
+        # standard dict
+        self.tmp_dict = {'type': list(), 'group': list(), 'name': list(), 'data': list()}
 
-        # self.data_dict =
+        self.data_h_dict = dict()
 
         start_time = time.time()
         # search over all lines
@@ -62,16 +60,27 @@ class LoggerFilePlotting:
             num_str_list = self.num_re.findall(vec_str)
             # self.data_frame.
             # print(cate_str)
-            self.data_frame.loc[the_index]={'type': cate_str.split('_')[0],
-                                    'group': cate_str.split('_')[1],
-                                    'name': cate_str.split('_')[2],
-                                    'data': num_str_list}
+            type_str = cate_str.split('_')[0]
+            group_str = cate_str.split('_')[1]
+            name_str = cate_str.split('_')[2]
+            data_float_list = [float(x) for x in num_str_list]
+
+            self.tmp_dict['type'].append(type_str)
+            self.tmp_dict['group'].append(group_str)
+            self.tmp_dict['name'].append(name_str)
+            self.tmp_dict['data'].append(data_float_list)
             # the_index+=1
+        # get DataFrame
+        self.data_frame = DataFrame(self.tmp_dict)
         end_time = time.time()
 
         print(self.data_frame)
-        print('totla time', end_time-start_time)
+        print('totla time', end_time - start_time)
+
+    def shwo_all(self):
+        print(self.data_frame[self.data_frame['type'] == 'trace2d'])
 
 
 if __name__ == '__main__':
     lfp = LoggerFilePlotting("logger_2018-04-01-15:50:45.log")
+    lfp.shwo_all()
