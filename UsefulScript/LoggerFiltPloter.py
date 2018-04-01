@@ -55,11 +55,10 @@ class LoggerFilePlotting:
             num_str_list = self.num_re.findall(vec_str)
             # self.data_frame.
             # print(cate_str)
-            self.data_frame.loc[self.data_frame.shape[0] + 1] = {'type': cate_str.split('_')[0],
-                                                                 'group': cate_str.split('_')[1],
-                                                                 'name': cate_str.split('_')[2],
-                                                                 'data': num_str_list}
-
+            self.data_frame.loc[self.data_frame[0]+1]={'type': cate_str.split('_')[0],
+                                    'group': cate_str.split('_')[1],
+                                    'name': cate_str.split('_')[2],
+                                    'data': num_str_list}
 
         print(self.data_frame)
 
