@@ -117,7 +117,7 @@ int main() {
               << logger_ptr->getThread_counter() << std::endl;
     double start_save_time = TimeStamp::now();
 
-    logger_ptr->outputAllEvent();
+    logger_ptr->outputAllEvent(true);
     double end_save_time = TimeStamp::now();
     std::cout << "total time:" << end_save_time - start_save_time << std::endl;
 
