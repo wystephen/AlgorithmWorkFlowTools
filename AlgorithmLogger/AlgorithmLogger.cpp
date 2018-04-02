@@ -83,21 +83,21 @@ namespace AWF {
 
     bool AlgorithmLogger::addTrace3dEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix) {
 
-        AWF::AbstractEvent t_event("trace3d_" + group_name + "_" + value_name);
+        AWF::AbstractEvent t_event("trace3d@" + group_name + "@" + value_name);
         t_event.setData(matrix);
         addEvent(t_event);
 
     }
 
     bool AlgorithmLogger::addTraceEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix) {
-        AWF::AbstractEvent t_event("trace2d_" + group_name + "_" + value_name);
+        AWF::AbstractEvent t_event("trace2d@" + group_name + "@" + value_name);
         t_event.setData(matrix);
         addEvent(t_event);
 
     }
 
     bool AlgorithmLogger::addPlotEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix) {
-        AWF::AbstractEvent t_event("plot_" + group_name + "_" + value_name);
+        AWF::AbstractEvent t_event("plot@" + group_name + "@" + value_name);
         t_event.setData(matrix);
         addEvent(t_event);
 

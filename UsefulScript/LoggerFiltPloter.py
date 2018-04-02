@@ -63,9 +63,9 @@ class LoggerFilePlotting:
 
             num_str_list = self.num_re.findall(vec_str)
 
-            type_str = cate_str.split('_')[0]
-            group_str = cate_str.split('_')[1]
-            name_str = cate_str.split('_')[2]
+            type_str = cate_str.split('@')[0]
+            group_str = cate_str.split('@')[1]
+            name_str = cate_str.split('@')[2]
             data_float_list = [float(x) for x in num_str_list]
 
             # if type-group-name isn't in dict, added it to self.data_h_dict
@@ -94,14 +94,14 @@ class LoggerFilePlotting:
         plt.plot(self.time_list)
         plt.grid()
 
-        print(self.data_frame)
-        print('totla time', end_time - start_time)
+        # print(self.data_frame)
+        print('load data totally time', end_time - start_time)
 
     def pd_series_to_numpy(self, the_series: Series) -> np.array:
         data_list = the_series
         tmp_data = np.zeros([data_list.values.shape[0], len(data_list.values[0])])
-        print(tmp_data)
-        print(tmp_data.shape)
+        # print(tmp_data)
+        # print(tmp_data.shape)
 
         for i in range(tmp_data.shape[0]):
             for j in range(tmp_data.shape[1]):
