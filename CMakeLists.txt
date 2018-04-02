@@ -129,6 +129,8 @@ target_link_libraries(FunctionToolTester)
 
 # add library.
 
+#set(SRC_LIST )
+
 #add_library(ExtentedIO ExtentedIO/FileReader.h ExtentedIO/FileReader.cpp ExtentedIO/FileWriter.cpp ExtentedIO/FileWriter.h)
 #add_library(AWFLib AWF.h)
 #add_library(PLT UsefulTools/matplotlibcpp.h)

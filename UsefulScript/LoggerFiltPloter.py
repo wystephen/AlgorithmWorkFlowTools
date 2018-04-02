@@ -145,7 +145,7 @@ class LoggerFilePlotting:
                         # print('tmp data', tmp_data.shape)
                         plt.plot(tmp_data[:, 0], tmp_data[:, 1], '-+', label=data_name)
                     plt.legend()
-                    plt.grid
+                    plt.grid()
             if 'plot' in key:
                 for group_name, name_list in value.items():
                     plt.figure()
@@ -160,7 +160,7 @@ class LoggerFilePlotting:
                         index += 1
                         # plt.plot(tmp_data, label=data_name)
                         for i in range(tmp_data.shape[1]):
-                            plt.plot(tmp_data[:, i], '-+', label=data_name + str(i))
+                            plt.plot(tmp_data[:, i], '-', label=data_name + str(i))
                         plt.grid()
                         plt.legend()
             if 'trace3d' in key:
