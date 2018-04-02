@@ -15,6 +15,8 @@
 #include <condition_variable>
 #include <fstream>
 
+#include <unistd.h>
+
 
 #include "AbstractEvent.h"
 
@@ -56,7 +58,7 @@ namespace AWF {
         void setThread_counter(int thread_counter);
 
 
-        void outputAllEvent() {
+        void outputAllEvent(bool display = false) {
             std::ofstream log_file(logger_name_ + ".log");
 
             for (auto iter = event_queue_.begin(); iter != event_queue_.end(); ++iter) {
@@ -68,6 +70,13 @@ namespace AWF {
             std::cout << "queue size: " << event_queue_.size() << std::endl;
 
             log_file.close();
+
+            if (display) {
+                system(("python3 /home/steve/Code/AlgorithmWorkFlowTools/UsefulScript/LoggerFiltPloter.py "
+                        + logger_name_ + ".log").c_str());
+            }
+
+
         }
 
     protected:

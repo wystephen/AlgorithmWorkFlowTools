@@ -174,6 +174,9 @@ class LoggerFilePlotting:
 
 
 if __name__ == '__main__':
-    lfp = LoggerFilePlotting("logger_2018-04-01-15:50:45.log")
+    # lfp = LoggerFilePlotting("logger_2018-04-01-15:50:45.log")
+    import sys
+
+    lfp = LoggerFilePlotting(sys.argv[1])
     lfp.shwo_all()
     plt.show()
