@@ -168,12 +168,21 @@ class LoggerFilePlotting:
                     fig = plt.figure()
                     ax = fig.add_subplot(111, projection='3d')
                     ax.set_title(group_name)
+                    data_save_list = list()
                     for data_name in name_list:
                         data_list = self.data_frame[(self.data_frame['type'] == 'trace3d') & \
                                                     (self.data_frame['group'] == group_name) & \
                                                     (self.data_frame['name'] == data_name)]['data']
-                        tmp_data = self.pd_series_to_numpy(data_list)
-                        ax.plot(tmp_data[:, 0], tmp_data[:, 1], tmp_data[:, 2], '-+', label=data_name)
+                        data_save_list.append(self.pd_series_to_numpy(data_list))
+
+                        # plt.figure()
+                        # plt.plot(data_save_list[-1][:,0],data_save_list[-1][:,1],label=data_name)
+                        # plt.grid()
+                        # plt.legend()
+                        ax.plot(data_save_list[-1][:, 0],
+                                data_save_list[-1][:, 1],
+                                data_save_list[-1][:, 2], '-+', label=data_name)
+
                     ax.grid()
                     ax.legend()
 
@@ -182,8 +191,9 @@ class LoggerFilePlotting:
 
 if __name__ == '__main__':
     import sys
-
-    # lfp = LoggerFilePlotting(sys.argv[1])
-    lfp = LoggerFilePlotting("/home/steve/Code/ComplexityPositioning/logger_2018-04-02-15:17:46.log")
+    from os import environ
+    environ['MPLBACKEND'] = 'module://gr.matplotlib.backend_gr'
+    lfp = LoggerFilePlotting(sys.argv[1])
+    # lfp = LoggerFilePlotting("/home/steve/Code/ComplexityPositioning/logger_2018-04-02-16:13:33.log")
     lfp.shwo_all()
     plt.show()
