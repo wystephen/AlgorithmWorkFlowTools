@@ -83,7 +83,6 @@ namespace AWF {
         std::mutex map_mutex_;
 
 
-
     private:
         /**
          * default constructor function.
