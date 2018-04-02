@@ -1,4 +1,4 @@
-# Created by steve on 18-4-1 下午2:30
+# Created by steve on 18-4-2 下午7:50
 '''
                    _ooOoo_ 
                   o8888888o 
@@ -34,6 +34,8 @@ import re
 import os
 
 import time
+
+import visvis as vv
 
 
 class LoggerFilePlotting:
@@ -151,8 +153,7 @@ class LoggerFilePlotting:
                     plt.grid()
             if 'plot' in key:
                 for group_name, name_list in value.items():
-                    plt.figure()
-                    plt.title(group_name)
+                    app = vv.use()
                     index = 1
                     for data_name in name_list:
                         data_list = self.data_frame[(self.data_frame['type'] == 'plot') & \
@@ -163,9 +164,12 @@ class LoggerFilePlotting:
                         index += 1
                         # plt.plot(tmp_data, label=data_name)
                         for i in range(tmp_data.shape[1]):
-                            plt.plot(tmp_data[:, i], '-', label=data_name + str(i))
-                        plt.grid()
-                        plt.legend()
+                            # print(i)
+                            vv.plot( tmp_data[:,i])
+                            # vv.plot(tmp_data[:,i])
+                    vv.title(group_name)
+                    app.Run()
+
             if 'trace3d' in key:
                 for group_name, name_list in value.items():
                     fig = plt.figure()
@@ -194,7 +198,7 @@ if __name__ == '__main__':
     environ['MPLBACKEND'] = 'module://gr.matplotlib.backend_gr'
     # import matplotlib
     # matplotlib.use('GTKAgg')
-    lfp = LoggerFilePlotting(sys.argv[1])
-    # lfp = LoggerFilePlotting("/home/steve/Code/ComplexityPositioning/logger_2018-04-02-19:43:21.log")
+    # lfp = LoggerFilePlotting(sys.argv[1])
+    lfp = LoggerFilePlotting("/home/steve/Code/ComplexityPositioning/logger_2018-04-02-19:43:21.log")
     lfp.shwo_all()
     plt.show()

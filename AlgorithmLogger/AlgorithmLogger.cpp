@@ -71,8 +71,8 @@ namespace AWF {
 
 
             }, tmp_e);
-            t.detach();
-//                t.join();
+//            t.detach();
+                t.join();
             return true;
 
         } catch (std::exception &e) {
