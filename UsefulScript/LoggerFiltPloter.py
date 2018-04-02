@@ -41,6 +41,8 @@ class LoggerFilePlotting:
         self.log_file = open(file_name)
 
         all_lines = self.log_file.readlines()
+
+        # sameple target for re
         # [1522653075.146236]:plot@angle_correct@world_value:{[0.921896; 0.260512; 0.286776]}
         # [1522653075.146358]:trace3d@right_foot@simple:{[ 4.26695e-07; -2.23405e-06; -1.50273e-06]}
         self.num_re = re.compile(r'\d+\.?\d*e?-?\d*')
@@ -67,18 +69,12 @@ class LoggerFilePlotting:
             type_str = cate_str.split('@')[0]
             group_str = cate_str.split('@')[1]
             name_str = cate_str.split('@')[2]
-            # if '' in cate_str:
-            # print('vec str:',vec_str)
-            # print('num list:', num_str_list)
+
+            # from str to float.
             data_float_list = [float(x) for x in num_str_list]
-            # if len(data_float_list)<20:
-            #     print(line)
-            #     print(num_str_list)
 
             # if type-group-name isn't in dict, added it to self.data_h_dict
             if not type_str in self.data_h_dict:
-                # self.data_h_list.append(type_str)
-                # self.data_h_list
                 self.data_h_dict[type_str] = dict()
 
             if not group_str in self.data_h_dict[type_str]:
@@ -116,6 +112,13 @@ class LoggerFilePlotting:
         return tmp_data
 
     def shwo_all(self):
+        '''
+        show all data.
+        find data according to self.data_h_dict
+        which is a tree as following struct:
+        type->group_name->data_name
+        :return:
+        '''
         # print(self.data_frame[self.data_frame['type'] == 'trace2d'])
         # print(self.data_h_dict)
         for key, value in self.data_h_dict.items():
@@ -175,10 +178,6 @@ class LoggerFilePlotting:
                                                     (self.data_frame['name'] == data_name)]['data']
                         data_save_list.append(self.pd_series_to_numpy(data_list))
 
-                        # plt.figure()
-                        # plt.plot(data_save_list[-1][:,0],data_save_list[-1][:,1],label=data_name)
-                        # plt.grid()
-                        # plt.legend()
                         ax.plot(data_save_list[-1][:, 0],
                                 data_save_list[-1][:, 1],
                                 data_save_list[-1][:, 2], '-+', label=data_name)
