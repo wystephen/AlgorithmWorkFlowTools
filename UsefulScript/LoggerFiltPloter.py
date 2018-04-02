@@ -27,7 +27,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy as sp
 
-from pandas import DataFrame,Series
+from pandas import DataFrame, Series
 
 import re
 import os
@@ -48,6 +48,8 @@ class LoggerFilePlotting:
 
         self.data_h_dict = dict()
 
+        self.time_list=list()
+
         start_time = time.time()
         # search over all lines
         for line in all_lines:
@@ -55,11 +57,11 @@ class LoggerFilePlotting:
             time_str = line.split(':')[0]
             cate_str = line.split(':')[1]
             vec_str = line.split(':')[2]
-            # print(time_str, cate_str, vec_str)
-            # print(self.num_re.findall(vec_str))
+
+            self.time_list.append(float(time_str.split('[')[1].split(']')[0]))
+
             num_str_list = self.num_re.findall(vec_str)
-            # self.data_frame.
-            # print(cate_str)
+
             type_str = cate_str.split('_')[0]
             group_str = cate_str.split('_')[1]
             name_str = cate_str.split('_')[2]
@@ -86,10 +88,15 @@ class LoggerFilePlotting:
         self.data_frame = DataFrame(self.tmp_dict)
         end_time = time.time()
 
+        plt.figure()
+        plt.title('time')
+        plt.plot(self.time_list)
+        plt.grid()
+
         print(self.data_frame)
         print('totla time', end_time - start_time)
 
-    def pd_series_to_numpy(self, the_series:Series)->np.array:
+    def pd_series_to_numpy(self, the_series: Series) -> np.array:
         data_list = the_series
         tmp_data = np.zeros([data_list.values.shape[0], len(data_list.values[0])])
         print(tmp_data)
@@ -125,8 +132,6 @@ class LoggerFilePlotting:
                                                     (self.data_frame['group'] == group_name) & \
                                                     (self.data_frame['name'] == data_name)]['data']
 
-
-
                         tmp_data = self.pd_series_to_numpy(data_list)
                         # print(tmp_data)
                         # print('tmp data', tmp_data.shape)
@@ -134,17 +139,22 @@ class LoggerFilePlotting:
                     plt.legend()
                     plt.grid
             if 'plot' in key:
-                for group_name,name_list in value.items():
+                for group_name, name_list in value.items():
                     plt.figure()
                     plt.title(group_name)
+                    index = 1
                     for data_name in name_list:
-                        data_list = self.data_frame[(self.data_frame['type']=='plot')&\
-                                                    (self.data_frame['group']==group_name)&\
-                                                    (self.data_frame['name']==data_name)]['data']
+                        data_list = self.data_frame[(self.data_frame['type'] == 'plot') & \
+                                                    (self.data_frame['group'] == group_name) & \
+                                                    (self.data_frame['name'] == data_name)]['data']
                         tmp_data = self.pd_series_to_numpy(data_list)
-                        plt.plot(tmp_data,label=data_name)
-                    plt.grid()
-                    plt.legend()
+                        plt.subplot(len(name_list),1,index)
+                        index+=1
+                        # plt.plot(tmp_data, label=data_name)
+                        for i in range(tmp_data.shape[1]):
+                            plt.plot(tmp_data[:,i],label=data_name+str(i))
+                        plt.grid()
+                        plt.legend()
 
             # plt.plot()
 
