@@ -82,7 +82,7 @@ namespace AWF {
     protected:
         std::deque<AbstractEvent> event_queue_;
 
-        std::string logger_name_ = "logger_" + getFormatTime();
+        std::string logger_name_ = "/tmp/ramdisk/logger_" + getFormatTime();
 
         std::mutex queue_mutex_;
 
