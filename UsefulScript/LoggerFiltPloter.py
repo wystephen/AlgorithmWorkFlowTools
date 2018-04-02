@@ -41,8 +41,9 @@ class LoggerFilePlotting:
         self.log_file = open(file_name)
 
         all_lines = self.log_file.readlines()
-
-        self.num_re = re.compile('[-]{0,1}[0-9][.]{0,1}[0-9]{0,100}')
+        # [1522653075.146236]:plot@angle_correct@world_value:{[0.921896; 0.260512; 0.286776]}
+        # [1522653075.146358]:trace3d@right_foot@simple:{[ 4.26695e-07; -2.23405e-06; -1.50273e-06]}
+        self.num_re = re.compile(r'\d+\.?\d*e?-?\d*')
 
         # standard dict
         self.tmp_dict = {'type': list(), 'group': list(), 'name': list(), 'data': list()}
@@ -66,7 +67,13 @@ class LoggerFilePlotting:
             type_str = cate_str.split('@')[0]
             group_str = cate_str.split('@')[1]
             name_str = cate_str.split('@')[2]
+            # if '' in cate_str:
+            # print('vec str:',vec_str)
+            # print('num list:', num_str_list)
             data_float_list = [float(x) for x in num_str_list]
+            # if len(data_float_list)<20:
+            #     print(line)
+            #     print(num_str_list)
 
             # if type-group-name isn't in dict, added it to self.data_h_dict
             if not type_str in self.data_h_dict:
@@ -174,9 +181,9 @@ class LoggerFilePlotting:
 
 
 if __name__ == '__main__':
-    # lfp = LoggerFilePlotting("logger_2018-04-01-15:50:45.log")
     import sys
 
-    lfp = LoggerFilePlotting(sys.argv[1])
+    # lfp = LoggerFilePlotting(sys.argv[1])
+    lfp = LoggerFilePlotting("/home/steve/Code/ComplexityPositioning/logger_2018-04-02-15:17:46.log")
     lfp.shwo_all()
     plt.show()
