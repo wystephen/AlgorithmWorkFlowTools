@@ -23,6 +23,7 @@
 '''
 
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import axes3d
 
 import numpy as np
 import scipy as sp
@@ -48,7 +49,7 @@ class LoggerFilePlotting:
 
         self.data_h_dict = dict()
 
-        self.time_list=list()
+        self.time_list = list()
 
         start_time = time.time()
         # search over all lines
@@ -114,9 +115,9 @@ class LoggerFilePlotting:
             print('key', key, 'val', value)
             if 'trace2d' in key:
                 for group_name, name_list in value.items():
-                    print('---------------')
-                    print(group_name, '|', name_list)
-                    print('---------------')
+                    # print('---------------')
+                    # print(group_name, '|', name_list)
+                    # print('---------------')
                     # fig = plt.Figure()
                     # ax = fig.add_subplot(111)
                     # ax.set_title(group_name)
@@ -135,7 +136,7 @@ class LoggerFilePlotting:
                         tmp_data = self.pd_series_to_numpy(data_list)
                         # print(tmp_data)
                         # print('tmp data', tmp_data.shape)
-                        plt.plot(tmp_data[:, 0], tmp_data[:, 1], label=data_name)
+                        plt.plot(tmp_data[:, 0], tmp_data[:, 1], '-+', label=data_name)
                     plt.legend()
                     plt.grid
             if 'plot' in key:
@@ -148,13 +149,26 @@ class LoggerFilePlotting:
                                                     (self.data_frame['group'] == group_name) & \
                                                     (self.data_frame['name'] == data_name)]['data']
                         tmp_data = self.pd_series_to_numpy(data_list)
-                        plt.subplot(len(name_list),1,index)
-                        index+=1
+                        plt.subplot(len(name_list), 1, index)
+                        index += 1
                         # plt.plot(tmp_data, label=data_name)
                         for i in range(tmp_data.shape[1]):
-                            plt.plot(tmp_data[:,i],label=data_name+str(i))
+                            plt.plot(tmp_data[:, i], '-+', label=data_name + str(i))
                         plt.grid()
                         plt.legend()
+            if 'trace3d' in key:
+                for group_name, name_list in value.items():
+                    fig = plt.figure()
+                    ax = fig.add_subplot(111, projection='3d')
+                    ax.set_title(group_name)
+                    for data_name in name_list:
+                        data_list = self.data_frame[(self.data_frame['type'] == 'trace3d') & \
+                                                    (self.data_frame['group'] == group_name) & \
+                                                    (self.data_frame['name'] == data_name)]['data']
+                        tmp_data = self.pd_series_to_numpy(data_list)
+                        ax.plot(tmp_data[:, 0], tmp_data[:, 1], tmp_data[:, 2], '-+', label=data_name)
+                    ax.grid()
+                    ax.legend()
 
             # plt.plot()
 
