@@ -17,7 +17,7 @@
 #include "UsefulTools/ErrorTools.h"
 #include "UsefulTools/TimeTools.h"
 #include "UsefulTools/matplotlibcpp.h"
-#include "UsefulTools/OnlineDrawFunction.h"
+//#include "UsefulTools/OnlineDrawFunction.h"
 
 
 #include "MathTools/FunctionAbstract.h"
@@ -26,7 +26,7 @@
 #include "MathTools/SpeicalFunctionAbstract.h"
 
 
-#include "DataVisualizeTools/DataDisplay2D.h"
+//#include "DataVisualizeTools/DataDisplay2D.h"
 
 
 #endif //ALGORITHMWORKFLOWTOOLS_AWF_H

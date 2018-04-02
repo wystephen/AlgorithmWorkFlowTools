@@ -781,17 +781,17 @@ PyObject* get_array(const std::vector<Numeric>& v)
         Py_DECREF(res);
     }
 
-    inline void figure(int index) {
-
-        PyObject *num_index = PyInt_FromLong(long(index));
-        PyObject *arg = PyTuple_New(1);
-        PyTuple_SetItem(arg, 0, num_index);
-
-        PyObject *res = PyObject_CallObject(detail::_interpreter::get().s_python_function_figure, arg);
-        if (!res) throw std::runtime_error("Call to figure() failed.");
-
-        Py_DECREF(res);
-    }
+//    inline void figure(int index) {
+//
+//        PyObject *num_index = PyInt_FromLong(long(index));
+//        PyObject *arg = PyTuple_New(1);
+//        PyTuple_SetItem(arg, 0, num_index);
+//
+//        PyObject *res = PyObject_CallObject(detail::_interpreter::get().s_python_function_figure, arg);
+//        if (!res) throw std::runtime_error("Call to figure() failed.");
+//
+//        Py_DECREF(res);
+//    }
 
     inline void legend() {
         PyObject *res = PyObject_CallObject(detail::_interpreter::get().s_python_function_legend,
