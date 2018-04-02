@@ -82,18 +82,6 @@ namespace AWF {
     }
 
     bool AlgorithmLogger::addTrace3dEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix) {
-//        auto type_iter = visual_data_collector.find("trace3d");
-//        if(type_iter==visual_data_collector.end()){
-//            // Not founded, so create;
-//            data_vec d;
-//            for(int i(0);i<)
-//
-//            visual_data_collector.insert(std::make_pair("trace3d",group_map));
-//
-//        }
-//
-//
-
 
         AWF::AbstractEvent t_event("trace3d_" + group_name + "_" + value_name);
         t_event.setData(matrix);
