@@ -191,6 +191,7 @@ class LoggerFilePlotting:
 if __name__ == '__main__':
     import sys
     from os import environ
+
     environ['MPLBACKEND'] = 'module://gr.matplotlib.backend_gr'
     # import matplotlib
     # matplotlib.use('GTKAgg')
