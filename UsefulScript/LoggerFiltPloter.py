@@ -158,14 +158,22 @@ class LoggerFilePlotting:
                         data_list = self.data_frame[(self.data_frame['type'] == 'plot') & \
                                                     (self.data_frame['group'] == group_name) & \
                                                     (self.data_frame['name'] == data_name)]['data']
-                        tmp_data = self.pd_series_to_numpy(data_list)
-                        plt.subplot(len(name_list), 1, index)
-                        index += 1
-                        # plt.plot(tmp_data, label=data_name)
-                        for i in range(tmp_data.shape[1]):
-                            plt.plot(tmp_data[:, i], '-', label=data_name + str(i))
-                        plt.grid()
-                        plt.legend()
+                        try:
+                            tmp_data = self.pd_series_to_numpy(data_list)
+                            plt.subplot(len(name_list), 1, index)
+                            index += 1
+                            # plt.plot(tmp_data, label=data_name)
+                            for i in range(tmp_data.shape[1]):
+                                plt.plot(tmp_data[:, i], '-', label=data_name + str(i))
+                            plt.grid()
+                            plt.legend()
+                        except IndexError:
+                            print(IndexError)
+                            print(data_list)
+
+
+
+                    plt.title(group_name)
             if 'trace3d' in key:
                 for group_name, name_list in value.items():
                     fig = plt.figure()
