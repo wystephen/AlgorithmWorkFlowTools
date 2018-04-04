@@ -45,7 +45,7 @@ class LoggerFilePlotting:
         # sameple target for re
         # [1522653075.146236]:plot@angle_correct@world_value:{[0.921896; 0.260512; 0.286776]}
         # [1522653075.146358]:trace3d@right_foot@simple:{[ 4.26695e-07; -2.23405e-06; -1.50273e-06]}
-        self.num_re = re.compile(r'\d+\.?\d*e?-?\d*')
+        self.num_re = re.compile(r'\d+\.?\d*e?[-+]?\d*')
 
         # standard dict
         self.tmp_dict = {'type': list(), 'group': list(), 'name': list(), 'data': list()}
@@ -70,6 +70,7 @@ class LoggerFilePlotting:
             group_str = cate_str.split('@')[1]
             name_str = cate_str.split('@')[2]
 
+            # print(vec_str)
             # from str to float.
             data_float_list = [float(x) for x in num_str_list]
 
