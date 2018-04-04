@@ -143,10 +143,14 @@ class LoggerFilePlotting:
                                                     (self.data_frame['group'] == group_name) & \
                                                     (self.data_frame['name'] == data_name)]['data']
 
-                        tmp_data = self.pd_series_to_numpy(data_list)
-                        # print(tmp_data)
-                        # print('tmp data', tmp_data.shape)
-                        plt.plot(tmp_data[:, 0], tmp_data[:, 1], '-+', label=data_name)
+                        try:
+                            tmp_data = self.pd_series_to_numpy(data_list)
+                            # print(tmp_data)
+                            # print('tmp data', tmp_data.shape)
+                            plt.plot(tmp_data[:, 0], tmp_data[:, 1], '-+', label=data_name)
+                        except IndexError:
+                            print(IndexError)
+                            print(data_list)
                     plt.legend()
                     plt.grid()
             if 'plot' in key:
@@ -171,8 +175,6 @@ class LoggerFilePlotting:
                             print(IndexError)
                             print(data_list)
 
-
-
                     plt.title(group_name)
             if 'trace3d' in key:
                 for group_name, name_list in value.items():
@@ -184,11 +186,15 @@ class LoggerFilePlotting:
                         data_list = self.data_frame[(self.data_frame['type'] == 'trace3d') & \
                                                     (self.data_frame['group'] == group_name) & \
                                                     (self.data_frame['name'] == data_name)]['data']
-                        data_save_list.append(self.pd_series_to_numpy(data_list))
+                        try:
+                            data_save_list.append(self.pd_series_to_numpy(data_list))
 
-                        ax.plot(data_save_list[-1][:, 0],
-                                data_save_list[-1][:, 1],
-                                data_save_list[-1][:, 2], '-+', label=data_name)
+                            ax.plot(data_save_list[-1][:, 0],
+                                    data_save_list[-1][:, 1],
+                                    data_save_list[-1][:, 2], '-+', label=data_name)
+                        except IndexError:
+                            print(IndexError)
+                            print(data_list)
 
                     ax.grid()
                     ax.legend()
