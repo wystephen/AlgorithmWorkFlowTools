@@ -6,22 +6,21 @@
 #define ALGORITHMWORKFLOWTOOLS_AWF_H
 
 #include "ExtentedIO/FileReader.h"
-#include "ExtentedIO/FileReader.cpp"
+//#include "ExtentedIO/FileReader.cpp"
 
 #include "ExtentedIO/WriteToCsv.h"
 
 #include "AlgorithmLogger/AlgorithmLogger.h"
-#include "AlgorithmLogger/AlgorithmLogger.cpp"
+//#include "AlgorithmLogger/AlgorithmLogger.cpp"
 
 
 #include "UsefulTools/ErrorTools.h"
 #include "UsefulTools/TimeTools.h"
 #include "UsefulTools/matplotlibcpp.h"
-//#include "UsefulTools/OnlineDrawFunction.h"
 
 
 #include "MathTools/FunctionAbstract.h"
-#include "MathTools/FunctionAbstract.cpp"
+//#include "MathTools/FunctionAbstract.cpp"
 
 #include "MathTools/SpeicalFunctionAbstract.h"
 

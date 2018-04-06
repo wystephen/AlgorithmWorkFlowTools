@@ -32,7 +32,7 @@ namespace AWF {
         file_name_ = std::string("");
     }
 
-    inline FileReader::FileReader(std::string file_name) {
+    FileReader::FileReader(std::string file_name) {
         file_name_ = file_name;
 
         getSize();
@@ -40,16 +40,16 @@ namespace AWF {
         loadFile();
     }
 
-    inline FileReader::~FileReader() {
+    FileReader::~FileReader() {
         delete[]file_buf_;
     }
 
-    inline bool FileReader::test() {
+    bool FileReader::test() {
         getSize();
         return true;
     }
 
-    inline bool FileReader::setFileName(std::string file_name) {
+    bool FileReader::setFileName(std::string file_name) {
         if (!file_name.empty()) {
             file_name_ = file_name;
             return true;
@@ -60,11 +60,11 @@ namespace AWF {
         }
     }
 
-    inline std::string FileReader::getString() const {
+    std::string FileReader::getString() const {
         return std::string(file_buf_);
     }
 
-    inline long FileReader::getSize() {
+    long FileReader::getSize() {
 
         try {
             std::ifstream tmp_f(file_name_);
@@ -81,7 +81,7 @@ namespace AWF {
         return -1;
     }
 
-    inline bool FileReader::loadFile() {
+    bool FileReader::loadFile() {
         try {
             if (file_size_ < 0 && getSize() < 0) {
                 std::cerr << "File " << file_name_ << " is empty !" << std::endl;

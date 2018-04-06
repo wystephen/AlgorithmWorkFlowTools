@@ -76,6 +76,7 @@ namespace AWF {
                         + logger_name_ + ".log").c_str());
             }
 
+            return ;
 
         }
 

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.5)
 project(AlgorithmWorkFlowTools)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -136,8 +136,13 @@ target_link_libraries(FunctionToolTester)
 #add_library(PLT UsefulTools/matplotlibcpp.h)
 #target_link_libraries(PLT ${PYTHON_LIBRARIES})
 #target_link_libraries(AWFLib ${PYTHON_LIBRARIES})
+aux_source_directory(AlgorithmLogger AlgorithmLogger_src)
+aux_source_directory(ExtentedIO ExtentedIO_src)
+aux_source_directory(MathTools MathTools_src)
+aux_source_directory(UsefulTools UsefulTools_src)
 
-#add_library(AWF SHARED AWF.h)
 
-#install(TARGET AWF DESTINATION /usr/local/lib)
+add_library(AWF SHARED AWF.h ${AlgorithmLogger_src} ${ExtentedIO_src} ${UsefulTools_src})
+
+
 
