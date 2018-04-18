@@ -81,6 +81,9 @@ int main() {
             tm(1, 0) = std::cos(i / 1000.0 + off_set);
             tm(1, 1) = std::cos(i / 1000.0 + off_set) - std::sin(i / 1000.0 + off_set);
             logger_ptr->addPlotEvent(group_name, trace_name, tm);
+
+            logger_ptr->addPlotEvent(group_name,trace_name+"1",tm(0,1));
+            logger_ptr->addPlotEvent(group_name,trace_name+"2",tm(1,0));
         }
     };
 
