@@ -47,7 +47,14 @@ namespace AWF {
         bool addEvent(AbstractEvent &e);
 
 
+
         bool addTraceEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix);
+
+        bool addPlotEvent(std::string group_name,std::string value_name, double value){
+            Eigen::Matrix<double,1,1> m;
+            m(0,0) = value;
+            addPlotEvent(group_name,value_name,m);
+        }
 
         bool addPlotEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix);
 
