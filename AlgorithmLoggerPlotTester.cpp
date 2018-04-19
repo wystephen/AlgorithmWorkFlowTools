@@ -45,6 +45,7 @@
 int main() {
     std::cout << "logger" << std::endl;
 
+    double start_time = TimeStamp::now();
     AWF::AlgorithmLogger *logger_ptr = AWF::AlgorithmLogger::getInstance();
     std::cout.precision(15);
 
@@ -54,7 +55,7 @@ int main() {
     std::uniform_int_distribution<> uni_dis(1, 10);
     auto trace_3d_f = [&](std::string group_name, std::string trace_name) {
         int off_set = uni_dis(random_engine);
-        for (int i(0); i < 10000; ++i) {
+        for (int i(0); i < 100000; ++i) {
             Eigen::Vector3d trace_v(std::sin(double(i / 100.0 + off_set)),
                                     std::cos(double(i / 100.0 + off_set)),
                                     i / 100);
@@ -66,7 +67,7 @@ int main() {
 
     auto trace_2d_f = [&](std::string group_name, std::string trace_name) {
         int off_set = uni_dis(random_engine);
-        for (int i(0); i < 10000; ++i) {
+        for (int i(0); i < 100000; ++i) {
             Eigen::Vector2d trace_v(std::sin(double(i / 100.0 + off_set)), i);
             logger_ptr->addTraceEvent(group_name, trace_name, trace_v);
         }
@@ -74,7 +75,7 @@ int main() {
 
     auto plot_f = [&](std::string group_name, std::string trace_name) {
         int off_set = uni_dis(random_engine);
-        for (int i(0); i < 10000; ++i) {
+        for (int i(0); i < 100000; ++i) {
             Eigen::Matrix2d tm;
             tm(0, 0) = std::sin(i / 1000.0 + off_set);
             tm(0, 1) = std::cos(i / 1000.0 + off_set) + std::sin(i / 1000.0 + off_set);
@@ -118,6 +119,10 @@ int main() {
     sleep(1);
     std::cout << "logger counter : "
               << logger_ptr->getThread_counter() << std::endl;
+    double end_time = TimeStamp::now();
+    std::cout << "set event time:" << end_time-start_time << std::endl;
+
+
     double start_save_time = TimeStamp::now();
 
     logger_ptr->outputAllEvent(true);
