@@ -49,7 +49,7 @@ namespace AWF {
     }
 
 
-    bool AlgorithmLogger::addEvent(AbstractEvent &e) {
+    inline bool AlgorithmLogger::addEvent(AbstractEvent &e) {
         try {
 //            AbstractEvent tmp_e = e;
 //            auto e_func = [&]() {
@@ -87,21 +87,22 @@ namespace AWF {
 
         AWF::AbstractEvent t_event("trace3d@" + group_name + "@" + value_name);
         t_event.setData(matrix);
-        addEvent(t_event);
+        return addEvent(t_event);
+
 
     }
 
     bool AlgorithmLogger::addTraceEvent(std::string group_name, std::string value_name, const Eigen::MatrixXd &matrix) {
         AWF::AbstractEvent t_event("trace2d@" + group_name + "@" + value_name);
         t_event.setData(matrix);
-        addEvent(t_event);
+        return addEvent(t_event);
 
     }
 
     bool AlgorithmLogger::addPlotEvent(std::string group_name, std::string value_name, const Eigen::MatrixXd &matrix) {
         AWF::AbstractEvent t_event("plot@" + group_name + "@" + value_name);
         t_event.setData(matrix);
-        addEvent(t_event);
+        return addEvent(t_event);
 
     }
 
