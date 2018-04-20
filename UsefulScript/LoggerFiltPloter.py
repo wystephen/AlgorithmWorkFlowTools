@@ -45,7 +45,7 @@ class LoggerFilePlotting:
 		# sameple target for re
 		# [1522653075.146236]:plot@angle_correct@world_value:{[0.921896; 0.260512; 0.286776]}
 		# [1522653075.146358]:trace3d@right_foot@simple:{[ 4.26695e-07; -2.23405e-06; -1.50273e-06]}
-		self.num_re = re.compile(r'\d+\.?\d*e?[-+]?\d*')
+		self.num_re = re.compile(r'[-+]{0,1}\d+\.?\d*e?[-+]?\d*')
 
 		# standard dict
 		self.tmp_dict = {'type': list(), 'group': list(), 'name': list(), 'data': list()}
@@ -66,6 +66,7 @@ class LoggerFilePlotting:
 
 			num_str_list = self.num_re.findall(vec_str)
 
+
 			type_str = cate_str.split('@')[0]
 			group_str = cate_str.split('@')[1]
 			name_str = cate_str.split('@')[2]
@@ -73,6 +74,7 @@ class LoggerFilePlotting:
 			# print(vec_str)
 			# from str to float.
 			data_float_list = [float(x) for x in num_str_list]
+
 
 			# if type-group-name isn't in dict, added it to self.data_h_dict
 			if not type_str in self.data_h_dict:
@@ -214,6 +216,6 @@ if __name__ == '__main__':
 	# import matplotlib
 	# matplotlib.use('GTKAgg')
 	lfp = LoggerFilePlotting(sys.argv[1])
-	# lfp = LoggerFilePlotting("/home/steve/Code/ComplexityPositioning/logger_2018-04-02-19:43:21.log")
+	# lfp = LoggerFilePlotting("/home/steve/SourceData/AlgorithmLog/logger_2018-04-20-10:31:50.log")
 	lfp.shwo_all()
 	plt.show()
