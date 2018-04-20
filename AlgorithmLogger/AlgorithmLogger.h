@@ -74,6 +74,7 @@ namespace AWF {
                 log_file << iter->toString() << "\n";
 
             }
+            log_file.flush();
             std::cout << "queue size: " << event_queue_.size() << std::endl;
 
             log_file.close();
