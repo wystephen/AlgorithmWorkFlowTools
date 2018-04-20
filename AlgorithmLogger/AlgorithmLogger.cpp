@@ -51,29 +51,30 @@ namespace AWF {
 
     bool AlgorithmLogger::addEvent(AbstractEvent &e) {
         try {
-            AbstractEvent tmp_e = e;
-            auto e_func = [&]() {
+//            AbstractEvent tmp_e = e;
+//            auto e_func = [&]() {
 //                    std::unique_lock<std::mutex> ulock(queue_mutex_);
                 try {
-                    queue_mutex_.lock();
+//                    queue_mutex_.lock();
 //                        std::cout << thread_counter++
 //                                  << ":"
 //                                  << logger_name_
 //                                  << tmp_e.toString()<<'\n';
 //                                  << std::endl;
 //                        std::cout.flush();
+	                std::lock_guard<std::mutex> l(queue_mutex_);
                     event_queue_.push_back(e);
-                    queue_mutex_.unlock();
+//                    queue_mutex_.unlock();
 
                 } catch (std::exception &e) {
                     ERROR_MSG_FLAG(e.what());
                 }
 
 
-            };
+//            };
 //            t.detach();
 //                t.join();
-	        e_func();
+//	        e_func();
             return true;
 
         } catch (std::exception &e) {
@@ -82,7 +83,7 @@ namespace AWF {
         }
     }
 
-    bool AlgorithmLogger::addTrace3dEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix) {
+    bool AlgorithmLogger::addTrace3dEvent(std::string group_name, std::string value_name, const Eigen::MatrixXd &matrix) {
 
         AWF::AbstractEvent t_event("trace3d@" + group_name + "@" + value_name);
         t_event.setData(matrix);
@@ -90,14 +91,14 @@ namespace AWF {
 
     }
 
-    bool AlgorithmLogger::addTraceEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix) {
+    bool AlgorithmLogger::addTraceEvent(std::string group_name, std::string value_name, const Eigen::MatrixXd &matrix) {
         AWF::AbstractEvent t_event("trace2d@" + group_name + "@" + value_name);
         t_event.setData(matrix);
         addEvent(t_event);
 
     }
 
-    bool AlgorithmLogger::addPlotEvent(std::string group_name, std::string value_name, Eigen::MatrixXd matrix) {
+    bool AlgorithmLogger::addPlotEvent(std::string group_name, std::string value_name, const Eigen::MatrixXd &matrix) {
         AWF::AbstractEvent t_event("plot@" + group_name + "@" + value_name);
         t_event.setData(matrix);
         addEvent(t_event);

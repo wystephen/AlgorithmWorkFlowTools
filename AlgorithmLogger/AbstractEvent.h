@@ -32,7 +32,7 @@ namespace AWF {
          * @return
          */
         std::string toString() {
-            return "[" + std::string(std::to_string(event_time_stamp_))
+            return "[" + std::to_string(event_time_stamp_)
                    + "]:" + event_name_ + ":" +
                    data_string_;
         }
@@ -42,7 +42,7 @@ namespace AWF {
          * @param m
          * @return
          */
-        bool setData(Eigen::MatrixXd m) {
+        bool setData(const Eigen::MatrixXd &m) {
             try {
                 std::stringstream ss;
                 ss << "{";
