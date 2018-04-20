@@ -66,7 +66,6 @@ class LoggerFilePlotting:
 
 			num_str_list = self.num_re.findall(vec_str)
 
-
 			type_str = cate_str.split('@')[0]
 			group_str = cate_str.split('@')[1]
 			name_str = cate_str.split('@')[2]
@@ -74,7 +73,6 @@ class LoggerFilePlotting:
 			# print(vec_str)
 			# from str to float.
 			data_float_list = [float(x) for x in num_str_list]
-
 
 			# if type-group-name isn't in dict, added it to self.data_h_dict
 			if not type_str in self.data_h_dict:
@@ -90,7 +88,7 @@ class LoggerFilePlotting:
 			self.tmp_dict['group'].append(group_str)
 			self.tmp_dict['name'].append(name_str)
 			self.tmp_dict['data'].append(data_float_list)
-			# the_index+=1
+		# the_index+=1
 		# get DataFrame
 		self.data_frame = DataFrame(self.tmp_dict)
 		end_time = time.time()
@@ -205,7 +203,7 @@ class LoggerFilePlotting:
 					ax.grid()
 					ax.legend()
 
-			# plt.plot()
+		# plt.plot()
 
 
 if __name__ == '__main__':
