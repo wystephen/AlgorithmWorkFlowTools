@@ -79,11 +79,11 @@ namespace AWF {
 			log_file.close();
 
 			if (display) {
-				std::thread t([&]() {
+//				std::thread t([&]() {
 					system(("python3 /home/steve/Code/AlgorithmWorkFlowTools/UsefulScript/LoggerFiltPloter.py "
 					        + logger_name_ + ".log").c_str());
-				});
-				t.detach();
+//				});
+//				t.detach();
 
 			}
 
