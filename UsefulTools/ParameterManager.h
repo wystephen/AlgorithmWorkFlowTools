@@ -9,11 +9,19 @@
 
 #include <fstream>
 
+
+#include <map>
+
 class ParameterManager {
 
 
 public:
-	ParameterManager
+	/**
+	 * @brief Initial withou any parameters.
+	 */
+	ParameterManager() {
+
+	}
 
 };
 
