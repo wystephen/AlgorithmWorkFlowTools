@@ -14,6 +14,7 @@
 
 class ParameterManager {
 
+	// TODO: Singleton
 
 public:
 	/**
