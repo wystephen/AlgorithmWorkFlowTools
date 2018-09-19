@@ -25,7 +25,7 @@ if (OPENMP_FOUND)
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif ()
 
-find_package(PythonLibs 3.5)
+find_package(PythonLibs 3)
 
 #Eigen
 find_package(Eigen3 REQUIRED)
